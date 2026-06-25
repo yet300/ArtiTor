@@ -13,7 +13,7 @@ plugins {
 // Maven Central namespace (io.github.<user> is auto-verified via the GitHub repo).
 // The Kotlin package stays `com.yet.tor`; group and package need not match.
 group = "io.github.yet300"
-version = "0.1.0"
+version = "0.1.1"
 
 // The Rust crate lives outside this Gradle module.
 cargo {
@@ -86,6 +86,8 @@ android {
         // AGP merges them into the consumer APK automatically.
         ndk.abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64"))
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Keep rules for JNA + UniFFI bindings, applied automatically to consumers.
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     packaging {
