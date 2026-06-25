@@ -106,7 +106,14 @@ java {
 
 mavenPublishing {
     publishToMavenCentral()
-    signAllPublications()
+    // Sign only when a key is available (CI / release). Keeps publishToMavenLocal
+    // and consumer integration via mavenLocal working without GPG configured.
+    if (providers.gradleProperty("signingInMemoryKey").isPresent ||
+        providers.gradleProperty("signing.keyId").isPresent ||
+        providers.gradleProperty("signing.gnupg.keyName").isPresent
+    ) {
+        signAllPublications()
+    }
     coordinates(group.toString(), "tor", version.toString())
 
     pom {
