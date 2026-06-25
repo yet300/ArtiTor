@@ -1,0 +1,39 @@
+[package]
+name = "arti-kmp-ffi"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Thin UniFFI surface over arti-client (Tor in Rust) for Kotlin Multiplatform"
+
+# Standalone crate: do not get absorbed into a parent cargo workspace.
+[workspace]
+
+[lib]
+name = "arti_kmp_ffi"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+arti-client = { version = "0.43", default-features = false, features = [
+    "tokio",
+    "rustls",
+    "compression",
+    "bridge-client",
+    "onion-service-client",
+    "static-sqlite",
+] }
+tor-rtcompat = { version = "0.43", features = ["tokio", "rustls"] }
+# rustls 0.23 needs a process-wide CryptoProvider installed explicitly.
+rustls = { version = "0.23", default-features = false, features = ["ring"] }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "time", "sync", "macros"] }
+futures = "0.3"
+uniffi = "0.29.4"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", default-features = false, features = ["registry", "std", "fmt"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"

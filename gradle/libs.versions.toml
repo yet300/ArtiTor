@@ -1,14 +1,34 @@
 [versions]
-agp = "9.0.1"
-kotlin = "2.4.0"
-android-minSdk = "24"
-android-compileSdk = "36"
-vanniktechMavenPublish = "0.37.0"
+# Aligned with Gobley 0.3.7's known-good toolchain (Kotlin 2.1.10 / AGP 8.7.3 / Gradle 8.12).
+agp = "8.7.3"
+kotlin = "2.1.10"
+gobley = "0.3.7"
+android-minSdk = "26"
+android-compileSdk = "35"
+android-targetSdk = "35"
+# 1.11.0 is built with Kotlin 2.2.x and is klib-ABI-incompatible with Gobley's Kotlin/Native 2.1.10.
+coroutines = "1.10.2"
+okhttp = "5.4.0"
+androidx-activity = "1.13.0"
+androidx-appcompat = "1.7.1"
+# 0.37.0 requires AGP >= 8.13; we're pinned to AGP 8.7.3 by Gobley 0.3.7.
+vanniktechMavenPublish = "0.30.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 
 [plugins]
-android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-application = { id = "com.android.application", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-atomicfu = { id = "org.jetbrains.kotlin.plugin.atomicfu", version.ref = "kotlin" }
+gobley-cargo = { id = "dev.gobley.cargo", version.ref = "gobley" }
+gobley-uniffi = { id = "dev.gobley.uniffi", version.ref = "gobley" }
+gobley-rust = { id = "dev.gobley.rust", version.ref = "gobley" }
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechMavenPublish" }
