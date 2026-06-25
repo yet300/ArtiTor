@@ -10,7 +10,9 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "com.yet.tor"
+// Maven Central namespace (io.github.<user> is auto-verified via the GitHub repo).
+// The Kotlin package stays `com.yet.tor`; group and package need not match.
+group = "io.github.yet300"
 version = "0.1.0"
 
 // The Rust crate lives outside this Gradle module.
