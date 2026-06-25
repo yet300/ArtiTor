@@ -107,7 +107,8 @@ java {
 }
 
 mavenPublishing {
-    publishToMavenCentral()
+    // New Central Portal (central.sonatype.com tokens), not legacy OSSRH staging.
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
     // Sign only when a key is available (CI / release). Keeps publishToMavenLocal
     // and consumer integration via mavenLocal working without GPG configured.
     if (providers.gradleProperty("signingInMemoryKey").isPresent ||
