@@ -17,6 +17,7 @@ jobs:
         run: |
           rustup toolchain install stable --profile minimal
           rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android aarch64-apple-ios aarch64-apple-ios-sim
+          rustup component add llvm-tools
           cargo install cargo-ndk --locked
       - name: Set up Android NDK
         id: setup-ndk

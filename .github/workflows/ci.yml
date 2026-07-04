@@ -49,6 +49,7 @@ jobs:
         run: |
           rustup toolchain install stable --profile minimal
           rustup target add aarch64-apple-ios aarch64-apple-ios-sim
+          rustup component add llvm-tools
       - uses: gradle/actions/setup-gradle@v4
       - name: Compile Kotlin/Native (iosArm64 + iosSimulatorArm64)
         run: ./gradlew :tor:compileKotlinIosArm64 :tor:compileKotlinIosSimulatorArm64 --no-configuration-cache

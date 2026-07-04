@@ -30,15 +30,15 @@ cargo {
 // _sqlite3* to local symbols right after cargo produces it, before cinterop packs the klib.
 tasks.withType<CargoBuildTask>().configureEach {
     if (name.contains("Ios") || name.contains("MacOS")) {
+        val script = rootProject.file("rust/hide-sqlite3-symbols.sh").absolutePath
         doLast {
             val archive = libraryFileByCrateType.get()[CrateType.SystemStaticLibrary]?.asFile
             if (archive != null && archive.exists()) {
-                project.exec {
-                    commandLine(
-                        rootProject.file("rust/hide-sqlite3-symbols.sh").absolutePath,
-                        archive.absolutePath,
-                    )
-                }
+                val process = ProcessBuilder(script, archive.absolutePath)
+                    .redirectErrorStream(true)
+                    .start()
+                process.inputStream.copyTo(System.out)
+                check(process.waitFor() == 0) { "hide-sqlite3-symbols.sh failed for $archive" }
             }
         }
     }

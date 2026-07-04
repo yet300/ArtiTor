@@ -22,11 +22,12 @@ set -eu
 
 ARCHIVE="$1"
 
+# Prefer the Rust toolchain's llvm-nm (reads rust bitcode members without noise); fall
+# back to Xcode's nm — sufficient for release archives, which are pure machine code.
 SYSROOT="$(rustc --print sysroot)"
 NM="$(find "$SYSROOT" -name llvm-nm -type f 2>/dev/null | head -1)"
 if [ -z "$NM" ]; then
-    echo "error: llvm-tools not found in the Rust toolchain — run: rustup component add llvm-tools" >&2
-    exit 1
+    NM="$(xcrun -f nm)"
 fi
 
 if ! "$NM" "$ARCHIVE" 2>/dev/null | grep -q "[TDSC] _sqlite3"; then
