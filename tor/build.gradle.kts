@@ -1,4 +1,7 @@
 import gobley.gradle.GobleyHost
+import gobley.gradle.Variant
+import gobley.gradle.cargo.tasks.CargoBuildTask
+import gobley.gradle.rust.CrateType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -13,11 +16,32 @@ plugins {
 // Maven Central namespace (io.github.<user> is auto-verified via the GitHub repo).
 // The Kotlin package stays `com.yet.tor`; group and package need not match.
 group = "io.github.yet300"
-version = "0.1.1"
+version = "0.1.2"
 
 // The Rust crate lives outside this Gradle module.
 cargo {
     packageDirectory = rootProject.layout.projectDirectory.dir("rust/arti-kmp-ffi")
+    nativeVariant = Variant.Release
+}
+
+// The bundled libsqlite3-sys exports the full sqlite3 API as global symbols; in a static
+// Apple link they shadow any other SQLite the consumer links (e.g. SQLCipher), silently
+// leaving the consumer's "encrypted" database plaintext. Prelink the staticlib and demote
+// _sqlite3* to local symbols right after cargo produces it, before cinterop packs the klib.
+tasks.withType<CargoBuildTask>().configureEach {
+    if (name.contains("Ios") || name.contains("MacOS")) {
+        doLast {
+            val archive = libraryFileByCrateType.get()[CrateType.SystemStaticLibrary]?.asFile
+            if (archive != null && archive.exists()) {
+                project.exec {
+                    commandLine(
+                        rootProject.file("rust/hide-sqlite3-symbols.sh").absolutePath,
+                        archive.absolutePath,
+                    )
+                }
+            }
+        }
+    }
 }
 
 uniffi {
