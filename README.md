@@ -19,7 +19,7 @@ real Tor network, then an HTTP request through the SOCKS proxy exits via a Tor r
 ```kotlin
 // settings.gradle.kts -> dependencyResolutionManagement { repositories { mavenCentral() } }
 commonMain.dependencies {
-    implementation("com.yet.tor:tor:0.1.0")
+    implementation("com.yet.tor:tor:0.1.2")
 }
 ```
 
