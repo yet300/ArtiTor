@@ -22,33 +22,50 @@ import platform.posix.sockaddr_in
 import platform.posix.socket
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.seconds
 
 /**
- * iOS-simulator end-to-end proof: bootstrap to 100% over the real Tor network
- * (first-class status, not log scraping), then fetch through the local SOCKS
- * proxy via a raw SOCKS5 CONNECT and confirm an HTTP response comes back.
+ * iOS-simulator end-to-end: bootstrap, SOCKS HTTP via Tor, pause/resume.
  */
 class TorIosE2ETest {
 
     @Test
-    fun bootstrapAndFetchThroughTor() = runBlocking {
+    fun bootstrapFetchPauseResume() = runBlocking {
         val dataDir = NSTemporaryDirectory() + "arti-ios-e2e"
         val client = ArtiTorClient()
         println("arti version = ${client.version}")
 
         withTimeout(300_000) {
-            client.start(ArtiConfig(dataDir = dataDir, socksPort = 19061)).getOrThrow()
+            client.start(ArtiConfig(dataDir = dataDir, socksPort = 0), timeout = 180.seconds)
+                .getOrThrow()
         }
         val port = requireNotNull(client.status.value.socksPort) { "SOCKS port not set" }
         assertEquals(100, client.status.value.bootstrapPercent, "bootstrap not 100%")
+        assertTrue(client.isReady)
         println("BOOTSTRAP complete, SOCKS on 127.0.0.1:$port")
 
         val response = socksHttpGet(port, "api.ipify.org")
         println("TOR(SOCKS) response =\n$response")
         assertTrue(response.startsWith("HTTP/1"), "no HTTP response through SOCKS")
 
-        client.stop()
+        client.pause()
+        assertFalse(client.isReady)
+        assertTrue(client.hasClient)
+        assertEquals(TorState.PAUSED, client.status.value.state)
+
+        withTimeout(60_000) {
+            client.resume(timeout = 45.seconds).getOrThrow()
+        }
+        assertTrue(client.isReady)
+        val port2 = requireNotNull(client.status.value.socksPort)
+        val response2 = socksHttpGet(port2, "api.ipify.org")
+        assertTrue(response2.startsWith("HTTP/1"), "no HTTP after resume")
+
+        client.shutdown()
+        assertFalse(client.hasClient)
+        assertEquals(TorState.OFF, client.status.value.state)
     }
 }
 
@@ -60,21 +77,17 @@ private fun socksHttpGet(socksPort: Int, host: String): String {
         memScoped {
             val addr = alloc<sockaddr_in>()
             addr.sin_family = AF_INET.convert()
-            // Network byte order, little-endian host (all Apple targets): swap bytes.
             addr.sin_port = (((socksPort and 0xFF) shl 8) or ((socksPort shr 8) and 0xFF)).toUShort()
-            // 127.0.0.1 in network order, stored on a little-endian host = 0x0100007F.
             addr.sin_addr.s_addr = 0x0100007Fu
             check(connect(fd, addr.ptr.reinterpret<sockaddr>(), sockaddr_in.size.convert()) == 0) {
                 "connect to local SOCKS failed"
             }
         }
 
-        // SOCKS5 greeting: version 5, 1 method, no-auth.
         writeAll(fd, byteArrayOf(0x05, 0x01, 0x00))
         val greeting = readN(fd, 2)
         check(greeting[1].toInt() == 0x00) { "SOCKS no-auth rejected" }
 
-        // CONNECT to host:80 by domain name (ATYP 0x03) -> remote DNS via Tor.
         val hb = host.encodeToByteArray()
         val req = byteArrayOf(0x05, 0x01, 0x00, 0x03, hb.size.toByte()) +
             hb + byteArrayOf(0x00, 80.toByte())
