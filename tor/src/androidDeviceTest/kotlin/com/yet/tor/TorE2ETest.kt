@@ -22,7 +22,7 @@ import kotlin.time.Duration.Companion.seconds
 
 /**
  * On-device end-to-end proof: bootstrap, SOCKS fetch via Tor, pause/resume
- * without a second full bootstrap. Run with `:tor:connectedDebugAndroidTest`.
+ * without a second full bootstrap. Run with `:tor:connectedAndroidDeviceTest`.
  */
 @RunWith(AndroidJUnit4::class)
 class TorE2ETest {

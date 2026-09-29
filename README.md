@@ -4,8 +4,10 @@ Kotlin Multiplatform wrapper over [Arti](https://gitlab.torproject.org/tpo/core/
 implemented in Rust). One dependency gives you an embedded Tor client with a local SOCKS proxy and
 **first-class bootstrap status** — no native build, no hand-written JNI, no log scraping.
 
-- Bindings generated with [Gobley](https://gobley.dev) (UniFFI for Kotlin Multiplatform): one Rust
-  surface → Kotlin for Android (JNI) and Kotlin/Native (iOS).
+- Bindings generated with
+  [UbiqueInnovation/uniffi-kotlin-multiplatform-bindings](https://github.com/UbiqueInnovation/uniffi-kotlin-multiplatform-bindings)
+  (UniFFI for Kotlin Multiplatform): one Rust surface → Kotlin for Android
+  (JNA-backed generated bindings) and Kotlin/Native cinterop (iOS).
 - rustls only (no OpenSSL). Android `.so` are 16 KB-page aligned (Google Play, Nov 2025).
 - The async tokio runtime lives inside the native layer; calls never block the caller's thread.
 - **Lifecycle**: `start` / `pause` (keep client) / `resume` / `shutdown` — suited for chat apps
@@ -28,7 +30,7 @@ commonMain.dependencies {
 }
 ```
 
-The Android `.so` for all four ABIs are bundled inside the AAR (`jniLibs`); AGP merges them into your
+The Android `.so` for all three supported ABIs are bundled inside the AAR (`jniLibs`); AGP merges them into your
 APK automatically. The iOS static library ships transitively via the KMP artifact. **No native or
 Gradle configuration is required in the consumer app.**
 
@@ -78,9 +80,14 @@ WebSocket clients (OkHttp, Ktor, URLSession) used by apps like BitChat. There is
 
 ## Targets
 
-Required: Android `arm64-v8a` / `armeabi-v7a` / `x86` / `x86_64`, `iosArm64`, `iosSimulatorArm64`.
+Required: Android `arm64-v8a` / `armeabi-v7a` / `x86_64`, `iosArm64`, `iosSimulatorArm64`.
 Scaffolded (easy to enable): macOS, Linux, Windows desktop. **wasm is unsupported** — browsers have
 no raw TCP, so Tor cannot work there.
+
+> Compatibility note: 32-bit Android `x86` (`i686-linux-android`) was dropped in the
+> Gobley → Ubique binding migration (0.2.0): the Ubique plugin 1.2.1 does not expose an
+> x86 Android release target, and only ships `arm64-v8a`, `armeabi-v7a`, `x86_64`.
+> `armeabi-v7a` (32-bit ARM) is still fully supported.
 
 ## License & attribution
 

@@ -8,6 +8,8 @@ of Tor in Rust, via the `arti-client` crate. Arti is Copyright The Tor Project,
 Inc. and contributors, and is licensed under the Apache License, Version 2.0 or
 the MIT license, at your option.
 
-Kotlin bindings are generated with Gobley (https://gobley.dev) / UniFFI.
+Kotlin bindings are generated with
+UbiqueInnovation/uniffi-kotlin-multiplatform-bindings
+(https://github.com/UbiqueInnovation/uniffi-kotlin-multiplatform-bindings) / UniFFI.
 
 This software is licensed under the Apache License, Version 2.0. See LICENSE.

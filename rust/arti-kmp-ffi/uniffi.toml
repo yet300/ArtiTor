@@ -1,0 +1,2 @@
+package_name = "com.yet.tor.ffi"
+generate_immutable_records = true

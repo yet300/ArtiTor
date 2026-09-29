@@ -1,6 +1,9 @@
 # ADR 0001: Bindings via Gobley (UniFFI for KMP), not hand-written C-FFI
 
-Status: Accepted (2026-06-25)
+> Status: SUPERSEDED by [ADR 0002](0002-bindings-ubique-vs-gobley.md) (2026-09-29).
+> Retained as historical context. Gobley is no longer used; see ADR 0002.
+
+Status: ~~Accepted (2026-06-25)~~ Superseded (2026-09-29)
 
 ## Context
 
