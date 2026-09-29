@@ -13,7 +13,7 @@ name = "arti_kmp_ffi"
 crate-type = ["cdylib", "staticlib", "rlib"]
 
 [dependencies]
-arti-client = { version = "0.43", default-features = false, features = [
+arti-client = { version = "0.46", default-features = false, features = [
     "tokio",
     "rustls",
     "compression",
@@ -21,7 +21,7 @@ arti-client = { version = "0.43", default-features = false, features = [
     "onion-service-client",
     "static-sqlite",
 ] }
-tor-rtcompat = { version = "0.43", features = ["tokio", "rustls"] }
+tor-rtcompat = { version = "0.46", features = ["tokio", "rustls"] }
 # rustls 0.23 needs a process-wide CryptoProvider installed explicitly.
 rustls = { version = "0.23", default-features = false, features = ["ring"] }
 tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "time", "sync", "macros"] }

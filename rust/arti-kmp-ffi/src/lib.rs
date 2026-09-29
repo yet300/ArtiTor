@@ -376,7 +376,7 @@ impl ArtiTor {
 
     pub fn version(&self) -> String {
         format!(
-            "arti-kmp-ffi {} (arti-client 0.43, rustls)",
+            "arti-kmp-ffi {} (arti-client 0.46, rustls)",
             env!("CARGO_PKG_VERSION")
         )
     }

@@ -15,7 +15,8 @@ jobs:
           java-version: '21'
       - name: Install Rust + all targets
         run: |
-          rustup toolchain install stable --profile minimal
+          rustup toolchain install 1.91 --profile minimal --component rustc,cargo,rust-std
+          rustup default 1.91
           rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android aarch64-apple-ios aarch64-apple-ios-sim
           rustup component add llvm-tools
       - name: Set up Android NDK
