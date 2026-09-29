@@ -66,6 +66,21 @@ class TorIosE2ETest {
         client.shutdown()
         assertFalse(client.hasClient)
         assertEquals(TorState.OFF, client.status.value.state)
+
+        // Cold start again after shutdown (fresh bootstrap, new ephemeral port).
+        withTimeout(300_000) {
+            client.start(ArtiConfig(dataDir = dataDir, socksPort = 0), timeout = 180.seconds)
+                .getOrThrow()
+        }
+        assertTrue(client.isReady)
+        val port3 = requireNotNull(client.status.value.socksPort)
+        val response3 = socksHttpGet(port3, "api.ipify.org")
+        assertTrue(response3.startsWith("HTTP/1"), "no HTTP after second cold start")
+        println("SECOND COLD START ok, SOCKS on 127.0.0.1:$port3")
+
+        client.shutdown()
+        assertFalse(client.hasClient)
+        assertEquals(TorState.OFF, client.status.value.state)
     }
 }
 

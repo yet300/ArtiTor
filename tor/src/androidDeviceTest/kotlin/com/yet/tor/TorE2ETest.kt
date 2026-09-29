@@ -86,6 +86,21 @@ class TorE2ETest {
         assertFalse(client.hasClient)
         assertEquals(TorState.OFF, client.status.value.state)
 
+        // Cold start again after shutdown (fresh bootstrap, new ephemeral port).
+        withTimeout(300_000) {
+            client.start(ArtiConfig(dataDir = dataDir, socksPort = 0), timeout = 180.seconds)
+                .getOrThrow()
+        }
+        val port3 = requireNotNull(client.status.value.socksPort) { "SOCKS port not set" }
+        assertTrue(client.isReady)
+        assertTorExit(port3)
+        Log.i(tag, "SECOND COLD START ok on 127.0.0.1:$port3")
+
+        client.shutdown()
+        delay(500)
+        assertFalse(client.hasClient)
+        assertEquals(TorState.OFF, client.status.value.state)
+
         logJob.cancel()
         statusJob.cancel()
     }

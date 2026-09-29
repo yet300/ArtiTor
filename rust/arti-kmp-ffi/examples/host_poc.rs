@@ -5,7 +5,7 @@ use std::sync::atomic::{AtomicU16, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
 
-use arti_kmp_ffi::{ArtiConfig, ArtiTor, StatusListener, TorState};
+use arti_kmp_ffi::{ArtiConfig, ArtiErrorDetail, ArtiTor, StatusListener, TorState};
 
 struct Printer {
     port: Arc<AtomicU16>,
@@ -26,6 +26,9 @@ impl StatusListener for Printer {
     }
     fn on_log(&self, line: String) {
         println!("LOG {line}");
+    }
+    fn on_error(&self, error: ArtiErrorDetail) {
+        println!("ERROR {:?} port={:?} ({})", error.kind, error.port, error.msg);
     }
 }
 

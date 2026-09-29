@@ -142,8 +142,74 @@ pub enum ArtiError {
     Runtime { msg: String },
 }
 
+/// Typed error discriminant for asynchronous failure notification.
+///
+/// [`ArtiError`] itself is a UniFFI `Error` type and therefore cannot travel as a
+/// callback argument; this mirror record carries the same information across the
+/// [`StatusListener::on_error`] callback so the Kotlin layer can reconstruct the
+/// declared public type *without* parsing status strings.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, uniffi::Enum)]
+pub enum ErrorKind {
+    AlreadyRunning,
+    NotRunning,
+    Config,
+    Bind,
+    Bootstrap,
+    Runtime,
+}
+
+/// Typed asynchronous failure payload (see [`ErrorKind`]).
+#[derive(Debug, Clone, uniffi::Record)]
+pub struct ArtiErrorDetail {
+    pub kind: ErrorKind,
+    /// Only meaningful when `kind == Bind`; `None` otherwise.
+    pub port: Option<u16>,
+    pub msg: String,
+}
+
+impl From<&ArtiError> for ArtiErrorDetail {
+    fn from(e: &ArtiError) -> Self {
+        match e {
+            ArtiError::AlreadyRunning => Self {
+                kind: ErrorKind::AlreadyRunning,
+                port: None,
+                msg: "already running".into(),
+            },
+            ArtiError::NotRunning => Self {
+                kind: ErrorKind::NotRunning,
+                port: None,
+                msg: "not running".into(),
+            },
+            ArtiError::Config { msg } => Self {
+                kind: ErrorKind::Config,
+                port: None,
+                msg: msg.clone(),
+            },
+            ArtiError::Bind { port, msg } => Self {
+                kind: ErrorKind::Bind,
+                port: Some(*port),
+                msg: msg.clone(),
+            },
+            ArtiError::Bootstrap { msg } => Self {
+                kind: ErrorKind::Bootstrap,
+                port: None,
+                msg: msg.clone(),
+            },
+            ArtiError::Runtime { msg } => Self {
+                kind: ErrorKind::Runtime,
+                port: None,
+                msg: msg.clone(),
+            },
+        }
+    }
+}
+
 /// Status sink implemented on the Kotlin/Swift side. Invoked from worker
 /// threads inside the owned runtime; implementations must be thread-safe.
+///
+/// Ordering guarantee: when an asynchronous operation fails, `on_error` is
+/// invoked with the typed failure *before* the corresponding
+/// `on_status(Error, ..)` report, on the same worker thread.
 #[uniffi::export(callback_interface)]
 pub trait StatusListener: Send + Sync {
     /// `bootstrap_percent` is 0..=100. `socks_port` is `Some` only once the
@@ -157,6 +223,9 @@ pub trait StatusListener: Send + Sync {
         summary: String,
     );
     fn on_log(&self, line: String);
+    /// Typed asynchronous failure. Always precedes the `Error` status report
+    /// for the same failure; never parse `summary` strings to recover types.
+    fn on_error(&self, error: ArtiErrorDetail);
 }
 
 // ============================================================================
@@ -171,6 +240,9 @@ struct Shared {
     bootstrap_done: AtomicBool,
     /// Signals the active SOCKS loop to exit (pause / shutdown).
     socks_shutdown: Mutex<Option<oneshot::Sender<()>>>,
+    /// Per-connection SOCKS handlers. Aborted on pause/shutdown (fail-closed:
+    /// Tor OFF means no traffic is retained; see `pause` docs).
+    connections: Mutex<Vec<JoinHandle<()>>>,
 }
 
 impl Shared {
@@ -181,6 +253,7 @@ impl Shared {
             bound_port: AtomicU16::new(0),
             bootstrap_done: AtomicBool::new(false),
             socks_shutdown: Mutex::new(None),
+            connections: Mutex::new(Vec::new()),
         })
     }
 
@@ -229,6 +302,35 @@ impl Shared {
             let _ = tx.send(());
         }
     }
+
+    /// Track a per-connection SOCKS handler so pause/shutdown can terminate it.
+    fn track_connection(&self, handle: JoinHandle<()>) {
+        let mut conns = self.connections.lock().unwrap();
+        // Opportunistic prune so the vec cannot grow without bound.
+        conns.retain(|h| !h.is_finished());
+        conns.push(handle);
+    }
+
+    /// Abort all live SOCKS connection handlers (fail-closed Tor OFF).
+    fn abort_connections(&self) {
+        let mut conns = self.connections.lock().unwrap();
+        for h in conns.drain(..) {
+            h.abort();
+        }
+    }
+
+    /// Typed async failure notification: `on_error` (typed) first, then the
+    /// `Error` status report and a log line. Callers must not encode the error
+    /// type only into the summary string.
+    fn notify_error(&self, error: &ArtiError, bootstrap_pct: u32) {
+        if let Some(l) = self.listener() {
+            l.on_error(ArtiErrorDetail::from(error));
+        }
+        self.report(TorState::Error, bootstrap_pct, None, format!("error: {error}"));
+        if let Some(l) = self.listener() {
+            l.on_log(format!("ERROR: {error}"));
+        }
+    }
 }
 
 // ============================================================================
@@ -263,6 +365,10 @@ pub struct ArtiTor {
 impl ArtiTor {
     #[uniffi::constructor]
     pub fn new() -> Arc<Self> {
+        // Process-global note: `LOG_SINK` routes tracing output to the most
+        // recently installed listener. Only ONE ArtiTor instance per process is
+        // supported; a second instance steals log routing (documented, not
+        // silently multi-instance). Status/error callbacks remain per-instance.
         Arc::new(Self {
             inner: Mutex::new(Inner::default()),
         })
@@ -308,9 +414,15 @@ impl ArtiTor {
     ///
     /// Returns immediately; progress via `listener`.
     /// Readiness == `on_status(Running, 100, Some(port), _)`.
+    /// Asynchronous failures are reported via `on_error` (typed) followed by
+    /// `on_status(Error, ..)`.
     ///
-    /// If a client is already bootstrapped and SOCKS is down (paused), rebinds
-    /// SOCKS without re-bootstrapping. If SOCKS is already up → [ArtiError::AlreadyRunning].
+    /// If a client is already bootstrapped and SOCKS is down (paused):
+    /// - only `socks_port` changed → rebind SOCKS without re-bootstrapping;
+    /// - TorClient-defining config (`data_dir`/`state_dir`/`cache_dir`/`bridges`,
+    ///   including non-empty → empty) changed → the old client is torn down and
+    ///   a new client is bootstrapped.
+    /// If SOCKS is already up → [ArtiError::AlreadyRunning].
     pub fn start(
         &self,
         config: ArtiConfig,
@@ -334,47 +446,31 @@ impl ArtiTor {
             inner.worker = None;
         }
 
-        // Resume path: keep client, only SOCKS.
+        // Resume path: a bootstrapped client is held, only SOCKS is down.
         if inner.shared.bootstrap_done.load(Ordering::SeqCst) && inner.shared.client().is_some() {
-            if let Some(ref mut c) = inner.last_config {
-                c.socks_port = config.socks_port;
-                if !config.bridges.is_empty() {
-                    c.bridges = config.bridges.clone();
-                }
+            let needs_new_client = inner
+                .last_config
+                .as_ref()
+                .is_some_and(|old| tor_client_config_changed(old, &config));
+            if needs_new_client {
+                // TorClient-defining config changed: discard the old client and
+                // fall through to a cold bootstrap. Never keep a client built
+                // with different bridges/dirs.
+                inner.shared.set_client(None);
+                inner.shared.bootstrap_done.store(false, Ordering::SeqCst);
+                inner.shared.bound_port.store(0, Ordering::SeqCst);
+                inner.shared.abort_connections();
             } else {
+                // SOCKS-only change (at most the port): rebind, no bootstrap.
                 inner.last_config = Some(config.clone());
+                let port = config.socks_port;
+                return spawn_socks(&mut inner, port);
             }
-            let port = config.socks_port;
-            return spawn_socks(&mut inner, port);
         }
 
-        // Cold start.
-        let runtime = match inner.runtime.take() {
-            Some(rt) => rt,
-            None => tokio::runtime::Builder::new_multi_thread()
-                .enable_all()
-                .build()
-                .map_err(|e| ArtiError::Runtime { msg: e.to_string() })?,
-        };
-
+        // Cold start (also used when the client-defining config changed).
         inner.last_config = Some(config.clone());
-        let shared = inner.shared.clone();
-        shared.bootstrap_done.store(false, Ordering::SeqCst);
-        shared.set_client(None);
-        shared.bound_port.store(0, Ordering::SeqCst);
-
-        let task = runtime.spawn(async move {
-            if let Err(e) = cold_start(config, shared.clone()).await {
-                shared.report(TorState::Error, 0, None, format!("error: {e}"));
-                if let Some(l) = shared.listener() {
-                    l.on_log(format!("ERROR: {e}"));
-                }
-            }
-        });
-
-        inner.runtime = Some(runtime);
-        inner.worker = Some(task);
-        Ok(())
+        spawn_cold(&mut inner, config)
     }
 
     /// Re-bind SOCKS using the last configuration. Requires a bootstrapped client.
@@ -404,9 +500,19 @@ impl ArtiTor {
     }
 
     /// Stop the SOCKS listener but keep the bootstrapped client and runtime.
+    ///
+    /// Deterministic pause-during-bootstrap semantics (see
+    /// docs/api-lifecycle-bitchat.md §2.1): if no bootstrapped client is held
+    /// yet (STARTING/BOOTSTRAPPING), the bootstrap worker is aborted, the
+    /// partial/unbootstrapped client is discarded, all associated work
+    /// (including SOCKS connection handlers) is stopped, and the state
+    /// transitions to OFF — never left in BOOTSTRAPPING with no worker.
+    /// All live SOCKS streams are terminated (fail-closed Tor OFF); new
+    /// connections are no longer accepted.
     pub fn pause(&self) {
         let mut inner = self.inner.lock().unwrap();
         inner.shared.signal_socks_shutdown();
+        inner.shared.abort_connections();
         if let Some(w) = inner.worker.take() {
             // If still bootstrapping, abort; if SOCKS was running, shutdown signal
             // should finish the task — abort as fallback.
@@ -419,16 +525,33 @@ impl ArtiTor {
             if let Some(l) = inner.shared.listener() {
                 l.on_log("SOCKS paused; TorClient retained".into());
             }
+        } else {
+            // No bootstrapped client: cancel the in-flight bootstrap (if any),
+            // discard any partial client, and settle to OFF so no caller is left
+            // observing STARTING/BOOTSTRAPPING after the worker was aborted.
+            inner.shared.set_client(None);
+            inner.shared.bootstrap_done.store(false, Ordering::SeqCst);
+            inner.shared.bound_port.store(0, Ordering::SeqCst);
+            inner
+                .shared
+                .report(TorState::Off, 0, None, "bootstrap cancelled");
+            if let Some(l) = inner.shared.listener() {
+                l.on_log("bootstrap cancelled by pause; client discarded".into());
+            }
         }
     }
 
     /// Full teardown: SOCKS, client, and tokio runtime.
+    ///
+    /// Postcondition: OFF, no client, no SOCKS listener, no worker, runtime
+    /// released. All live SOCKS streams are terminated. Idempotent.
     pub fn shutdown(&self) {
         let mut inner = self.inner.lock().unwrap();
         if let Some(l) = inner.shared.listener() {
             l.on_status(TorState::Stopping, 0, None, "stopping".into());
         }
         inner.shared.signal_socks_shutdown();
+        inner.shared.abort_connections();
         if let Some(w) = inner.worker.take() {
             w.abort();
         }
@@ -441,7 +564,15 @@ impl ArtiTor {
         }
         let old_listener = inner.shared.listener();
         inner.shared = Shared::new();
-        *LOG_SINK.lock().unwrap() = None;
+        // Only release the process-global log sink if it still points at our
+        // listener; a newer instance may have installed its own (single-
+        // instance is supported, last-writer-wins for logs).
+        if let Some(ours) = old_listener.clone() {
+            let mut sink = LOG_SINK.lock().unwrap();
+            if sink.as_ref().is_some_and(|s| Arc::ptr_eq(s, &ours)) {
+                *sink = None;
+            }
+        }
         if let Some(l) = old_listener {
             l.on_status(TorState::Off, 0, None, String::new());
         }
@@ -466,14 +597,49 @@ fn spawn_socks(inner: &mut Inner, socks_port: u16) -> Result<(), ArtiError> {
             } else {
                 0
             };
-            shared.report(TorState::Error, pct, None, format!("socks error: {e}"));
-            if let Some(l) = shared.listener() {
-                l.on_log(format!("ERROR: {e}"));
-            }
+            // Typed notification first; never rely on parsing the summary.
+            shared.notify_error(&e, pct);
         }
     });
     inner.worker = Some(task);
     Ok(())
+}
+
+/// Spawn a cold bootstrap + SOCKS task on the owned runtime, creating the
+/// runtime on first use. The task reports typed failures via `on_error`.
+fn spawn_cold(inner: &mut Inner, config: ArtiConfig) -> Result<(), ArtiError> {
+    let runtime = match inner.runtime.take() {
+        Some(rt) => rt,
+        None => tokio::runtime::Builder::new_multi_thread()
+            .enable_all()
+            .build()
+            .map_err(|e| ArtiError::Runtime { msg: e.to_string() })?,
+    };
+
+    let shared = inner.shared.clone();
+    shared.bootstrap_done.store(false, Ordering::SeqCst);
+    shared.set_client(None);
+    shared.bound_port.store(0, Ordering::SeqCst);
+
+    let task = runtime.spawn(async move {
+        if let Err(e) = cold_start(config, shared.clone()).await {
+            shared.notify_error(&e, 0);
+        }
+    });
+
+    inner.runtime = Some(runtime);
+    inner.worker = Some(task);
+    Ok(())
+}
+
+/// TorClient-defining configuration: changing any of these requires a new
+/// TorClient/bootstrap. `socks_port` is deliberately excluded (rebind only).
+/// Bridge comparison is exact: non-empty → empty counts as a change.
+fn tor_client_config_changed(old: &ArtiConfig, new: &ArtiConfig) -> bool {
+    old.data_dir != new.data_dir
+        || old.state_dir != new.state_dir
+        || old.cache_dir != new.cache_dir
+        || old.bridges != new.bridges
 }
 
 // ============================================================================
@@ -538,25 +704,41 @@ async fn cold_start(config: ArtiConfig, shared: Arc<Shared>) -> Result<(), ArtiE
     }
 
     let mut events = client.bootstrap_events();
-    let progress_shared = shared.clone();
-    let progress_task = tokio::spawn(async move {
-        while let Some(status) = events.next().await {
-            let pct = (status.as_frac() * 100.0).round() as u32;
-            progress_shared.report(
-                TorState::Bootstrapping,
-                pct.min(99),
-                None,
-                format!("bootstrapping {pct}%"),
-            );
+    // Drive bootstrap and progress reports in THIS task (no detached child):
+    // aborting the worker therefore stops all bootstrap work deterministically
+    // and cannot leave a leaked progress loop reporting BOOTSTRAPPING forever.
+    // Scoped so the bootstrap future (which borrows `client`) is dropped
+    // before `client` moves into `run_socks` below.
+    {
+        let bootstrap_fut = client.bootstrap();
+        tokio::pin!(bootstrap_fut);
+        let mut events_done = false;
+        loop {
+            tokio::select! {
+                status_opt = events.next(), if !events_done => {
+                    match status_opt {
+                        Some(status) => {
+                            let pct = (status.as_frac() * 100.0).round() as u32;
+                            shared.report(
+                                TorState::Bootstrapping,
+                                pct.min(99),
+                                None,
+                                format!("bootstrapping {pct}%"),
+                            );
+                        }
+                        None => events_done = true,
+                    }
+                }
+                res = &mut bootstrap_fut => {
+                    if let Some(l) = shared.listener() {
+                        l.on_log(format!("bootstrap() returned: ok={}", res.is_ok()));
+                    }
+                    res.map_err(|e| ArtiError::Bootstrap { msg: e.to_string() })?;
+                    break;
+                }
+            }
         }
-    });
-
-    let boot = client.bootstrap().await;
-    progress_task.abort();
-    if let Some(l) = shared.listener() {
-        l.on_log(format!("bootstrap() returned: ok={}", boot.is_ok()));
     }
-    boot.map_err(|e| ArtiError::Bootstrap { msg: e.to_string() })?;
     shared.bootstrap_done.store(true, Ordering::SeqCst);
     if let Some(l) = shared.listener() {
         l.on_log("bootstrap complete".into());
@@ -604,14 +786,16 @@ async fn run_socks(
                 match accept {
                     Ok((stream, _peer)) => {
                         let client = client.clone();
-                        let shared = shared.clone();
-                        tokio::spawn(async move {
+                        let conn_shared = shared.clone();
+                        // Tracked so pause/shutdown can terminate live streams
+                        // (fail-closed Tor OFF); aborted via abort_connections.
+                        shared.track_connection(tokio::spawn(async move {
                             if let Err(e) = handle_socks(stream, client).await {
-                                if let Some(l) = shared.listener() {
+                                if let Some(l) = conn_shared.listener() {
                                     l.on_log(format!("socks conn error: {e}"));
                                 }
                             }
-                        });
+                        }));
                     }
                     Err(e) => {
                         if let Some(l) = shared.listener() {
@@ -715,4 +899,297 @@ async fn handle_socks(
         _ = t2c => {}
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::Mutex as StdMutex;
+    use std::time::Duration;
+
+    fn test_config() -> ArtiConfig {
+        ArtiConfig {
+            data_dir: "/tmp/artitor-test".into(),
+            socks_port: 0,
+            bridges: vec![],
+            state_dir: None,
+            cache_dir: None,
+        }
+    }
+
+    #[test]
+    fn identical_config_needs_no_new_client() {
+        let a = test_config();
+        assert!(!tor_client_config_changed(&a, &a));
+    }
+
+    #[test]
+    fn socks_port_only_needs_no_new_client() {
+        let a = test_config();
+        let mut b = test_config();
+        b.socks_port = 19050;
+        assert!(!tor_client_config_changed(&a, &b));
+    }
+
+    #[test]
+    fn data_dir_change_needs_new_client() {
+        let a = test_config();
+        let mut b = test_config();
+        b.data_dir = "/tmp/other".into();
+        assert!(tor_client_config_changed(&a, &b));
+    }
+
+    #[test]
+    fn state_dir_override_change_needs_new_client() {
+        let a = test_config();
+        let mut b = test_config();
+        b.state_dir = Some("/tmp/other-state".into());
+        assert!(tor_client_config_changed(&a, &b));
+    }
+
+    #[test]
+    fn cache_dir_override_change_needs_new_client() {
+        let a = test_config();
+        let mut b = test_config();
+        b.cache_dir = Some("/tmp/other-cache".into());
+        assert!(tor_client_config_changed(&a, &b));
+    }
+
+    #[test]
+    fn bridges_empty_to_nonempty_needs_new_client() {
+        let a = test_config();
+        let mut b = test_config();
+        b.bridges = vec!["obfs4 1.2.3.4:443 FINGERPRINT".into()];
+        assert!(tor_client_config_changed(&a, &b));
+    }
+
+    #[test]
+    fn bridges_nonempty_to_empty_needs_new_client() {
+        // Regression: the old resume path silently kept the bootstrapped client
+        // (built with bridges) when the new config cleared them.
+        let mut a = test_config();
+        a.bridges = vec!["obfs4 1.2.3.4:443 FINGERPRINT".into()];
+        let b = test_config();
+        assert!(tor_client_config_changed(&a, &b));
+    }
+
+    #[test]
+    fn same_bridges_need_no_new_client() {
+        let mut a = test_config();
+        a.bridges = vec!["obfs4 1.2.3.4:443 FINGERPRINT".into()];
+        let mut b = test_config();
+        b.bridges = a.bridges.clone();
+        assert!(!tor_client_config_changed(&a, &b));
+    }
+
+    #[test]
+    fn error_detail_preserves_declared_types() {
+        // No string parsing: kind discriminant + typed port carry the type.
+        let cases: Vec<(ArtiError, ErrorKind, Option<u16>)> = vec![
+            (ArtiError::AlreadyRunning, ErrorKind::AlreadyRunning, None),
+            (ArtiError::NotRunning, ErrorKind::NotRunning, None),
+            (
+                ArtiError::Config { msg: "bad".into() },
+                ErrorKind::Config,
+                None,
+            ),
+            (
+                ArtiError::Bind {
+                    port: 9050,
+                    msg: "taken".into(),
+                },
+                ErrorKind::Bind,
+                Some(9050),
+            ),
+            (
+                ArtiError::Bootstrap { msg: "no consensus".into() },
+                ErrorKind::Bootstrap,
+                None,
+            ),
+            (
+                ArtiError::Runtime { msg: "boom".into() },
+                ErrorKind::Runtime,
+                None,
+            ),
+        ];
+        for (err, kind, port) in cases {
+            let d = ArtiErrorDetail::from(&err);
+            assert_eq!(d.kind, kind, "kind for {err}");
+            assert_eq!(d.port, port, "port for {err}");
+            assert!(!d.msg.is_empty(), "msg for {err}");
+        }
+    }
+
+    #[test]
+    fn resolve_dirs_defaults_and_overrides() {
+        let c = test_config();
+        let (s, ca) = resolve_dirs(&c);
+        assert_eq!(s, PathBuf::from("/tmp/artitor-test/state"));
+        assert_eq!(ca, PathBuf::from("/tmp/artitor-test/cache"));
+
+        let mut c2 = test_config();
+        c2.state_dir = Some("/s".into());
+        c2.cache_dir = Some("/c".into());
+        let (s2, c3) = resolve_dirs(&c2);
+        assert_eq!(s2, PathBuf::from("/s"));
+        assert_eq!(c3, PathBuf::from("/c"));
+    }
+
+    struct Recorder {
+        statuses: StdMutex<Vec<(TorState, u32, Option<u16>, String)>>,
+        errors: StdMutex<Vec<ArtiErrorDetail>>,
+    }
+
+    impl StatusListener for Recorder {
+        fn on_status(
+            &self,
+            state: TorState,
+            bootstrap_percent: u32,
+            socks_port: Option<u16>,
+            summary: String,
+        ) {
+            self.statuses
+                .lock()
+                .unwrap()
+                .push((state, bootstrap_percent, socks_port, summary));
+        }
+        fn on_log(&self, _line: String) {}
+        fn on_error(&self, error: ArtiErrorDetail) {
+            self.errors.lock().unwrap().push(error);
+        }
+    }
+
+    fn test_client(name: &str) -> Arc<TorClient<PreferredRuntime>> {
+        // Unique dirs per test: parallel tests must not share dir.sqlite3.
+        let dir = std::env::temp_dir().join(format!(
+            "artitor-unit-{}-{}-{:?}",
+            std::process::id(),
+            name,
+            std::thread::current().id()
+        ));
+        let cfg = TorClientConfigBuilder::from_directories(dir.join("state"), dir.join("cache"))
+            .build()
+            .expect("test config builds offline");
+        TorClient::builder()
+            .config(cfg)
+            .create_unbootstrapped()
+            .expect("unbootstrapped client needs no network")
+    }
+
+    fn test_shared(rec: Arc<Recorder>) -> Arc<Shared> {
+        let shared = Shared::new();
+        shared.set_listener(rec);
+        shared
+    }
+
+    #[tokio::test]
+    async fn fixed_port_collision_is_typed_bind() {
+        // Occupy a loopback port, then SOCKS-bind the same port: must fail
+        // with ArtiError::Bind carrying the port — no Tor network involved.
+        let occupied = tokio::net::TcpListener::bind("127.0.0.1:0")
+            .await
+            .expect("occupy loopback port");
+        let port = occupied.local_addr().unwrap().port();
+        let rec = Arc::new(Recorder {
+            statuses: StdMutex::new(vec![]),
+            errors: StdMutex::new(vec![]),
+        });
+        let shared = test_shared(rec);
+        let err = run_socks(test_client("bind-collision"), port, shared)
+            .await
+            .expect_err("colliding port must fail");
+        match err {
+            ArtiError::Bind { port: p, .. } => assert_eq!(p, port),
+            other => panic!("expected Bind, got {other}"),
+        }
+    }
+
+    #[tokio::test]
+    async fn ephemeral_port_binds_and_reports_running() {
+        let rec = Arc::new(Recorder {
+            statuses: StdMutex::new(vec![]),
+            errors: StdMutex::new(vec![]),
+        });
+        let shared = test_shared(rec.clone());
+        let client = test_client("ephemeral");
+        let task = tokio::spawn(async move { run_socks(client, 0, shared).await });
+        // Wait for the listener to report a real port (no Tor bootstrap needed
+        // for the accept loop itself).
+        let deadline = tokio::time::Instant::now() + Duration::from_secs(10);
+        let actual = loop {
+            let p = rec
+                .statuses
+                .lock()
+                .unwrap()
+                .iter()
+                .filter(|(s, _, _, _)| *s == TorState::Running)
+                .filter_map(|(_, _, port, _)| *port)
+                .next();
+            if let Some(p) = p {
+                break p;
+            }
+            assert!(
+                tokio::time::Instant::now() < deadline,
+                "ephemeral SOCKS never reported Running"
+            );
+            tokio::time::sleep(Duration::from_millis(50)).await;
+        };
+        assert_ne!(actual, 0, "ephemeral port must be non-zero");
+        task.abort();
+        let _ = tokio::time::timeout(Duration::from_secs(5), task).await;
+    }
+
+    #[tokio::test]
+    async fn notify_error_delivers_typed_detail_before_status() {
+        let rec = Arc::new(Recorder {
+            statuses: StdMutex::new(vec![]),
+            errors: StdMutex::new(vec![]),
+        });
+        let shared = test_shared(rec.clone());
+        shared.notify_error(
+            &ArtiError::Bootstrap {
+                msg: "no consensus".into(),
+            },
+            42,
+        );
+        let errors = rec.errors.lock().unwrap();
+        assert_eq!(errors.len(), 1);
+        assert_eq!(errors[0].kind, ErrorKind::Bootstrap);
+        assert_eq!(errors[0].port, None);
+        let statuses = rec.statuses.lock().unwrap();
+        assert_eq!(statuses.len(), 1);
+        assert_eq!(statuses[0].0, TorState::Error);
+        assert_eq!(statuses[0].1, 42);
+        assert_eq!(statuses[0].2, None);
+    }
+
+    #[test]
+    fn abort_connections_drains_tracked_tasks() {
+        let rt = tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .unwrap();
+        rt.block_on(async {
+            let rec = Arc::new(Recorder {
+                statuses: StdMutex::new(vec![]),
+                errors: StdMutex::new(vec![]),
+            });
+            let shared = test_shared(rec);
+            assert!(
+                shared.connections.lock().unwrap().is_empty(),
+                "starts untracked"
+            );
+            let (tx, rx) = oneshot::channel::<()>();
+            shared.track_connection(tokio::spawn(async move {
+                let _ = rx.await;
+            }));
+            assert_eq!(shared.connections.lock().unwrap().len(), 1);
+            shared.abort_connections();
+            assert!(
+                shared.connections.lock().unwrap().is_empty(),
+                "pause/shutdown must not retain connection tasks"
+            );
+            let _ = tx;
+        });
+    }
 }

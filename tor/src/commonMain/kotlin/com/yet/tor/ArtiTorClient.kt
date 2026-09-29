@@ -1,8 +1,11 @@
 package com.yet.tor
 
 import com.yet.tor.ffi.ArtiConfig as FfiConfig
+import com.yet.tor.ffi.ArtiErrorDetail as FfiErrorDetail
 import com.yet.tor.ffi.ArtiException as FfiArtiException
 import com.yet.tor.ffi.ArtiTor as FfiArtiTor
+import com.yet.tor.ffi.ArtiTorInterface as FfiArtiTorInterface
+import com.yet.tor.ffi.ErrorKind as FfiErrorKind
 import com.yet.tor.ffi.StatusListener
 import com.yet.tor.ffi.TorState as FfiTorState
 import kotlin.time.Duration
@@ -14,7 +17,9 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeout
@@ -68,7 +73,7 @@ data class ArtiConfig(
     val cacheDir: String? = null,
 )
 
-/** Typed failures from the engine (maps UniFFI [FfiArtiError] + Kotlin waits). */
+/** Typed failures from the engine (maps UniFFI errors + Kotlin waits). */
 sealed class ArtiException(message: String, cause: Throwable? = null) :
     Exception(message, cause) {
     class AlreadyRunning : ArtiException("Tor client already starting or running")
@@ -82,19 +87,89 @@ sealed class ArtiException(message: String, cause: Throwable? = null) :
 }
 
 /**
+ * True when [new] requires a new TorClient/bootstrap relative to [old].
+ * Only `socksPort` may change without rebuilding; `dataDir`/`stateDir`/
+ * `cacheDir`/`bridges` (compared exactly, so non-empty → empty counts)
+ * define the client. Mirrors the native `tor_client_config_changed`.
+ */
+internal fun torClientConfigChanged(old: ArtiConfig, new: ArtiConfig): Boolean =
+    old.dataDir != new.dataDir ||
+        old.stateDir != new.stateDir ||
+        old.cacheDir != new.cacheDir ||
+        old.bridges != new.bridges
+
+/**
+ * State-machine invariant violations for an observed snapshot, per
+ * docs/api-lifecycle-bitchat.md §2. Empty = all applicable invariants hold.
+ * (STARTING/BOOTSTRAPPING worker existence is owned by the native layer and
+ * cannot be observed from here; "no reported ready SOCKS" is checked.)
+ */
+internal fun checkLifecycleInvariants(
+    state: TorState,
+    hasClient: Boolean,
+    socksPort: Int?,
+    bootstrapPercent: Int,
+    lastError: ArtiException?,
+): List<String> {
+    val violations = mutableListOf<String>()
+    when (state) {
+        TorState.OFF -> {
+            if (hasClient) violations += "OFF must hold no client"
+            if (socksPort != null) violations += "OFF must report no SOCKS port"
+        }
+        TorState.STARTING, TorState.BOOTSTRAPPING -> {
+            if (socksPort != null) violations += "$state must not report a ready SOCKS port"
+        }
+        TorState.RUNNING -> {
+            if (!hasClient) violations += "RUNNING requires a bootstrapped client"
+            if (socksPort == null) violations += "RUNNING requires a SOCKS port"
+            if (bootstrapPercent < 100) violations += "RUNNING requires bootstrap 100"
+        }
+        TorState.PAUSED -> {
+            if (!hasClient) violations += "PAUSED requires a retained bootstrapped client"
+            if (socksPort != null) violations += "PAUSED must report no SOCKS port"
+            if (bootstrapPercent != 100) violations += "PAUSED requires bootstrap 100"
+        }
+        TorState.ERROR -> {
+            if (lastError == null) violations += "ERROR requires a typed lastError"
+            if (socksPort != null) violations += "ERROR must not report readiness"
+        }
+        TorState.STOPPING -> {
+            if (socksPort != null) violations += "STOPPING must report no SOCKS port"
+        }
+    }
+    return violations
+}
+
+/**
  * Cross-platform facade over the Arti FFI. The async tokio runtime lives inside
  * the native layer; this object never blocks the caller's thread.
  *
  * Lifecycle (see docs/api-lifecycle-bitchat.md):
  * - [start] — bootstrap if needed + SOCKS; suspends until ready
- * - [pause] — drop SOCKS, keep bootstrapped client
+ * - [pause] — drop SOCKS, keep bootstrapped client; during STARTING/
+ *   BOOTSTRAPPING cancels the bootstrap, discards any partial client, and
+ *   settles to OFF (never stranded mid-bootstrap)
  * - [resume] — rebind SOCKS without full bootstrap
- * - [shutdown] — full teardown
+ * - [shutdown] — full teardown; status OFF
+ * - [restart] — shutdown then start with the supplied or last-effective config
  *
  * "Proxy ready" == [TorStatus.isReady].
+ *
+ * Cancellation: [pause]/[shutdown] bump an internal epoch; any [start]/[resume]
+ * waiter from before the bump fails fast with [ArtiException.Runtime]
+ * ("cancelled") instead of waiting out its timeout.
+ *
+ * Process-global note: the native layer routes tracing logs to the most
+ * recently installed listener, so only one live ArtiTorClient per process is
+ * supported (last-writer-wins for logs; status/error callbacks stay
+ * per-instance).
  */
-class ArtiTorClient {
-    private val native = FfiArtiTor()
+class ArtiTorClient internal constructor(
+    private val native: FfiArtiTorInterface,
+) {
+    constructor() : this(FfiArtiTor())
+
     private val lifecycleMutex = Mutex()
 
     private val _status = MutableStateFlow(TorStatus())
@@ -102,6 +177,12 @@ class ArtiTorClient {
 
     private val _logs = MutableSharedFlow<String>(extraBufferCapacity = 256)
     val logs: SharedFlow<String> = _logs.asSharedFlow()
+
+    /** Bumped by every pause/shutdown (and observed by waiters) for cancellation. */
+    private val epoch = MutableStateFlow(0L)
+
+    /** Last successful/effective config; guarded by [lifecycleMutex]. */
+    private var lastConfig: ArtiConfig? = null
 
     val version: String get() = native.version()
 
@@ -125,6 +206,8 @@ class ArtiTorClient {
                 socksPort = socksPort?.toInt(),
                 bootstrapSummary = summary,
                 lastError = if (mapped == TorState.ERROR) {
+                    // A typed onError either already set this or arrives next
+                    // (native guarantees onError precedes onStatus(Error)).
                     prev.lastError ?: ArtiException.Runtime(summary.ifEmpty { "error" })
                 } else {
                     null
@@ -135,70 +218,80 @@ class ArtiTorClient {
         override fun onLog(line: String) {
             _logs.tryEmit(line)
         }
+
+        override fun onError(error: FfiErrorDetail) {
+            // Typed async failure: applied whether it lands just before or
+            // just after the matching onStatus(Error, ..) — either order keeps
+            // the declared type. Never parse summary strings for types.
+            val typed = error.toPublic()
+            val prev = _status.value
+            _status.value = prev.copy(
+                state = TorState.ERROR,
+                socksPort = null,
+                bootstrapSummary = error.msg,
+                lastError = typed,
+            )
+        }
     }
 
     /**
      * Bootstrap (if needed) and ensure SOCKS is listening.
      * Suspends until [TorStatus.isReady] or failure.
      *
-     * - Already ready → Ok immediately
-     * - PAUSED → [resume]
-     * - OFF/ERROR → cold start
+     * - Already ready with the same effective config → Ok immediately.
+     * - Already ready with a different port only → rebind SOCKS (no bootstrap).
+     * - Already ready with a different client-defining config → full restart
+     *   with the new config.
+     * - PAUSED → start with the supplied config: rebind when only the port
+     *   changed, otherwise tear down and bootstrap a new client.
+     * - OFF/ERROR → cold start. STARTING/BOOTSTRAPPING → join in-flight work.
+     *
+     * A [pause]/[shutdown] from another coroutine cancels the wait with
+     * [ArtiException.Runtime] ("cancelled"), never a full-timeout hang.
      */
     suspend fun start(
         config: ArtiConfig,
         timeout: Duration = 90.seconds,
     ): Result<Unit> = lifecycleMutex.withLock {
         runCatching {
-            if (_status.value.isReady) return@runCatching
-
-            when {
-                _status.value.state == TorState.PAUSED ||
-                    (native.hasClient() && !_status.value.isReady) -> {
-                    try {
-                        native.resume(listener)
-                    } catch (e: FfiArtiException) {
-                        // Fall through to cold start if client was lost.
-                        if (e is FfiArtiException.NotRunning) {
-                            native.start(config.toFfi(), listener)
-                        } else {
-                            throw e.toPublic()
-                        }
-                    }
+            val cur = _status.value
+            if (cur.isReady) {
+                val effective = lastConfig
+                if (effective != null &&
+                    !torClientConfigChanged(effective, config) &&
+                    effective.socksPort == config.socksPort
+                ) {
+                    return@runCatching
                 }
-                else -> {
-                    try {
-                        native.start(config.toFfi(), listener)
-                    } catch (e: FfiArtiException) {
-                        if (e is FfiArtiException.AlreadyRunning) {
-                            // In-flight start: just wait for ready below.
-                        } else {
-                            throw e.toPublic()
-                        }
-                    }
+                if (effective != null && !torClientConfigChanged(effective, config)) {
+                    // Port-only change while RUNNING: drop SOCKS, rebind.
+                    doPauseLocked()
+                    kickStart(config)
+                } else {
+                    // Client-defining change (or unknown baseline): cold start.
+                    doShutdownLocked()
+                    kickStart(config)
                 }
+            } else {
+                // OFF/ERROR/PAUSED/STARTING/BOOTSTRAPPING/STOPPING: the native
+                // layer applies config identity (rebind vs rebuild) for the
+                // PAUSED case; cold start otherwise; AlreadyRunning joins
+                // in-flight work.
+                kickStart(config)
             }
-
-            awaitReady(timeout)
+            awaitReady(epoch.value, timeout)
+            lastConfig = config
         }
     }
 
     /**
-     * Stop SOCKS; keep bootstrapped client. Status → PAUSED when a client is held.
+     * Stop SOCKS; keep the bootstrapped client (status → PAUSED).
+     * During STARTING/BOOTSTRAPPING: cancel the bootstrap, discard any partial
+     * client, status → OFF. Terminates live SOCKS streams (fail-closed).
+     * Safe to call redundantly.
      */
     fun pause() {
-        native.pause()
-        // Native reports PAUSED; if still OFF/bootstrapping, leave status as-is
-        // until the next onStatus. Ensure socks cleared if native already paused.
-        val s = _status.value
-        if (s.state == TorState.RUNNING || native.hasClient()) {
-            if (s.state != TorState.PAUSED) {
-                // Defensive: native should have emitted PAUSED.
-                if (_status.value.socksPort != null && _status.value.state == TorState.RUNNING) {
-                    _status.value = s.copy(state = TorState.PAUSED, socksPort = null, bootstrapSummary = "paused")
-                }
-            }
-        }
+        doPauseLocked()
     }
 
     /**
@@ -212,16 +305,16 @@ class ArtiTorClient {
             } catch (e: FfiArtiException) {
                 throw e.toPublic()
             }
-            awaitReady(timeout)
+            awaitReady(epoch.value, timeout)
         }
     }
 
     /**
      * Full teardown: SOCKS, TorClient, tokio runtime. Status → OFF.
+     * Safe to call redundantly.
      */
     fun shutdown() {
-        native.shutdown()
-        _status.value = TorStatus()
+        doShutdownLocked()
     }
 
     /**
@@ -231,24 +324,92 @@ class ArtiTorClient {
     fun stop() = shutdown()
 
     /**
-     * [shutdown] then [start] with [config] (or last paths if null is not possible —
-     * config is required after shutdown).
+     * [shutdown] then [start] with the supplied config, or — when null — the
+     * last successful/effective config. Fails with [ArtiException.Config] when
+     * no config is available (e.g. `restart()` before any successful start).
      */
     suspend fun restart(
-        config: ArtiConfig,
+        config: ArtiConfig? = null,
         timeout: Duration = 90.seconds,
-    ): Result<Unit> {
-        shutdown()
-        return start(config, timeout)
+    ): Result<Unit> = lifecycleMutex.withLock {
+        runCatching {
+            val effective = config ?: lastConfig
+                ?: throw ArtiException.Config(
+                    "restart() without a config requires a previous successful start",
+                )
+            doShutdownLocked()
+            kickStart(effective)
+            // Epoch captured after our own shutdown bump, so only *foreign*
+            // pause/shutdown cancels this wait.
+            awaitReady(epoch.value, timeout)
+            lastConfig = effective
+        }
     }
 
-    private suspend fun awaitReady(timeout: Duration) {
+    // -- internals (lifecycleMutex held unless noted) -------------------------
+
+    /** Synchronous kick; AlreadyRunning joins in-flight work in [awaitReady]. */
+    private fun kickStart(config: ArtiConfig) {
+        try {
+            native.start(config.toFfi(), listener)
+        } catch (e: FfiArtiException) {
+            when (e) {
+                is FfiArtiException.AlreadyRunning -> Unit // join in-flight
+                is FfiArtiException.NotRunning -> try {
+                    native.start(config.toFfi(), listener)
+                } catch (e2: FfiArtiException) {
+                    if (e2 is FfiArtiException.AlreadyRunning) Unit else throw e2.toPublic()
+                }
+                else -> throw e.toPublic()
+            }
+        }
+    }
+
+    private fun doPauseLocked() {
+        native.pause()
+        epoch.update { it + 1 }
+        // The native layer reports PAUSED/OFF synchronously in the common
+        // paths; these fallbacks only cover FFI callback races so no caller
+        // observes a stranded STARTING/BOOTSTRAPPING/RUNNING-with-port state.
+        val s = _status.value
+        when (s.state) {
+            TorState.STARTING, TorState.BOOTSTRAPPING ->
+                if (!native.hasClient()) _status.value = TorStatus(state = TorState.OFF)
+            TorState.RUNNING ->
+                if (s.socksPort != null) {
+                    _status.value = s.copy(state = TorState.PAUSED, socksPort = null)
+                }
+            else -> Unit
+        }
+    }
+
+    private fun doShutdownLocked() {
+        native.shutdown()
+        epoch.update { it + 1 }
+        _status.value = TorStatus()
+    }
+
+    /**
+     * Wait for readiness. Wakes on READY, typed ERROR, or a *foreign* epoch
+     * bump (pause/shutdown from another coroutine) — never sits out the full
+     * timeout after definitive cancellation. Stale terminal states observed at
+     * entry do not match: only a new READY/ERROR or a newer epoch does.
+     */
+    private suspend fun awaitReady(myEpoch: Long, timeout: Duration) {
         try {
             withTimeout(timeout) {
-                val ready = status.first { it.isReady || it.state == TorState.ERROR }
-                if (!ready.isReady) {
-                    throw ready.lastError
-                        ?: ArtiException.Runtime("Tor failed (state=${ready.state})")
+                val (end, endEpoch) = combine(status, epoch) { s, e -> s to e }
+                    .first { (s, e) -> s.isReady || s.state == TorState.ERROR || e != myEpoch }
+                if (!end.isReady) {
+                    if (end.state == TorState.ERROR) {
+                        throw end.lastError
+                            ?: ArtiException.Runtime("Tor failed (state=${end.state})")
+                    } else {
+                        throw ArtiException.Runtime(
+                            "Tor start cancelled by lifecycle operation " +
+                                "(state=${end.state}, epoch $myEpoch→$endEpoch)",
+                        )
+                    }
                 }
             }
         } catch (e: TimeoutCancellationException) {
@@ -272,6 +433,16 @@ private fun FfiArtiException.toPublic(): ArtiException = when (this) {
     is FfiArtiException.Bind -> ArtiException.Bind(port.toInt(), msg)
     is FfiArtiException.Bootstrap -> ArtiException.Bootstrap(msg)
     is FfiArtiException.Runtime -> ArtiException.Runtime(msg)
+}
+
+/** Typed async failure (no string parsing: [FfiErrorDetail.kind] drives the type). */
+internal fun FfiErrorDetail.toPublic(): ArtiException = when (kind) {
+    FfiErrorKind.CONFIG -> ArtiException.Config(msg)
+    FfiErrorKind.BIND -> ArtiException.Bind((port ?: 0u).toInt(), msg)
+    FfiErrorKind.BOOTSTRAP -> ArtiException.Bootstrap(msg)
+    FfiErrorKind.RUNTIME -> ArtiException.Runtime(msg)
+    FfiErrorKind.ALREADY_RUNNING -> ArtiException.AlreadyRunning()
+    FfiErrorKind.NOT_RUNNING -> ArtiException.NotRunning()
 }
 
 private fun FfiTorState.toCommon(): TorState = when (this) {
