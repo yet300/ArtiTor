@@ -611,3 +611,57 @@ code5 monitoring remain non-blocking follow-ups. Full attempt/failure/mutation
 evidence and counter roles are in the implementation report's
 “Final Acceptance Remediation” section. No Phase 2 work began. This addendum
 records implementation evidence only, not independent acceptance or Phase 1 PASS.
+
+## A01 remediation implementation evidence — 2026-09-30
+
+This is implementation evidence, not a new independent acceptance verdict.
+The preceding reviewer A01 finding, F02 status and acceptance verdict remain
+unchanged pending final independent recheck. Baseline:
+`55ca6d1eb42557b893e59a135c4fccd822ba4cb5`.
+
+Publication now revalidates the accepted target before conditional public
+MutableStateFlow CAS, retries after competing writes, and rechecks acceptance
+after CAS for synchronous collector reentry. Supported asStateFlow, internal
+strict revision acceptance and permanent accepted terminal latch are preserved.
+The only test seam is a null-by-default internal scheduling callback immediately
+before CAS. No native production/lifecycle/registry change occurred.
+
+Permanent CLOSED and INVALIDATED regressions gate the cached ACTIVE publisher
+until close/shutdown publishes terminal rev3 and completes. Both failed before
+the fix (exit 1; 2/2 failures) with terminal→ACTIVE→terminal histories. Both pass
+after the fix with ACTIVE→terminal only, plus terminal/null final value, empty
+membership and zero pending checks. A disposable unconditional-write mutation,
+keeping prevalidation and convergence, fails the same permanent tests (exit 1;
+2/2 failures) with exactly those forbidden histories. Repository production was
+never mutated. Final builds run normal source sets.
+
+The targeted session class passed all 30 tests, including finite coordinated
+contention with completion joins, ACTIVE collector close/pause, F02 delayed
+revision rejection and N01 subscription/replay/cancellation/equality checks.
+An initial new collector-close fixture incorrectly used equal CLOSED revision3;
+it was corrected to revision4 without weakening production acceptance.
+
+Final combined simulator/device/Android-assembly command exited 0:
+76 simulator tests, no failures/errors/skips; iOS device compile and Android
+test assembly executed successfully. Native default: exit0, 75 passed/0 failed,
+0 doc tests. Initial sandbox socket-binding denial required an allowed native
+rerun. Native source hashes are unchanged. git diff --check exited0.
+
+Live attempts: 2 suite runs / 4 live test executions / 1 failed live test.
+Attempt1: two-session test passed; bootstrapFetchPauseResume failed with
+SOCKS CONNECT code5 (cause unknown). The single permitted retry passed both.
+The first full run was therefore 75 passed/1 failed, exit1; the final full run
+was 76 passed/0 failed, exit0. Both attempts remain recorded, not hidden by retry.
+Android runtime remains NOT VERIFIED (adb reported no attached devices).
+
+Exact commands, test names, timestamps, durations, scope and retained evidence
+are in the appended A01 section of ARTITOR_0_3_PHASE1_IMPLEMENTATION_REPORT.md;
+logs/XML are under /private/tmp/artitor-a01/. A focused read-only code review
+found no actionable issues. Confidence HIGH for deterministic A01 repair and
+mutation detection; independent acceptance is pending.
+
+Unchanged non-blocking follow-ups: Android hardware; Phase-5 FD/memory/task/cap
+measurements; N03 exhaustion horizon; intermittent CONNECT code5 investigation.
+No Phase2 work or self-declared Phase1 PASS.
+
+**A01 REMEDIATION IMPLEMENTED — READY FOR FINAL INDEPENDENT RECHECK**

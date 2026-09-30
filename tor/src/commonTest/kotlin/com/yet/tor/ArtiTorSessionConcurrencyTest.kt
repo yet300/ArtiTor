@@ -13,7 +13,9 @@ import com.yet.tor.ffi.TorState as FfiTorState
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +31,140 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 
 class ArtiTorSessionConcurrencyTest {
+
+    @Test
+    fun a01CachedActiveCannotPublishAfterCompletedClose() = runBlocking<Unit> {
+        assertCachedActiveCannotPublishAfterTerminal(TorIsolationSessionState.CLOSED)
+    }
+
+    @Test
+    fun a01CachedActiveCannotPublishAfterCompletedInvalidation() = runBlocking<Unit> {
+        assertCachedActiveCannotPublishAfterTerminal(TorIsolationSessionState.INVALIDATED)
+    }
+
+    private suspend fun CoroutineScope.assertCachedActiveCannotPublishAfterTerminal(
+        terminal: TorIsolationSessionState,
+    ) {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val reachedPublication = CompletableDeferred<Unit>()
+        val releasePublication = CompletableDeferred<Unit>()
+        val gated = kotlinx.coroutines.flow.MutableStateFlow(false)
+        val client = ArtiTorClient(fake) { _, revision ->
+            if (revision == 2uL && gated.compareAndSet(false, true)) {
+                reachedPublication.complete(Unit)
+                // Only the test gate blocks; the production algorithm holds no lock.
+                runBlocking { withTimeout(10_000) { releasePublication.await() } }
+            }
+        }
+        val session = client.createIsolationSession().getOrThrow()
+        val history = mutableListOf<TorIsolationSessionStatus>()
+        val collector = launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            session.status.collect { history += it }
+        }
+        val staleWriter = async(Dispatchers.Default) {
+            fake.sessionListener!!.onSessionStatus(session.id, SessionState.ACTIVE, 21001u, 2u)
+        }
+        try {
+            withTimeout(10_000) { reachedPublication.await() }
+            if (terminal == TorIsolationSessionState.CLOSED) {
+                session.close()
+            } else {
+                fake.shutdownBehavior = {
+                    fake.sessionListener!!.onSessionStatus(session.id, SessionState.INVALIDATED, null, 3u)
+                    fake.sessions.clear()
+                }
+                client.shutdown()
+            }
+            assertEquals(terminal, session.status.value.state, "lifecycle operation completed")
+            assertNull(session.status.value.socksEndpoint)
+            assertTrue(client.sessions.isEmpty())
+            assertEquals(0, client.pendingSessionStatusCount)
+            releasePublication.complete(Unit)
+            withTimeout(10_000) { staleWriter.await() }
+            assertEquals(terminal, session.status.value.state)
+            assertNull(session.status.value.socksEndpoint)
+            assertTrue(client.sessions.isEmpty())
+            assertEquals(0, client.pendingSessionStatusCount)
+            val terminalIndex = history.indexOfFirst { it.state == terminal }
+            assertTrue(terminalIndex >= 0)
+            assertTrue(
+                history.drop(terminalIndex).all { it.state == terminal && it.socksEndpoint == null },
+                "terminal history resurrected: $history",
+            )
+            assertEquals(listOf(TorIsolationSessionState.ACTIVE, terminal), history.map { it.state })
+        } finally {
+            releasePublication.complete(Unit)
+            withTimeout(10_000) { staleWriter.await() }
+            collector.cancelAndJoin()
+        }
+    }
+
+    @Test
+    fun a01FiniteCompetingWritersCompleteAndConverge() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val client = ArtiTorClient(fake)
+        val session = client.createIsolationSession().getOrThrow()
+        val start = CompletableDeferred<Unit>()
+        val ready = List(8) { CompletableDeferred<Unit>() }
+        val writers = ready.mapIndexed { writer, signal ->
+            async(Dispatchers.Default) {
+                signal.complete(Unit)
+                start.await()
+                repeat(32) { step ->
+                    val revision = (2 + step * 8 + writer).toULong()
+                    val last = revision == 257uL
+                    fake.sessionListener!!.onSessionStatus(
+                        session.id,
+                        if (last) SessionState.PAUSED else SessionState.ACTIVE,
+                        if (last) null else (21000 + writer).toUShort(),
+                        revision,
+                    )
+                }
+            }
+        }
+        withTimeout(10_000) {
+            ready.forEach { it.await() }
+            start.complete(Unit)
+            writers.awaitAll()
+        }
+        assertEquals(TorIsolationSessionState.PAUSED, session.status.value.state)
+        assertNull(session.status.value.socksEndpoint)
+        assertEquals(listOf(session), client.sessions)
+        assertEquals(0, client.pendingSessionStatusCount)
+    }
+
+    @Test
+    fun activePublicationCollectorReentersCloseWithoutResurrection() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val client = ArtiTorClient(fake)
+        val session = client.createIsolationSession().getOrThrow()
+        val listener = fake.sessionListener!!
+        listener.onSessionStatus(session.id, SessionState.PAUSED, null, 2u)
+        fake.closeSessionBehavior = {
+            fake.sessions[session.id] = SessionStatusFfi(SessionState.CLOSED, null, 4u)
+            listener.onSessionStatus(session.id, SessionState.CLOSED, null, 4u)
+        }
+        val history = mutableListOf<TorIsolationSessionStatus>()
+        val collector = launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            session.status.collect {
+                history += it
+                if (it.state == TorIsolationSessionState.ACTIVE) session.close()
+            }
+        }
+        listener.onSessionStatus(session.id, SessionState.ACTIVE, 21001u, 3u)
+        assertEquals(TorIsolationSessionState.CLOSED, session.status.value.state)
+        assertNull(session.status.value.socksEndpoint)
+        assertTrue(client.sessions.isEmpty())
+        assertEquals(0, client.pendingSessionStatusCount)
+        assertEquals(
+            listOf(TorIsolationSessionState.PAUSED, TorIsolationSessionState.ACTIVE, TorIsolationSessionState.CLOSED),
+            history.map { it.state },
+        )
+        collector.cancelAndJoin()
+    }
 
     private class FakeSessionNative(val scope: CoroutineScope) : FfiArtiTorInterface {
         var hasClientValue = false

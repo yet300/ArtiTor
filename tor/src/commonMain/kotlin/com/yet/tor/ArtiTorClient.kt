@@ -231,13 +231,21 @@ private class TorIsolationSessionImpl(
     }
 
     private fun publishLatestAccepted() {
-        // Assignment can synchronously resume a collector that re-enters the
-        // facade. Never hold a lock or publish the caller's incoming record.
-        // Converge before returning even when a nested/concurrent accept wins.
+        // CAS can synchronously resume a collector that re-enters the facade.
+        // Revalidate the accepted record, then condition publication on the
+        // observed public value so an older writer cannot undo a newer one.
         while (true) {
-            val latest = accepted.value
-            publicStatus.value = latest.status
-            if (accepted.value == latest) return
+            val target = accepted.value
+            val observedPublic = publicStatus.value
+            if (observedPublic == target.status) {
+                if (accepted.value == target) return
+                continue
+            }
+            if (accepted.value != target) continue
+            client.beforeSessionStatusPublication?.invoke(id, target.revision)
+            if (!publicStatus.compareAndSet(observedPublic, target.status)) continue
+            // A resumed collector may have accepted/published a newer revision.
+            if (accepted.value == target) return
         }
     }
 
@@ -275,6 +283,8 @@ private data class SessionRegistry(
  */
 class ArtiTorClient internal constructor(
     private val native: FfiArtiTorInterface,
+    // Internal scheduling seam for deterministic publication-race tests.
+    internal val beforeSessionStatusPublication: ((String, ULong) -> Unit)? = null,
 ) {
     constructor() : this(FfiArtiTor())
 

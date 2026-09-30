@@ -445,3 +445,111 @@ historical intermittent live failure's cause. Final SHA is returned with the
 completion message; this section does not self-declare Phase 1 PASS.
 
 **FINAL REMEDIATION IMPLEMENTED — READY FOR INDEPENDENT ACCEPTANCE CHECK**
+
+## A01 narrow remediation — 2026-09-30
+
+Baseline: `55ca6d1eb42557b893e59a135c4fccd822ba4cb5`.
+Scope: A01 public session publication only. Independent acceptance finding and
+verdict remain unchanged pending a final independent recheck.
+
+`publishLatestAccepted()` now reads the accepted target and observed public
+value, revalidates the accepted snapshot before publication, and uses supported
+`MutableStateFlow.compareAndSet(observedPublic, target.status)`. Failed CAS
+reloads instead of overwriting a newer public value. After successful CAS it
+rechecks acceptance because a synchronously resumed collector may reenter the
+facade. Equal public statuses remain conflated while internal revisions advance.
+The strict revision fence, accepted terminal latch and real
+`MutableStateFlow.asStateFlow()` public surface are unchanged.
+
+One nullable internal-constructor scheduling hook gates immediately before CAS.
+It defaults to null and adds no lock, coroutine, blocking or asynchronous
+projection to the production publication algorithm. Blocking test gates live
+only in commonTest. No Rust, lifecycle, registry, epoch, SOCKS, or configuration
+architecture was changed.
+
+### Permanent regressions and red/green evidence
+
+- `a01CachedActiveCannotPublishAfterCompletedClose`
+- `a01CachedActiveCannotPublishAfterCompletedInvalidation`
+- `a01FiniteCompetingWritersCompleteAndConverge`
+- `activePublicationCollectorReentersCloseWithoutResurrection`
+
+Both terminal regressions force ACTIVE rev2 to stop after reading/revalidation,
+immediately before publication; close/shutdown publishes terminal rev3 and
+returns; the old writer then resumes. An Unconfined collector records complete
+status/endpoint history. Final value, null endpoint, empty membership, zero
+pending count and every post-terminal history entry are asserted.
+With CAS the histories are exactly ACTIVE→CLOSED and ACTIVE→INVALIDATED.
+Eight finite coordinated writers publish 256 revisioned callbacks and are
+joined under a bounded watchdog, converging to highest-revision PAUSED/null.
+Scheduling uses deferred gates and joins, never sleep/delay.
+
+Before the fix, both permanent terminal tests failed (exit 1; 2 tests/2 failures)
+with CLOSED→ACTIVE→CLOSED and INVALIDATED→ACTIVE→INVALIDATED.
+The final targeted session class passed (exit 0; 30 tests, no failures/errors/
+skips), including `delayedActiveAfterPausedIsRejectedByRevision`,
+`auditOnSubscriptionIsInvokedBeforeInitialReplay`, replay/cancellation/equality
+tests, collector-close and `activePublicationCollectorReentersPauseWithoutResurrection`.
+The first targeted run exposed a new test-fixture error: CLOSED used revision 3
+after ACTIVE revision 3. The fixture was corrected to emit CLOSED revision 4;
+production strict revision acceptance was not weakened.
+
+### Disposable mutation proof
+
+Only in a copied commonMain source tree, replace the conditional CAS with
+`publicStatus.value = target.status`, preserving pre-write revalidation, the
+test gate and post-write convergence check. Both checked-in terminal regressions
+fail (exit 1; 2 tests/2 failures), reproducing the exact forbidden terminal→
+ACTIVE→terminal histories. The repository source was never mutated. The final
+matrix uses the normal source sets without the scratch init script.
+
+### Verification commands and results
+
+```text
+rtk ./gradlew :tor:iosSimulatorArm64Test --tests '*a01CachedActive*' --console=plain
+rtk ./gradlew :tor:iosSimulatorArm64Test --tests '*ArtiTorSessionConcurrencyTest*' --console=plain
+rtk ./gradlew -I /private/tmp/artitor-a01/mutation.init.gradle :tor:iosSimulatorArm64Test --tests '*a01CachedActive*' --console=plain
+rtk ./gradlew :tor:iosSimulatorArm64Test :tor:compileKotlinIosArm64 :tor:assembleAndroidDeviceTest --console=plain
+rtk proxy cargo test --manifest-path rust/arti-kmp-ffi/Cargo.toml
+rtk git diff --check
+```
+
+Final combined platform command: exit 0, BUILD SUCCESSFUL in 2m17s.
+Simulator: 76 tests, 0 failures/errors/skips (30 session, 24 lifecycle,
+8 config, 6 invariants, 6 error mapping, 2 live). Both compileKotlinIosArm64
+and assembleAndroidDeviceTest executed successfully. The first combined run
+exited 1: 75 passed/1 failed; its only failure was the live CONNECT code5 below.
+No A01/non-live test failed in either full run.
+
+Native default: exit 0; 75 passed, 0 failed; 0 doc tests. The first sandboxed
+native invocation exited 101 (33 passed/42 failed) after loopback binding was
+denied with Operation not permitted; the allowed rerun passed. Native source
+hashes match the pre-remediation snapshot. `git diff --check`: exit 0.
+
+Live attempts: 2 suite runs, 4 live test executions, 1 failed live test.
+Attempt 1, UTC 2026-09-30T13:38:05.732Z: liveTwoSessionsLifecycle passed
+(84.333s); bootstrapFetchPauseResume failed (47.201s) with
+`SOCKS CONNECT failed (code=5)`. Its cause remains unknown; the previously
+recorded symptom recurred and was not fixed or reclassified in this pass.
+One permitted retry, UTC 2026-09-30T13:43:37.294Z: both passed
+(44.186s and 48.660s respectively). Both attempts' XML/logs are retained;
+the successful retry does not erase the initial failure.
+
+Android runtime: NOT VERIFIED; allowed `adb devices` returned no attached
+devices. Android test assembly is build evidence only. Existing Kotlin/Gradle
+deprecation warnings were observed and left outside this scope.
+
+Evidence is retained under `/private/tmp/artitor-a01/`: red.log/red-xml,
+targeted.log/targeted-xml, mutation.log/mutation-xml, native.log and
+native-unsandboxed.log, platform.log/platform-attempt1-xml,
+platform-attempt2.log/platform-attempt2-xml. A focused read-only code reviewer
+found no actionable issues in the final two-file code/test diff.
+
+Remaining non-blocking follow-ups: Android hardware runtime; Phase-5 FD/memory/
+task/cap measurements; N03 revision exhaustion horizon; historical intermittent
+CONNECT code5 investigation (cause unknown). No Phase 2 work was begun.
+
+Confidence: HIGH for deterministic terminal-history repair and mutation
+sensitivity. This implementation evidence does not declare Phase 1 PASS.
+
+**A01 REMEDIATION IMPLEMENTED — READY FOR FINAL INDEPENDENT RECHECK**
