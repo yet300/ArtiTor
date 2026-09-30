@@ -358,6 +358,8 @@ struct SessionRuntime {
     /// Live state: only `Active` or `Paused` is stored. Terminal states are
     /// published then recorded in [`Shared::tombstones`], never stored here.
     state: SessionState,
+    /// Internal u64 monotonic ordering token; exhaustion is outside a realistic
+    /// process lifetime, not API. N03 overflow policy remains a LOW follow-up.
     status_revision: u64,
     /// Actual bound loopback port when `Active`; `None` when `Paused`.
     port: Option<u16>,
@@ -403,7 +405,11 @@ struct Shared {
     /// No callbacks or await while held.
     transition_gate: Mutex<()>,
     client_epoch: AtomicU64,
+    /// Cancels stale bootstrap/root-listener workers; distinct from publications.
     worker_revision: AtomicU64,
+    /// Lifecycle publication freshness across callback re-entry. Advanced only
+    /// under transition_gate, including replacement/cancellation transactions.
+    engine_publication_revision: AtomicU64,
     client: Mutex<Option<Arc<TorClient<PreferredRuntime>>>>,
     listener: Mutex<Option<Arc<dyn StatusListener>>>,
     /// Actual bound SOCKS port (0 = not listening).
@@ -451,6 +457,7 @@ impl Shared {
             transition_gate: Mutex::new(()),
             client_epoch: AtomicU64::new(1),
             worker_revision: AtomicU64::new(1),
+            engine_publication_revision: AtomicU64::new(1),
             client: Mutex::new(None),
             listener: Mutex::new(None),
             bound_port: AtomicU16::new(0),
@@ -486,6 +493,19 @@ impl Shared {
         *self.engine_state.lock().unwrap()
     }
 
+    /// Caller holds transition_gate. Checked arithmetic never wraps into an
+    /// older publication token (exhaustion is outside a realistic lifetime).
+    fn advance_engine_publication_under_gate(&self) -> u64 {
+        self.engine_publication_revision
+            .fetch_update(Ordering::SeqCst, Ordering::SeqCst, |r| r.checked_add(1))
+            .expect("engine publication revision exhausted")
+            + 1
+    }
+
+    fn publication_is_current(&self, revision: u64) -> bool {
+        self.engine_publication_revision.load(Ordering::SeqCst) == revision
+    }
+
     fn report_worker(
         &self,
         revision: u64,
@@ -494,7 +514,7 @@ impl Shared {
         port: Option<u16>,
         summary: impl Into<String>,
     ) -> bool {
-        {
+        let publication = {
             let _transition = self.transition_gate.lock().unwrap();
             if self.worker_revision.load(Ordering::SeqCst) != revision {
                 return false;
@@ -503,11 +523,15 @@ impl Shared {
             if let Some(p) = port {
                 self.bound_port.store(p, Ordering::SeqCst);
             }
+            self.advance_engine_publication_under_gate()
+        };
+        if !self.publication_is_current(publication) {
+            return false;
         }
         if let Some(l) = self.listener() {
             l.on_status(state, pct, port, summary.into());
         }
-        true
+        self.publication_is_current(publication)
     }
 
     fn client(&self) -> Option<Arc<TorClient<PreferredRuntime>>> {
@@ -521,6 +545,7 @@ impl Shared {
     }
 
     fn set_client_under_gate(&self, c: Option<Arc<TorClient<PreferredRuntime>>>) {
+        self.advance_engine_publication_under_gate();
         self.client_epoch.fetch_add(1, Ordering::SeqCst);
         *self.client.lock().unwrap() = c;
     }
@@ -568,7 +593,7 @@ impl Shared {
     }
 
     fn notify_worker_error(&self, expected: Option<u64>, error: &ArtiError, bootstrap_pct: u32) {
-        let (pending, listener) = {
+        let (pending, listener, publication) = {
             let _transition = self.transition_gate.lock().unwrap();
             if expected.is_some_and(|rev| self.worker_revision.load(Ordering::SeqCst) != rev) {
                 return;
@@ -579,22 +604,39 @@ impl Shared {
             self.signal_socks_shutdown();
             self.abort_connections();
             (
-                self.demote_sessions_to_paused("engine error"),
+                self.demote_sessions_to_paused(false),
                 self.listener(),
+                self.advance_engine_publication_under_gate(),
             )
         };
         for n in pending {
+            if !self.publication_is_current(publication) {
+                return;
+            }
             n.listener
                 .on_session_status(n.id, n.state, n.port, n.revision);
+            if !self.publication_is_current(publication) {
+                return;
+            }
+        }
+        if !self.publication_is_current(publication) {
+            return;
         }
         if let Some(l) = listener {
             l.on_error(ArtiErrorDetail::from(error));
+            // Foreign callbacks may complete a newer lifecycle transaction.
+            if !self.publication_is_current(publication) {
+                return;
+            }
             l.on_status(
                 TorState::Error,
                 bootstrap_pct,
                 None,
                 format!("error: {error}"),
             );
+            if !self.publication_is_current(publication) {
+                return;
+            }
             l.on_log(format!("ERROR: {error}"));
         }
     }
@@ -602,20 +644,26 @@ impl Shared {
     /// Freeze every live session to `Paused` (endpoint null), aborting its
     /// listener and tracked connections but retaining its isolated client
     /// (isolation identity preserved). Publishes only genuine `Active → Paused`
-    /// transitions. No-op when the registry is empty.
+    /// transitions normally. A pause superseding ERROR replays current PAUSED
+    /// snapshots: ERROR may have committed them without completing callbacks.
+    /// Duplicate revisions are idempotent at the Kotlin acceptance fence.
+    /// No-op when the registry is empty.
     ///
     /// Returns typed pending notifications for the caller to dispatch after
     /// releasing all locks (callback re-entry safety). Does NOT invoke any
     /// FFI callbacks itself.
-    fn demote_sessions_to_paused(&self, _reason: &str) -> Vec<PendingSessionNotification> {
+    fn demote_sessions_to_paused(&self, replay_paused: bool) -> Vec<PendingSessionNotification> {
         let mut sessions = self.sessions.lock().unwrap();
         let mut out = Vec::new();
         for (id, entry) in sessions.iter_mut() {
             entry.abort_all();
-            if entry.state == SessionState::Active {
-                entry.state = SessionState::Paused;
-                entry.port = None;
+            let changed = entry.state == SessionState::Active;
+            entry.state = SessionState::Paused;
+            entry.port = None;
+            if changed {
                 entry.status_revision += 1;
+            }
+            if changed || replay_paused {
                 if let Some(l) = entry.status_listener.clone() {
                     out.push(PendingSessionNotification {
                         id: id.clone(),
@@ -625,9 +673,6 @@ impl Shared {
                         revision: entry.status_revision,
                     });
                 }
-            } else {
-                entry.state = SessionState::Paused;
-                entry.port = None;
             }
         }
         out
@@ -1191,10 +1236,11 @@ impl ArtiTor {
     /// All live SOCKS streams are terminated (fail-closed Tor OFF); new
     /// connections are no longer accepted.
     pub fn pause(&self) {
-        let outcome = {
+        let (outcome, shared, publication) = {
             let mut inner = self.inner.lock().unwrap();
             let shared = inner.shared.clone();
             let _transition = shared.transition_gate.lock().unwrap();
+            shared.advance_engine_publication_under_gate();
             shared.worker_revision.fetch_add(1, Ordering::SeqCst);
             inner.shared.signal_socks_shutdown();
             inner.shared.bound_port.store(0, Ordering::SeqCst);
@@ -1202,10 +1248,12 @@ impl ArtiTor {
             if let Some(w) = inner.worker.take() {
                 w.abort();
             }
-            if inner.shared.bootstrap_done.load(Ordering::SeqCst) && inner.shared.client().is_some()
+            let outcome = if inner.shared.bootstrap_done.load(Ordering::SeqCst)
+                && inner.shared.client().is_some()
             {
+                let superseding_error = shared.engine_state() == TorState::Error;
                 *inner.shared.engine_state.lock().unwrap() = TorState::Paused;
-                let sessions = inner.shared.demote_sessions_to_paused("engine pause");
+                let sessions = inner.shared.demote_sessions_to_paused(superseding_error);
                 let listener = inner.shared.listener();
                 PauseOutcome::Paused { sessions, listener }
             } else {
@@ -1216,26 +1264,58 @@ impl ArtiTor {
                 *inner.shared.engine_state.lock().unwrap() = TorState::Off;
                 let listener = inner.shared.listener();
                 PauseOutcome::CancelledBootstrap { sessions, listener }
-            }
+            };
+            let publication = shared.engine_publication_revision.load(Ordering::SeqCst);
+            (outcome, shared.clone(), publication)
         };
         match outcome {
             PauseOutcome::Paused { sessions, listener } => {
                 for n in sessions {
+                    // A newer engine publication does not supersede a still-
+                    // current session revision. Finish its committed delivery.
+                    if shared
+                        .session_snapshot_for(&n.id, shared.generation)
+                        .revision
+                        != n.revision
+                    {
+                        continue;
+                    }
                     n.listener
                         .on_session_status(n.id, n.state, n.port, n.revision);
                 }
+                if !shared.publication_is_current(publication) {
+                    return;
+                }
                 if let Some(l) = listener {
                     l.on_status(TorState::Paused, 100, None, "paused".into());
+                    if !shared.publication_is_current(publication) {
+                        return;
+                    }
                     l.on_log("SOCKS paused; TorClient retained".into());
                 }
             }
             PauseOutcome::CancelledBootstrap { sessions, listener } => {
                 for n in sessions {
+                    // A newer engine publication does not supersede a still-
+                    // current session revision. Finish its committed delivery.
+                    if shared
+                        .session_snapshot_for(&n.id, shared.generation)
+                        .revision
+                        != n.revision
+                    {
+                        continue;
+                    }
                     n.listener
                         .on_session_status(n.id, n.state, n.port, n.revision);
                 }
+                if !shared.publication_is_current(publication) {
+                    return;
+                }
                 if let Some(l) = listener {
                     l.on_status(TorState::Off, 0, None, "bootstrap cancelled".into());
+                    if !shared.publication_is_current(publication) {
+                        return;
+                    }
                     l.on_log("bootstrap cancelled by pause; client discarded".into());
                 }
             }
@@ -1247,10 +1327,11 @@ impl ArtiTor {
     /// Postcondition: OFF, no client, no SOCKS listener, no worker, runtime
     /// released. All live SOCKS streams are terminated. Idempotent.
     pub fn shutdown(&self) {
-        let (session_pending, old_listener) = {
+        let (session_pending, old_listener, current_shared) = {
             let mut inner = self.inner.lock().unwrap();
             let shared = inner.shared.clone();
             let _transition = shared.transition_gate.lock().unwrap();
+            shared.advance_engine_publication_under_gate();
             shared.worker_revision.fetch_add(1, Ordering::SeqCst);
             *shared.engine_state.lock().unwrap() = TorState::Off;
             let session_pending = inner.shared.invalidate_all_sessions();
@@ -1275,11 +1356,18 @@ impl ArtiTor {
                     *sink = None;
                 }
             }
-            (session_pending, old_listener)
+            (session_pending, old_listener, inner.shared.clone())
         };
+        // The replacement Shared is OFF at revision 1. Any reentrant start,
+        // pause or shutdown advances this fence before the old OFF is sent.
         for n in session_pending {
+            // Terminal invalidations stay authoritative across a new lifecycle;
+            // don't strand sibling observers when a callback restarts the engine.
             n.listener
                 .on_session_status(n.id, n.state, n.port, n.revision);
+        }
+        if !current_shared.publication_is_current(1) {
+            return;
         }
         if let Some(l) = old_listener {
             l.on_status(TorState::Off, 0, None, String::new());
@@ -1619,6 +1707,7 @@ fn spawn_socks(inner: &mut Inner, socks_port: u16) -> Result<RootBindReady, Arti
     let client = inner.shared.client().ok_or(ArtiError::NotRunning)?;
     let shared = inner.shared.clone();
     let (ready_tx, ready_rx) = oneshot::channel();
+    shared.advance_engine_publication_under_gate();
     let revision = shared.worker_revision.fetch_add(1, Ordering::SeqCst) + 1;
     let task = runtime.spawn(async move {
         if let Err(e) =
@@ -1652,6 +1741,7 @@ async fn wait_root_then_rebind_sessions(
 /// Spawn a cold bootstrap + SOCKS task on the owned runtime, creating the
 /// runtime on first use. The task reports typed failures via `on_error`.
 fn spawn_cold(inner: &mut Inner, config: ArtiConfig) -> Result<(), ArtiError> {
+    inner.shared.advance_engine_publication_under_gate();
     #[cfg(test)]
     if inner.test_spawn_cold_failure {
         return Err(ArtiError::Runtime {
@@ -1672,6 +1762,7 @@ fn spawn_cold(inner: &mut Inner, config: ArtiConfig) -> Result<(), ArtiError> {
     shared.set_client_under_gate(None);
     shared.bound_port.store(0, Ordering::SeqCst);
 
+    shared.advance_engine_publication_under_gate();
     let revision = shared.worker_revision.fetch_add(1, Ordering::SeqCst) + 1;
     let task = runtime.spawn(async move {
         if let Err(e) = cold_start(config, shared.clone(), revision).await {
@@ -1853,7 +1944,7 @@ async fn run_socks_worker(
     if let Some(l) = shared.listener() {
         l.on_log(format!("SOCKS listening on 127.0.0.1:{actual_port}"));
     }
-    let mut shutdown_rx = {
+    let (mut shutdown_rx, publication) = {
         let _transition = shared.transition_gate.lock().unwrap();
         if shared.worker_revision.load(Ordering::SeqCst) != revision {
             return Ok(());
@@ -1861,8 +1952,11 @@ async fn run_socks_worker(
         let rx = shared.install_socks_shutdown();
         *shared.engine_state.lock().unwrap() = TorState::Running;
         shared.bound_port.store(actual_port, Ordering::SeqCst);
-        rx
+        (rx, shared.advance_engine_publication_under_gate())
     };
+    if !shared.publication_is_current(publication) {
+        return Ok(());
+    }
     if let Some(l) = shared.listener() {
         l.on_status(
             TorState::Running,
@@ -1870,6 +1964,10 @@ async fn run_socks_worker(
             Some(actual_port),
             "proxy ready".into(),
         );
+    }
+
+    if !shared.publication_is_current(publication) {
+        return Ok(());
     }
 
     // Signal that root bind succeeded; session rebinds may now begin.
@@ -3458,6 +3556,205 @@ mod tests {
             vec![TorState::Off]
         );
         assert_eq!(session.status_snapshot().state, SessionState::Invalidated);
+    }
+
+    #[derive(Clone, Copy)]
+    enum ErrorReentry {
+        None,
+        ErrorShutdown,
+        SessionShutdown,
+        SessionPause,
+        ErrorPause,
+    }
+
+    struct ErrorFreshnessListener {
+        engine: Weak<ArtiTor>,
+        action: ErrorReentry,
+        events: Arc<StdMutex<Vec<String>>>,
+    }
+
+    impl StatusListener for ErrorFreshnessListener {
+        fn on_status(&self, state: TorState, _: u32, _: Option<u16>, _: String) {
+            self.events.lock().unwrap().push(format!("{state:?}"));
+        }
+        fn on_log(&self, _: String) {}
+        fn on_error(&self, _: ArtiErrorDetail) {
+            self.events.lock().unwrap().push("typed error".into());
+            let engine = self.engine.upgrade().unwrap();
+            match self.action {
+                ErrorReentry::ErrorShutdown => engine.shutdown(),
+                ErrorReentry::ErrorPause => engine.pause(),
+                _ => {}
+            }
+        }
+    }
+
+    impl SessionStatusListener for ErrorFreshnessListener {
+        fn on_session_status(&self, _: String, state: SessionState, _: Option<u16>, _: u64) {
+            self.events
+                .lock()
+                .unwrap()
+                .push(format!("session {state:?}"));
+            if state == SessionState::Paused {
+                let engine = self.engine.upgrade().unwrap();
+                match self.action {
+                    ErrorReentry::SessionShutdown => engine.shutdown(),
+                    ErrorReentry::SessionPause
+                        if engine.inner.lock().unwrap().shared.engine_state()
+                            == TorState::Error =>
+                    {
+                        engine.pause()
+                    }
+                    _ => {}
+                }
+            }
+        }
+    }
+
+    fn assert_error_publication_freshness(
+        action: ErrorReentry,
+        expected: Vec<&str>,
+        final_state: TorState,
+    ) {
+        let (engine, _) = running_engine("error-publication-freshness");
+        let events = Arc::new(StdMutex::new(vec![]));
+        let make_listener = || ErrorFreshnessListener {
+            engine: Arc::downgrade(&engine),
+            action,
+            events: events.clone(),
+        };
+        let session = engine.create_session(Box::new(make_listener())).unwrap();
+        let shared = engine.inner.lock().unwrap().shared.clone();
+        shared.set_listener(Arc::new(make_listener()));
+        events.lock().unwrap().clear();
+        let worker = shared.worker_revision.load(Ordering::SeqCst);
+        shared.notify_worker_error(
+            Some(worker),
+            &ArtiError::Runtime {
+                msg: "injected".into(),
+            },
+            100,
+        );
+        let got = events.lock().unwrap().clone();
+        assert_eq!(
+            got, expected,
+            "no stale ERROR after a newer callback lifecycle: {got:?}"
+        );
+        assert_eq!(
+            engine.inner.lock().unwrap().shared.engine_state(),
+            final_state
+        );
+        if final_state == TorState::Off {
+            assert!(!engine.has_client());
+            assert_eq!(session.status_snapshot().state, SessionState::Invalidated);
+            assert_eq!(got.last().unwrap(), "Off");
+            let off = got.iter().position(|e| e == "Off").unwrap();
+            assert!(!got[off + 1..].iter().any(|e| e == "Error"));
+        } else {
+            assert_eq!(session.status_snapshot().state, SessionState::Paused);
+            assert_eq!(session.status_snapshot().port, None);
+            engine.shutdown();
+        }
+    }
+
+    #[test]
+    fn error_session_callback_pause_notifies_all_demoted_siblings() {
+        let (engine, _) = running_engine("error-session-pause-siblings");
+        let events = Arc::new(StdMutex::new(vec![]));
+        let listener = || ErrorFreshnessListener {
+            engine: Arc::downgrade(&engine),
+            action: ErrorReentry::SessionPause,
+            events: events.clone(),
+        };
+        let recorder = SessionRecorder::new();
+        let first = engine.create_session(Box::new(listener())).unwrap();
+        let second = engine.create_session(Box::new(recorder.clone())).unwrap();
+        let shared = engine.inner.lock().unwrap().shared.clone();
+        // Choose whichever hash-map entry publishes first, deterministically.
+        let first_id = shared
+            .sessions
+            .lock()
+            .unwrap()
+            .keys()
+            .next()
+            .unwrap()
+            .clone();
+        {
+            let mut sessions = shared.sessions.lock().unwrap();
+            for (id, entry) in sessions.iter_mut() {
+                entry.status_listener = if id == &first_id {
+                    Some(Arc::new(listener()))
+                } else {
+                    Some(Arc::new(recorder.clone()))
+                };
+            }
+        }
+        shared.set_listener(Arc::new(listener()));
+        shared.notify_worker_error(
+            Some(shared.worker_revision.load(Ordering::SeqCst)),
+            &ArtiError::Runtime {
+                msg: "injected".into(),
+            },
+            100,
+        );
+        let sibling = if first.id() == first_id {
+            second.id()
+        } else {
+            first.id()
+        };
+        assert_eq!(
+            recorder.last_for(&sibling),
+            Some((SessionState::Paused, None)),
+            "new pause must deliver demotions cancelled by the ERROR transaction"
+        );
+        assert_eq!(shared.engine_state(), TorState::Paused);
+        assert!(!events
+            .lock()
+            .unwrap()
+            .iter()
+            .any(|e| e == "typed error" || e == "Error"));
+        engine.shutdown();
+    }
+
+    #[test]
+    fn error_callback_shutdown_publication_finishes_off() {
+        assert_error_publication_freshness(
+            ErrorReentry::ErrorShutdown,
+            vec![
+                "session Paused",
+                "typed error",
+                "session Invalidated",
+                "Off",
+            ],
+            TorState::Off,
+        );
+    }
+
+    #[test]
+    fn error_session_callback_shutdown_suppresses_remaining_error_publications() {
+        assert_error_publication_freshness(
+            ErrorReentry::SessionShutdown,
+            vec!["session Paused", "session Invalidated", "Off"],
+            TorState::Off,
+        );
+    }
+
+    #[test]
+    fn error_callback_pause_publication_finishes_paused() {
+        assert_error_publication_freshness(
+            ErrorReentry::ErrorPause,
+            vec!["session Paused", "typed error", "session Paused", "Paused"],
+            TorState::Paused,
+        );
+    }
+
+    #[test]
+    fn error_normal_publication_keeps_demotion_typed_error_status_order() {
+        assert_error_publication_freshness(
+            ErrorReentry::None,
+            vec!["session Paused", "typed error", "Error"],
+            TorState::Error,
+        );
     }
 
     #[test]

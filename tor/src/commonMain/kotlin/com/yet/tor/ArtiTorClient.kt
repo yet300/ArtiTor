@@ -4,12 +4,7 @@ import com.yet.tor.ffi.SessionState
 import com.yet.tor.ffi.SessionStatusListener
 import com.yet.tor.ffi.SocksSession
 import com.yet.tor.ffi.StatusListener
-import kotlinx.coroutines.ExperimentalForInheritanceCoroutinesApi
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -215,21 +210,11 @@ private class TorIsolationSessionImpl(
     private val client: ArtiTorClient,
     initialStatus: RevisionedSessionStatus,
 ) : TorIsolationSession {
-    // State + revision are accepted in one CAS. Projecting this flow avoids a
-    // second publication racing a newer callback after its revision was accepted.
+    // Keep the revision fence internal; the public surface uses supported StateFlow.
     private val accepted = MutableStateFlow(initialStatus)
+    private val publicStatus = MutableStateFlow(initialStatus.status)
     override val id: String = nativeSession.id()
-    @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
-    override val status: StateFlow<TorIsolationSessionStatus> = object : StateFlow<TorIsolationSessionStatus> {
-        override val value: TorIsolationSessionStatus get() = accepted.value.status
-        override val replayCache: List<TorIsolationSessionStatus> get() = listOf(value)
-
-        @OptIn(InternalCoroutinesApi::class)
-        override suspend fun collect(collector: FlowCollector<TorIsolationSessionStatus>): Nothing {
-            accepted.map { it.status }.distinctUntilChanged().collect(collector)
-            error("session StateFlow collection completed")
-        }
-    }
+    override val status: StateFlow<TorIsolationSessionStatus> = publicStatus.asStateFlow()
     override val isClosed: Boolean
         get() = status.value.state == TorIsolationSessionState.CLOSED
 
@@ -242,7 +227,20 @@ private class TorIsolationSessionImpl(
             if (current.status.state.isTerminal || incoming.revision <= current.revision) current
             else incoming
         }
+        publishLatestAccepted()
     }
+
+    private fun publishLatestAccepted() {
+        // Assignment can synchronously resume a collector that re-enters the
+        // facade. Never hold a lock or publish the caller's incoming record.
+        // Converge before returning even when a nested/concurrent accept wins.
+        while (true) {
+            val latest = accepted.value
+            publicStatus.value = latest.status
+            if (accepted.value == latest) return
+        }
+    }
+
 }
 
 private data class SessionRegistry(

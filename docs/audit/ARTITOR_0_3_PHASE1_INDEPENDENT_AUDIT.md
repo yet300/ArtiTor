@@ -588,3 +588,26 @@ new safe diagnostics omit target/upstream display text. Android hardware runtime
 and Phase-5 resource measurements remain release gates. No Phase 2 work began.
 
 **REMEDIATION IMPLEMENTED — READY FOR INDEPENDENT RE-AUDIT**
+
+
+### Final narrow remediation addendum — 2026-09-30 (implementer)
+
+The independent reviewer's findings and REMEDIATION REQUIRED verdict above
+are preserved verbatim. N01/N02 now use supported MutableStateFlow/asStateFlow
+with internal revision convergence; N04 now fences lifecycle publication after
+foreign callback reentry using a dedicated engine publication revision; F10's
+§9 port-preservation/root-only claims have been replaced with the accepted
+normal listener pause/rebind and ephemeral-session-endpoint contract.
+
+Permanent subscription/replay/cancellation/equal-state revision/nested-CAS
+regressions and production ERROR callback/session-callback shutdown, legal
+pause, and ordinary-order tests were added. Disposable mutations reproduce
+subscription action count 0, stale ACTIVE resurrection, and OFF→ERROR.
+Restored matrix: native 75/75 default and serial; simulator 72/72 including
+both live tests (two recorded attempts); iOS device compilation and Android device-test
+assembly exit 0. Android hardware runtime remains unverified (no device).
+N03, empirical resource/cap measurements, and historical unexplained CONNECT
+code5 monitoring remain non-blocking follow-ups. Full attempt/failure/mutation
+evidence and counter roles are in the implementation report's
+“Final Acceptance Remediation” section. No Phase 2 work began. This addendum
+records implementation evidence only, not independent acceptance or Phase 1 PASS.

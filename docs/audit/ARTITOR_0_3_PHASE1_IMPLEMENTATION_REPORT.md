@@ -270,3 +270,178 @@ listed mutation evidence; **unknown** for the earlier intermittent live root
 failure's cause and unexecuted device/resource follow-ups.
 
 **REMEDIATION IMPLEMENTED — READY FOR INDEPENDENT RE-AUDIT**
+
+
+## Final Acceptance Remediation — 2026-09-30
+
+Scope: N01/N02, N04, and F10 only. Isolation architecture and the public API
+are unchanged; no Phase 2 work was started. This is implementation evidence,
+not a Phase-1 acceptance verdict.
+
+**N01/N02.** Removed custom `StateFlow` inheritance and its
+`ExperimentalForInheritanceCoroutinesApi`, `InternalCoroutinesApi`, and
+`FlowCollector` imports. Session `status` is now a real
+`MutableStateFlow(initialStatus.status).asStateFlow()`. A separate internal
+`MutableStateFlow<RevisionedSessionStatus>` accepts strictly newer revisions
+and permanently latches terminal states. Every publisher reads the currently
+accepted record, assigns its public status, and repeats if acceptance changed
+during publication. It never publishes its own rejected/stale incoming record.
+There is no custom publication lock, `runBlocking`, `stateIn`, or asynchronous
+projection in production. Publication converges synchronously before callback
+return, including a collector re-entering pause/close inside a registry CAS.
+
+Permanent tests cover subscription action execution (with a direct
+MutableStateFlow control), replay/value, cancellation, same-status revision
+fencing without duplicate emission, delayed revisions, nested collector-close
+with registry CAS retry, and ACTIVE-collector-pause with no resurrection.
+Both reentrant session tests assert final membership and pending count zero.
+
+**N04.** Added a separate internal `engine_publication_revision`, advanced
+under the existing transition gate with lifecycle mutation: worker status
+reports (including STARTING/BOOTSTRAPPING), RUNNING root bind, ERROR,
+pause/bootstrap cancellation, shutdown, cold/recovery spawn, root replacement,
+and SOCKS recovery spawn. Coarser increments on client replacement also cover
+synchronous failed-replacement attempts. ERROR captures its revision after
+committing engine ERROR, root endpoint removal, and session demotion. It checks
+freshness before and after every session callback, after typed `on_error`, and
+after ERROR status before logging. A callback that completes a newer lifecycle
+operation stops the old publication. No transition/inner lock is held across
+these callbacks. Pause, shutdown OFF, worker status and root-ready engine publication
+also use freshness checks at their callback boundaries. Committed session
+notifications are separate: pause delivers still-current session revisions even
+if its engine publication was superseded; shutdown always finishes permanent
+terminal invalidations. When pause supersedes ERROR, it replays current PAUSED
+snapshots at the same revisions, because ERROR can have committed sibling
+demotions without finishing callbacks. Kotlin equality/revision fences make
+these snapshots idempotent, so no duplicate public state emission is required.
+
+The counter is monotonic within its owning Shared lifetime. Shutdown advances
+the old Shared's fence before replacing it; outstanding transactions compare
+against that same old Shared and cannot mistake the replacement's initial
+revision for their own. Shutdown's pending OFF publication checks the new
+Shared's initial OFF fence so reentrant recovery supersedes it. Checked
+arithmetic on this new counter cannot wrap into an older token.
+
+Permanent native regressions invoke production `notify_worker_error` with the
+current worker revision on the running-engine/session harness. Required exact
+histories pass:
+
+- typed callback shutdown: session PAUSED → typed error → session INVALIDATED → OFF;
+- session PAUSED callback shutdown: session PAUSED → session INVALIDATED → OFF,
+  with no later typed error or ERROR;
+- typed callback legal pause: session PAUSED → typed error → current session PAUSED snapshot → engine PAUSED;
+- ordinary error: session PAUSED/null → typed error → ERROR.
+
+Shutdown regressions assert final native OFF, no client, INVALIDATED old
+session, last observer OFF and no ERROR after OFF. A separate scripted-native
+Kotlin test exercises the actual facade's typed callback assignment with a
+synchronous Unconfined collector shutdown: final public OFF, lastError null,
+no client, INVALIDATED session, empty membership, pending zero. Native
+freshness is established by the Rust production-route regressions; the Kotlin
+fake is evidence of facade reentry/clearing behavior, not a native guard model.
+
+**Separate internal counters (none is public API).**
+
+| Counter | Purpose |
+|---|---|
+| generation | Shared/session lifetime across shutdown and subsequent cold restart |
+| client_epoch | Root TorClient identity/replacement admission fence |
+| session status_revision | Per-session u64 monotonic status ordering token |
+| engine_publication_revision | Engine lifecycle publication freshness across callback reentry |
+| worker_revision | Cancellation/admission fence for bootstrap and root-listener workers |
+
+Session revision arithmetic is unchanged. Its u64 exhaustion is outside a
+realistic process lifetime and is not API. N03 remains LOW/non-blocking;
+this pass does not introduce a session-overflow policy or wraparound change.
+
+A final scoped code review identified the missing two-session schedule:
+the first ERROR PAUSED callback re-enters pause, while a sibling demotion was
+already committed but not yet delivered. A permanent deterministic regression
+first failed with the sibling still ACTIVE/old endpoint. ERROR→pause snapshot
+replay fixes it without continuing the stale ERROR transaction. The targeted
+native error suite then passed 12/12. The reviewer rechecked the correction and
+reported no further concrete scoped defect (source review only, moderate
+confidence; no independent acceptance verdict).
+
+**F10.** Searched the entire normative API freeze and replaced both conflicting
+§9 statements. A root socksPort-only change preserves the bootstrapped
+TorClient and session isolation identities, with no Tor re-bootstrap, but runs
+the normal root/session listener pause/rebind lifecycle. Additional endpoints
+remain ephemeral and can change ports without a collision. Applications MUST
+observe session.status and rebuild proxy-bound clients when endpoints change;
+root socksPort never selects additional-session ports.
+
+### Verification and every failed/pre-fix attempt
+
+All commands below used the required `rtk` prefix. Permitted runs use the
+normal repository sources/build routing; no test-source redirection init
+script was installed. Complete command output/XML is retained under
+`/private/tmp/artitor-final-*` for this session.
+
+| Command / attempt | Exact result |
+|---|---|
+| Initial sandbox native single shutdown regression | exit 101, 0 passed/1 failed: harness loopback bind permission denied |
+| Sandboxed native `error_ -- --nocapture` | exit 101, 2 passed/9 failed: loopback bind permission denied |
+| Permitted pre-fix native `error_ -- --nocapture` | exit 101, 8 passed/3 failed: typed shutdown, session shutdown, typed pause leave stale ERROR; ordinary order passes |
+| Initial sandbox targeted Gradle attempt | exit 1: wrapper lock write denied; no tests/live attempt executed |
+| Permitted pre-fix session simulator class | exit 1: 25 tests, 24 passed/1 failed; onSubscription expected 1, actual 0 |
+| Permitted post-fix native `error_` | exit 0: 11 passed, 0 failed |
+| Permitted post-fix session simulator class | exit 0: 25 tests, 0 failures/errors/skips (before the final facade test was added) |
+| Initial full native default and serial runs, before sibling correction | both exit 0: 74 passed, 0 failed; doc tests 0 |
+| `cargo test --manifest-path rust/arti-kmp-ffi/Cargo.toml` final | exit 0: 75 passed, 0 failed; doc tests 0 |
+| `cargo test --manifest-path rust/arti-kmp-ffi/Cargo.toml -- --test-threads=1` final | exit 0: 75 passed, 0 failed; doc tests 0 |
+| `./gradlew :tor:iosSimulatorArm64Test --console=plain` | exit 0: BUILD SUCCESSFUL 1m46s; XML 72 tests, 0 failures/errors/skips (26 session, 24 lifecycle, 8 config, 6 error, 6 invariant, 2 live) |
+| `./gradlew :tor:compileKotlinIosArm64 :tor:assembleAndroidDeviceTest --console=plain` | exit 0: BUILD SUCCESSFUL 31s; both requested tasks completed |
+| Two-session ERROR callback→pause regression pre-correction | exit 101, 0 passed/1 failed: sibling observer ACTIVE rather than PAUSED/null |
+| Corrected targeted native `error_` | exit 0, 12 passed/0 failed |
+| Final combined simulator/iOS-device-compile/Android-assembly matrix | exit 0: BUILD SUCCESSFUL 2m21s; simulator XML 72 tests, 0 failures/errors/skips, both live tests pass; compileKotlinIosArm64 and assembleAndroidDeviceTest completed |
+| `git diff --check` | exit 0, no whitespace errors |
+| Android attachment checks | bare adb unavailable in PATH; SDK adb sandbox daemon bind denied; permitted SDK adb exit 0 with no attached devices |
+
+Two full live attempts ran in this pass: the second verifies the native sibling
+notification correction, not a retry of a live failure. No live failure was
+retried or hidden. First XML UTC start:
+2026-09-30T12:08:57.008Z (16:08:57.008 Asia/Tbilisi).
+`liveTwoSessionsLifecycle`: PASS, 43.159s;
+`bootstrapFetchPauseResume`: PASS, 35.954s; total live class 79.113s.
+Second XML UTC start: 2026-09-30T12:20:55.476Z
+(16:20:55.476 Asia/Tbilisi). liveTwoSessionsLifecycle: PASS, 39.153s;
+bootstrapFetchPauseResume: PASS, 49.931s; total live class 89.085s.
+Latest XML retained at /private/tmp/artitor-final-platform-latest-xml.
+Targeted pre-fix, green, and mutation simulator runs selected only the session
+class and ran no live tests. Pre-existing compiler/Gradle deprecation warnings
+were observed; no unrelated warning cleanup was attempted.
+
+### Disposable mutation evidence
+
+Each mutation was applied separately, run, and restored using a `finally`
+block. The full final matrix above ran after restoration.
+
+| Mutation | Exact result |
+|---|---|
+| A: restore HEAD's custom map/distinctUntilChanged StateFlow implementation | exit 1; subscription test 0 passed/1 failed, expected action count 1 versus actual 0 |
+| B: replace latest-accepted publication with publicStatus.value = incoming.status | exit 1; 25 tests, 20 passed/5 failed: delayedActiveAfterPausedIsRejectedByRevision; newerNativeSnapshotWinsOverEarlierPendingCallback; statusFlowProjectsRevisionChangesWithoutDuplicatePublicStatuses; latestReplayAndSameStateRevisionFence; activePublicationCollectorReentersPauseWithoutResurrection |
+| C: remove only freshness check immediately after on_error | exit 101; typed-shutdown regression 0 passed/1 failed; exact history session Paused → typed error → session Invalidated → Off → Error |
+
+Mutation B observed PAUSED→ACTIVE resurrection, extra equal-state emission,
+and reentrant sequence PAUSED→ACTIVE→PAUSED→ACTIVE→PAUSED. Mutation C reproduces
+the independent OFF→ERROR counterexample rather than a compile/harness error.
+It was rerun after the sibling correction: exit 101, the same 0/1 failure and
+exact Off→Error suffix; restored sources were used for the final matrix.
+Evidence: `/private/tmp/artitor-final-mutation-{A,B,C}.log`, A/B XML directories,
+and `/private/tmp/artitor-final-platform-xml` for the restored full matrix.
+
+**Unchanged non-blocking follow-ups:** N03 revision-exhaustion horizon;
+Android hardware runtime; Phase-5 empirical Android/iOS FD/memory/task/cap
+measurements; investigation/monitoring of historical unexplained CONNECT code5
+if it recurs. Its cause remains unknown; this live pass does not relabel it.
+Original F01–F09/F11–F14 fixes and Apple SQLite mitigation remain in place.
+Pre-existing reviewer audit edits and the untracked capability audit are
+preserved separately from the scoped remediation commit.
+
+Confidence: high for the recorded deterministic regressions and mutation
+counterexamples; unknown for unexecuted hardware/resource follow-ups and the
+historical intermittent live failure's cause. Final SHA is returned with the
+completion message; this section does not self-declare Phase 1 PASS.
+
+**FINAL REMEDIATION IMPLEMENTED — READY FOR INDEPENDENT ACCEPTANCE CHECK**

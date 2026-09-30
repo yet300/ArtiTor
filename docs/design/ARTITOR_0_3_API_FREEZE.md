@@ -500,7 +500,14 @@ Mapping rules (normative for Phase 3):
 ## 9. Config semantics (frozen)
 
 ```text
-socksPort-only change → listener rebind only (root; sessions keep ports unless colliding).
+socksPort-only change → normal listener pause/rebind lifecycle (root and live sessions).
+The bootstrapped TorClient and isolation-session identities are preserved, so
+no Tor re-bootstrap occurs. Additional-session endpoints are ephemeral and may
+receive new ports even without a collision: ACTIVE(old endpoint) → PAUSED(null)
+→ ACTIVE(new endpoint). There is no session-port stability guarantee.
+Applications MUST observe each session.status and rebuild proxy-bound network
+clients when the endpoint changes. The configured root socksPort never selects
+additional-session ports.
 Any other public ArtiConfig change → teardown + rebuild (new TorClient, new bootstrap,
     all sessions INVALIDATED, callers recreate).
 ```
@@ -509,7 +516,7 @@ Any other public ArtiConfig change → teardown + rebuild (new TorClient, new bo
   `bridges`, `bridgesEnabled`, `allowOnionAddrs`, `connectTimeout`,
   `resolveTimeout`. Compared exactly wholesale; non-empty→empty counts;
   never silently merged.
-- `socksPort`: root rebind only (existing 0.2 rule, unchanged).
+- `socksPort`: preserves TorClient and session identities; normal listener pause/rebind for root and live sessions, whose ephemeral ports may change.
 - Live `TorClient::reconfigure()`: NOT used in stable 0.3 for ANY section.
   The audit's 2-section whitelist is withdrawn: upstream's non-reconfigurable
   list is explicitly incompletely documented (arti#1721), and deterministic

@@ -19,6 +19,10 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -524,5 +528,154 @@ class ArtiTorSessionConcurrencyTest {
         s2.close()
         assertEquals(0, client.sessions.size)
         client.shutdown()
+    }
+    @Test
+    fun auditOnSubscriptionIsInvokedBeforeInitialReplay() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val session = ArtiTorClient(fake).createIsolationSession().getOrThrow()
+        var controlCalls = 0
+        kotlinx.coroutines.flow.MutableStateFlow(session.status.value)
+            .onSubscription { controlCalls++ }.first()
+        assertEquals(1, controlCalls, "supported implementation control")
+        var calls = 0
+        val initial = withTimeout(2000) { session.status.onSubscription { calls++ }.first() }
+        assertEquals(session.status.value, initial)
+        assertEquals(1, calls, "StateFlow onSubscription action must run before replay")
+    }
+
+    @Test
+    fun auditCollectorCancellationPropagates() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val session = ArtiTorClient(fake).createIsolationSession().getOrThrow()
+        var completed = false
+        val job = launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            try { session.status.collect { } } finally { completed = true }
+        }
+        assertTrue(job.isActive)
+        withTimeout(2000) { job.cancelAndJoin() }
+        assertTrue(completed)
+    }
+
+    @Test
+    fun auditNestedCollectorCanCloseWithoutDeadlock() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val client = ArtiTorClient(fake)
+        val session = client.createIsolationSession().getOrThrow()
+        val observed = mutableListOf<TorIsolationSessionState>()
+        val job = launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            session.status.collect {
+                observed += it.state
+                if (it.state == TorIsolationSessionState.PAUSED) session.close()
+            }
+        }
+        fake.sessionListener!!.onSessionStatus(session.id, SessionState.PAUSED, null, 2u)
+        assertEquals(TorIsolationSessionState.CLOSED, session.status.value.state)
+        assertTrue(client.sessions.isEmpty())
+        assertEquals(
+            listOf(TorIsolationSessionState.ACTIVE, TorIsolationSessionState.PAUSED, TorIsolationSessionState.CLOSED),
+            observed,
+        )
+        assertEquals(0, client.pendingSessionStatusCount)
+        fake.sessionListener!!.onSessionStatus(session.id, SessionState.PAUSED, null, 2u)
+        assertEquals(3, observed.size, "retry and stale publication must not duplicate transitions")
+        assertTrue(client.sessions.isEmpty())
+        withTimeout(2000) { job.cancelAndJoin() }
+    }
+
+    @Test
+    fun latestReplayAndSameStateRevisionFence() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val client = ArtiTorClient(fake)
+        val session = client.createIsolationSession().getOrThrow()
+        val values = mutableListOf<TorIsolationSessionStatus>()
+        val job = launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            session.status.collect { values += it }
+        }
+        val listener = fake.sessionListener!!
+        listener.onSessionStatus(session.id, SessionState.ACTIVE, 20001u, 5u)
+        listener.onSessionStatus(session.id, SessionState.PAUSED, null, 4u)
+        assertEquals(1, values.size)
+        assertEquals(TorIsolationSessionState.ACTIVE, session.status.value.state)
+        listener.onSessionStatus(session.id, SessionState.PAUSED, null, 6u)
+        assertEquals(session.status.value, session.status.first())
+        assertEquals(session.status.value, session.status.replayCache.single())
+        assertEquals(listOf(session), client.sessions)
+        assertEquals(0, client.pendingSessionStatusCount)
+        job.cancelAndJoin()
+    }
+
+    @Test
+    fun activePublicationCollectorReentersPauseWithoutResurrection() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        val client = ArtiTorClient(fake)
+        val session = client.createIsolationSession().getOrThrow()
+        val listener = fake.sessionListener!!
+        listener.onSessionStatus(session.id, SessionState.PAUSED, null, 2u)
+        fake.pauseBehavior = {
+            fake.sessions[session.id] = SessionStatusFfi(SessionState.PAUSED, null, 4u)
+            listener.onSessionStatus(session.id, SessionState.PAUSED, null, 4u)
+        }
+        val values = mutableListOf<TorIsolationSessionState>()
+        val job = launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            session.status.collect {
+                values += it.state
+                if (it.state == TorIsolationSessionState.ACTIVE) client.pause()
+            }
+        }
+        listener.onSessionStatus(session.id, SessionState.ACTIVE, 21001u, 3u)
+        listener.onSessionStatus(session.id, SessionState.ACTIVE, 21001u, 3u)
+        assertEquals(TorIsolationSessionState.PAUSED, session.status.value.state)
+        assertEquals(listOf(TorIsolationSessionState.PAUSED, TorIsolationSessionState.ACTIVE, TorIsolationSessionState.PAUSED), values)
+        assertEquals(listOf(session), client.sessions)
+        assertEquals(0, client.pendingSessionStatusCount)
+        job.cancelAndJoin()
+    }
+    @Test
+    fun typedErrorCollectorShutdownFinishesFacadeOffWithNoLastError() = runBlocking<Unit> {
+        val fake = FakeSessionNative(this)
+        var engineListener: StatusListener? = null
+        fake.startBehavior = { _, listener ->
+            engineListener = listener
+            fake.hasClientValue = true
+            fake.readyPort = 19050
+            listener.onStatus(FfiTorState.RUNNING, 100u, 19050u, "ready")
+        }
+        fake.createSessionBehavior = { createActiveSession(fake, it) }
+        fake.shutdownBehavior = {
+            fake.hasClientValue = false
+            fake.readyPort = null
+            for (id in fake.sessions.keys.toList()) {
+                fake.sessionListener!!.onSessionStatus(id, SessionState.INVALIDATED, null, 3u)
+            }
+            fake.sessions.clear()
+            engineListener!!.onStatus(FfiTorState.OFF, 0u, null, "")
+        }
+        val client = ArtiTorClient(fake)
+        client.start(ArtiConfig(dataDir = "/tmp/facade-error-reentry")).getOrThrow()
+        val session = client.createIsolationSession().getOrThrow()
+        val observed = mutableListOf<TorState>()
+        val job = launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            client.status.collect {
+                observed += it.state
+                if (it.lastError != null) client.shutdown()
+            }
+        }
+        // Native ordering/freshness is tested against production notify_worker_error
+        // in Rust. Here exercise the real facade during its typed callback assignment.
+        fake.sessionListener!!.onSessionStatus(session.id, SessionState.PAUSED, null, 2u)
+        engineListener!!.onError(com.yet.tor.ffi.ArtiErrorDetail(com.yet.tor.ffi.ErrorKind.RUNTIME, null, "injected"))
+        assertEquals(TorState.OFF, client.status.value.state)
+        assertEquals(null, client.status.value.lastError)
+        assertFalse(client.hasClient)
+        assertEquals(TorIsolationSessionState.INVALIDATED, session.status.value.state)
+        assertTrue(client.sessions.isEmpty())
+        assertEquals(0, client.pendingSessionStatusCount)
+        assertEquals(listOf(TorState.RUNNING, TorState.ERROR, TorState.OFF), observed)
+        job.cancelAndJoin()
     }
 }
