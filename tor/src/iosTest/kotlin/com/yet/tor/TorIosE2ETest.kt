@@ -8,6 +8,14 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.usePinned
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import platform.Foundation.NSTemporaryDirectory
@@ -32,55 +40,127 @@ import kotlin.time.Duration.Companion.seconds
 class TorIosE2ETest {
 
     @Test
+    fun liveTwoSessionsLifecycle() = runBlocking {
+        val dataDir = NSTemporaryDirectory() + "arti-ios-session-e2e"
+        withLiveClient { client ->
+            client.start(ArtiConfig(dataDir = dataDir), timeout = 180.seconds).getOrThrow()
+            val a = client.createIsolationSession().getOrThrow()
+            val b = client.createIsolationSession().getOrThrow()
+            val rootPort = requireNotNull(client.socksEndpoint).port
+            val aPort = requireNotNull(a.status.value.socksEndpoint).port
+            val bPort = requireNotNull(b.status.value.socksEndpoint).port
+            assertEquals(3, setOf(rootPort, aPort, bPort).size)
+            assertEquals(setOf(a, b), client.sessions.toSet())
+            assertTrue(socksHttpGet(aPort, "api.ipify.org").startsWith("HTTP/1"))
+            assertTrue(socksHttpGet(bPort, "api.ipify.org").startsWith("HTTP/1"))
+
+            a.close()
+            assertEquals(TorIsolationSessionState.CLOSED, a.status.value.state)
+            assertEquals(null, a.status.value.socksEndpoint)
+            assertEquals(listOf(b), client.sessions)
+            assertTrue(socksHttpGet(bPort, "api.ipify.org").startsWith("HTTP/1"))
+            assertTrue(socksHttpGet(rootPort, "api.ipify.org").startsWith("HTTP/1"))
+
+            client.pause()
+            assertEquals(TorIsolationSessionState.PAUSED, b.status.value.state)
+            assertEquals(null, b.status.value.socksEndpoint)
+            assertTrue(client.hasClient)
+            client.resume(timeout = 45.seconds).getOrThrow()
+            val resumed = withTimeout(30_000) {
+                b.status.first { it.state == TorIsolationSessionState.ACTIVE }
+            }
+            assertTrue(socksHttpGet(requireNotNull(resumed.socksEndpoint).port, "api.ipify.org").startsWith("HTTP/1"))
+
+            client.shutdown()
+            assertEquals(TorIsolationSessionState.INVALIDATED, b.status.value.state)
+            assertEquals(TorIsolationSessionState.CLOSED, a.status.value.state)
+            assertTrue(client.sessions.isEmpty())
+            client.start(ArtiConfig(dataDir = dataDir), timeout = 180.seconds).getOrThrow()
+            assertEquals(TorIsolationSessionState.INVALIDATED, b.status.value.state)
+            val fresh = client.createIsolationSession().getOrThrow()
+            assertTrue(fresh.id != a.id && fresh.id != b.id)
+            b.close()
+            assertEquals(TorIsolationSessionState.ACTIVE, fresh.status.value.state)
+            println("LIVE SESSION LIFECYCLE passed: two session paths, independent close, root survival, pause/resume, stale handles")
+        }
+    }
+
+    private suspend fun CoroutineScope.withLiveClient(block: suspend (ArtiTorClient) -> Unit) {
+        val client = ArtiTorClient()
+        // POSIX SOCKS operations block the test thread. Collect on another
+        // dispatcher, subscribing synchronously before bootstrap can emit logs.
+        val diagnostics = launch(Dispatchers.Default, start = CoroutineStart.UNDISPATCHED) {
+            client.logs.collect { line ->
+                safeSocksFailure.find(line)?.value?.let { println(it) }
+            }
+        }
+        try {
+            block(client)
+        } catch (failure: Throwable) {
+            // Give the independent diagnostics collector a bounded opportunity
+            // to print the safe category already emitted before SOCKS 0x05.
+            delay(100)
+            throw failure
+        } finally {
+            client.shutdown()
+            diagnostics.cancelAndJoin()
+        }
+    }
+
+    companion object {
+        private val safeSocksFailure = Regex("SOCKS CONNECT failed \\(code=5, arti_kind=[A-Za-z0-9_]+\\)")
+    }
+
+    @Test
     fun bootstrapFetchPauseResume() = runBlocking {
         val dataDir = NSTemporaryDirectory() + "arti-ios-e2e"
-        val client = ArtiTorClient()
-        println("arti version = ${client.version}")
+        withLiveClient { client ->
+            println("arti version = ${client.version}")
 
-        withTimeout(300_000) {
-            client.start(ArtiConfig(dataDir = dataDir, socksPort = 0), timeout = 180.seconds)
-                .getOrThrow()
+            withTimeout(300_000) {
+                client.start(ArtiConfig(dataDir = dataDir, socksPort = 0), timeout = 180.seconds)
+                    .getOrThrow()
+            }
+            val port = requireNotNull(client.status.value.socksPort) { "SOCKS port not set" }
+            assertEquals(100, client.status.value.bootstrapPercent, "bootstrap not 100%")
+            assertTrue(client.isReady)
+            println("BOOTSTRAP complete, SOCKS on 127.0.0.1:$port")
+
+            val response = socksHttpGet(port, "api.ipify.org")
+            assertTrue(response.startsWith("HTTP/1"), "no HTTP response through SOCKS")
+
+            client.pause()
+            assertFalse(client.isReady)
+            assertTrue(client.hasClient)
+            assertEquals(TorState.PAUSED, client.status.value.state)
+
+            withTimeout(60_000) {
+                client.resume(timeout = 45.seconds).getOrThrow()
+            }
+            assertTrue(client.isReady)
+            val port2 = requireNotNull(client.status.value.socksPort)
+            val response2 = socksHttpGet(port2, "api.ipify.org")
+            assertTrue(response2.startsWith("HTTP/1"), "no HTTP after resume")
+
+            client.shutdown()
+            assertFalse(client.hasClient)
+            assertEquals(TorState.OFF, client.status.value.state)
+
+            // Cold start again after shutdown (fresh bootstrap, new ephemeral port).
+            withTimeout(300_000) {
+                client.start(ArtiConfig(dataDir = dataDir, socksPort = 0), timeout = 180.seconds)
+                    .getOrThrow()
+            }
+            assertTrue(client.isReady)
+            val port3 = requireNotNull(client.status.value.socksPort)
+            val response3 = socksHttpGet(port3, "api.ipify.org")
+            assertTrue(response3.startsWith("HTTP/1"), "no HTTP after second cold start")
+            println("SECOND COLD START ok, SOCKS on 127.0.0.1:$port3")
+
+            client.shutdown()
+            assertFalse(client.hasClient)
+            assertEquals(TorState.OFF, client.status.value.state)
         }
-        val port = requireNotNull(client.status.value.socksPort) { "SOCKS port not set" }
-        assertEquals(100, client.status.value.bootstrapPercent, "bootstrap not 100%")
-        assertTrue(client.isReady)
-        println("BOOTSTRAP complete, SOCKS on 127.0.0.1:$port")
-
-        val response = socksHttpGet(port, "api.ipify.org")
-        println("TOR(SOCKS) response =\n$response")
-        assertTrue(response.startsWith("HTTP/1"), "no HTTP response through SOCKS")
-
-        client.pause()
-        assertFalse(client.isReady)
-        assertTrue(client.hasClient)
-        assertEquals(TorState.PAUSED, client.status.value.state)
-
-        withTimeout(60_000) {
-            client.resume(timeout = 45.seconds).getOrThrow()
-        }
-        assertTrue(client.isReady)
-        val port2 = requireNotNull(client.status.value.socksPort)
-        val response2 = socksHttpGet(port2, "api.ipify.org")
-        assertTrue(response2.startsWith("HTTP/1"), "no HTTP after resume")
-
-        client.shutdown()
-        assertFalse(client.hasClient)
-        assertEquals(TorState.OFF, client.status.value.state)
-
-        // Cold start again after shutdown (fresh bootstrap, new ephemeral port).
-        withTimeout(300_000) {
-            client.start(ArtiConfig(dataDir = dataDir, socksPort = 0), timeout = 180.seconds)
-                .getOrThrow()
-        }
-        assertTrue(client.isReady)
-        val port3 = requireNotNull(client.status.value.socksPort)
-        val response3 = socksHttpGet(port3, "api.ipify.org")
-        assertTrue(response3.startsWith("HTTP/1"), "no HTTP after second cold start")
-        println("SECOND COLD START ok, SOCKS on 127.0.0.1:$port3")
-
-        client.shutdown()
-        assertFalse(client.hasClient)
-        assertEquals(TorState.OFF, client.status.value.state)
     }
 }
 

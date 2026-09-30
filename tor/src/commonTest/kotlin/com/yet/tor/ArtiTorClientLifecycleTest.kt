@@ -5,6 +5,11 @@ import com.yet.tor.ffi.ArtiErrorDetail as FfiErrorDetail
 import com.yet.tor.ffi.ArtiException as FfiArtiException
 import com.yet.tor.ffi.ArtiTorInterface as FfiArtiTorInterface
 import com.yet.tor.ffi.ErrorKind as FfiErrorKind
+import com.yet.tor.ffi.SessionInfo
+import com.yet.tor.ffi.SessionState
+import com.yet.tor.ffi.SessionStatusFfi
+import com.yet.tor.ffi.SessionStatusListener
+import com.yet.tor.ffi.SocksSession
 import com.yet.tor.ffi.StatusListener
 import com.yet.tor.ffi.TorState as FfiTorState
 import kotlin.test.Test
@@ -40,6 +45,14 @@ class ArtiTorClientLifecycleTest {
         var resumeBehavior: (StatusListener) -> Unit = { _ -> }
         var pauseBehavior: () -> Unit = {}
         var shutdownBehavior: () -> Unit = {}
+        var createSessionBehavior: (SessionStatusListener) -> SocksSession = { _ ->
+            throw UnsupportedOperationException("createSession not implemented in fake")
+        }
+        var closeSessionBehavior: (SocksSession) -> Unit = { _ -> }
+        var listSessionsBehavior: () -> List<SessionInfo> = { emptyList() }
+        var sessionStatusBehavior: (SocksSession) -> SessionStatusFfi = { _ ->
+            SessionStatusFfi(SessionState.INVALIDATED, null, 0u)
+        }
 
         override fun version(): String = "fake"
         override fun hasClient(): Boolean = hasClientValue
@@ -62,6 +75,18 @@ class ArtiTorClientLifecycleTest {
             shutdownBehavior()
         }
         override fun stop() = shutdown()
+        override fun createSession(listener: SessionStatusListener): SocksSession {
+            return createSessionBehavior(listener)
+        }
+        override fun closeSession(session: SocksSession) {
+            closeSessionBehavior(session)
+        }
+        override fun listSessions(): List<SessionInfo> {
+            return listSessionsBehavior()
+        }
+        override fun sessionStatus(session: SocksSession): SessionStatusFfi {
+            return sessionStatusBehavior(session)
+        }
     }
 
     private fun readyFake(

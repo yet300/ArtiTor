@@ -1,16 +1,15 @@
 package com.yet.tor
 
-import com.yet.tor.ffi.ArtiConfig as FfiConfig
-import com.yet.tor.ffi.ArtiErrorDetail as FfiErrorDetail
-import com.yet.tor.ffi.ArtiException as FfiArtiException
-import com.yet.tor.ffi.ArtiTor as FfiArtiTor
-import com.yet.tor.ffi.ArtiTorInterface as FfiArtiTorInterface
-import com.yet.tor.ffi.ErrorKind as FfiErrorKind
+import com.yet.tor.ffi.SessionState
+import com.yet.tor.ffi.SessionStatusListener
+import com.yet.tor.ffi.SocksSession
 import com.yet.tor.ffi.StatusListener
-import com.yet.tor.ffi.TorState as FfiTorState
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.ExperimentalForInheritanceCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -23,6 +22,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeout
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
+import com.yet.tor.ffi.ArtiConfig as FfiConfig
+import com.yet.tor.ffi.ArtiErrorDetail as FfiErrorDetail
+import com.yet.tor.ffi.ArtiException as FfiArtiException
+import com.yet.tor.ffi.ArtiTor as FfiArtiTor
+import com.yet.tor.ffi.ArtiTorInterface as FfiArtiTorInterface
+import com.yet.tor.ffi.ErrorKind as FfiErrorKind
+import com.yet.tor.ffi.TorState as FfiTorState
 
 /** High-level lifecycle state (mirrors native UniFFI enum). */
 enum class TorState {
@@ -141,6 +149,108 @@ internal fun checkLifecycleInvariants(
     return violations
 }
 
+/** SOCKS endpoint (always loopback in 0.3). */
+data class TorSocksEndpoint(
+    val host: String,
+    val port: Int,
+)
+
+/** Per-session lifecycle state. */
+enum class TorIsolationSessionState {
+    ACTIVE,
+    PAUSED,
+    CLOSED,
+    INVALIDATED;
+
+    val isTerminal: Boolean
+        get() = this == CLOSED || this == INVALIDATED
+
+    val isLive: Boolean
+        get() = this == ACTIVE || this == PAUSED
+}
+
+/** Atomic (state, endpoint) snapshot for one isolation session.
+ *
+ * Invariant: [socksEndpoint] != null ⟺ [state] == ACTIVE.
+ */
+data class TorIsolationSessionStatus(
+    val state: TorIsolationSessionState,
+    val socksEndpoint: TorSocksEndpoint?,
+)
+
+/** Opaque handle to an isolation session.
+ *
+ * Retained handles remain valid as terminal-state observers even after the
+ * native session is destroyed. [status] emits exactly one terminal update
+ * ([CLOSED] or [INVALIDATED]) which is latched forever.
+ */
+interface TorIsolationSession : AutoCloseable {
+    val id: String
+    val status: StateFlow<TorIsolationSessionStatus>
+    val isClosed: Boolean
+    override fun close()
+}
+
+/** Revision is an internal ordering token and never part of public session status. */
+private data class RevisionedSessionStatus(
+    val status: TorIsolationSessionStatus,
+    val revision: ULong,
+)
+
+private fun sessionStatus(state: SessionState, port: UShort?, revision: ULong): RevisionedSessionStatus {
+    val mapped = when (state) {
+        SessionState.ACTIVE -> TorIsolationSessionState.ACTIVE
+        SessionState.PAUSED -> TorIsolationSessionState.PAUSED
+        SessionState.CLOSED -> TorIsolationSessionState.CLOSED
+        SessionState.INVALIDATED -> TorIsolationSessionState.INVALIDATED
+    }
+    val endpoint = if (mapped == TorIsolationSessionState.ACTIVE && port != null) {
+        TorSocksEndpoint("127.0.0.1", port.toInt())
+    } else null
+    return RevisionedSessionStatus(TorIsolationSessionStatus(mapped, endpoint), revision)
+}
+
+private class TorIsolationSessionImpl(
+    val nativeSession: SocksSession,
+    private val client: ArtiTorClient,
+    initialStatus: RevisionedSessionStatus,
+) : TorIsolationSession {
+    // State + revision are accepted in one CAS. Projecting this flow avoids a
+    // second publication racing a newer callback after its revision was accepted.
+    private val accepted = MutableStateFlow(initialStatus)
+    override val id: String = nativeSession.id()
+    @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
+    override val status: StateFlow<TorIsolationSessionStatus> = object : StateFlow<TorIsolationSessionStatus> {
+        override val value: TorIsolationSessionStatus get() = accepted.value.status
+        override val replayCache: List<TorIsolationSessionStatus> get() = listOf(value)
+
+        @OptIn(InternalCoroutinesApi::class)
+        override suspend fun collect(collector: FlowCollector<TorIsolationSessionStatus>): Nothing {
+            accepted.map { it.status }.distinctUntilChanged().collect(collector)
+            error("session StateFlow collection completed")
+        }
+    }
+    override val isClosed: Boolean
+        get() = status.value.state == TorIsolationSessionState.CLOSED
+
+    override fun close() {
+        client.closeSession(this)
+    }
+
+    fun acceptStatus(incoming: RevisionedSessionStatus) {
+        accepted.update { current ->
+            if (current.status.state.isTerminal || incoming.revision <= current.revision) current
+            else incoming
+        }
+    }
+}
+
+private data class SessionRegistry(
+    val wrappers: Map<String, TorIsolationSessionImpl> = emptyMap(),
+    val pending: Map<String, RevisionedSessionStatus> = emptyMap(),
+    val creating: Boolean = false,
+)
+
 /**
  * Cross-platform facade over the Arti FFI. The async tokio runtime lives inside
  * the native layer; this object never blocks the caller's thread.
@@ -190,6 +300,49 @@ class ArtiTorClient internal constructor(
 
     /** True if a bootstrapped TorClient is held (RUNNING or PAUSED). */
     val hasClient: Boolean get() = native.hasClient()
+
+    /** Root SOCKS endpoint convenience, derived from status.
+     * Null unless RUNNING. When non-null, host is "127.0.0.1" and port equals status.value.socksPort.
+     */
+    val socksEndpoint: TorSocksEndpoint?
+        get() = _status.value.socksPort?.let { TorSocksEndpoint("127.0.0.1", it) }
+
+    // Registration and pre-registration callbacks share one atomic record.
+    // Historical IDs have no entry after creation finishes or a wrapper terminates.
+    private val sessionRegistry = MutableStateFlow(SessionRegistry())
+    internal val pendingSessionStatusCount: Int get() = sessionRegistry.value.pending.size
+
+    /** Snapshot of live additional sessions, excluding the root/default endpoint. */
+    val sessions: List<TorIsolationSession>
+        get() = sessionRegistry.value.wrappers.values.filter { it.status.value.state.isLive }.toList()
+
+    private val sessionListener = object : SessionStatusListener {
+        override fun onSessionStatus(
+            sessionId: String,
+            state: SessionState,
+            port: UShort?,
+            revision: ULong,
+        ) {
+            val incoming = sessionStatus(state, port, revision)
+            sessionRegistry.update { registry ->
+                val wrapper = registry.wrappers[sessionId]
+                if (wrapper != null) {
+                    // CAS retries are safe: acceptance itself is monotonic and
+                    // terminal-latched, and no native call occurs in this region.
+                    wrapper.acceptStatus(incoming)
+                    if (wrapper.status.value.state.isTerminal) {
+                        registry.copy(wrappers = registry.wrappers - sessionId)
+                    } else registry
+                } else if (registry.creating) {
+                    val previous = registry.pending[sessionId]
+                    if (previous != null &&
+                        (previous.status.state.isTerminal || incoming.revision <= previous.revision)
+                    ) registry
+                    else registry.copy(pending = registry.pending + (sessionId to incoming))
+                } else registry
+            }
+        }
+    }
 
     private val listener = object : StatusListener {
         override fun onStatus(
@@ -343,6 +496,65 @@ class ArtiTorClient internal constructor(
             // pause/shutdown cancels this wait.
             awaitReady(epoch.value, timeout)
             lastConfig = effective
+        }
+    }
+
+    /**
+     * Create an additional circuit-isolated SOCKS session.
+     *
+     * - While RUNNING: derives isolated client, binds ephemeral loopback listener,
+     *   publishes ACTIVE with endpoint, returns session.
+     * - While PAUSED: derives isolated client, registers as PAUSED (no endpoint),
+     *   binds on next successful engine resume().
+     * - While STARTING/BOOTSTRAPPING/STOPPING/ERROR/OFF: fails with [ArtiException.NotRunning].
+     * - Over the internal safety cap: fails with [ArtiException.Runtime] ("session limit reached").
+     *
+     * The returned session's [status] StateFlow emits atomic (state, endpoint) pairs.
+     * Terminal states (CLOSED, INVALIDATED) are latched forever on the Kotlin side.
+     */
+    suspend fun createIsolationSession(): Result<TorIsolationSession> = lifecycleMutex.withLock {
+        sessionRegistry.update { it.copy(creating = true, pending = emptyMap()) }
+        try {
+            runCatching {
+                val nativeSession = try {
+                    native.createSession(sessionListener)
+                } catch (e: FfiArtiException) {
+                    throw e.toPublic()
+                }
+                val sessionId = nativeSession.id()
+                val snapshot = native.sessionStatus(nativeSession)
+                val snapshotStatus = sessionStatus(snapshot.state, snapshot.port, snapshot.revision)
+                val wrapper = TorIsolationSessionImpl(
+                    nativeSession, this, sessionRegistry.value.pending[sessionId] ?: snapshotStatus,
+                )
+                wrapper.acceptStatus(snapshotStatus)
+                sessionRegistry.update { registry ->
+                    registry.pending[sessionId]?.let { wrapper.acceptStatus(it) }
+                    registry.copy(
+                        wrappers = if (wrapper.status.value.state.isLive) {
+                            registry.wrappers + (sessionId to wrapper)
+                        } else registry.wrappers,
+                        pending = emptyMap(),
+                        creating = false,
+                    )
+                }
+                wrapper
+            }
+        } finally {
+            // Includes native failures and orphan callbacks from the creation
+            // window. No pending revision/status is historical bookkeeping.
+            sessionRegistry.update { it.copy(creating = false, pending = emptyMap()) }
+        }
+    }
+
+    /**
+     * Close one session (== [TorIsolationSession.close]).
+     * No-op on unknown/closed/stale handles; never throws.
+     */
+    fun closeSession(session: TorIsolationSession) {
+        if (session is TorIsolationSessionImpl) {
+            native.closeSession(session.nativeSession)
+            sessionRegistry.update { it.copy(wrappers = it.wrappers - session.id) }
         }
     }
 
