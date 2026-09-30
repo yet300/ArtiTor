@@ -709,4 +709,27 @@ class ArtiTorClientLifecycleTest {
         val result = client.start(ArtiConfig(dataDir = "/tmp/a"), 5.seconds)
         assertIs<ArtiException.Bind>(result.exceptionOrNull())
     }
+
+    @Test
+    fun bridgeModesCrossFfiAndTriggerReplacement() = runBlocking<Unit> {
+        val a = "192.0.2.10:443 $1111111111111111111111111111111111111111"
+        val b = "192.0.2.11:443 $2222222222222222222222222222222222222222"
+        val configs = listOf(
+            ArtiConfig(dataDir = "/tmp/a", bridges = listOf(a)),
+            ArtiConfig(dataDir = "/tmp/a", bridges = listOf(a), bridgesEnabled = BridgesEnabled.ON),
+            ArtiConfig(dataDir = "/tmp/a", bridges = listOf(a), bridgesEnabled = BridgesEnabled.OFF),
+            ArtiConfig(dataDir = "/tmp/a", bridges = listOf(b), bridgesEnabled = BridgesEnabled.OFF),
+        )
+        val fake = readyFake(this)
+        val client = ArtiTorClient(fake)
+        for ((index, config) in configs.withIndex()) {
+            client.start(config, 5.seconds).getOrThrow()
+            assertEquals(config.bridgesEnabled.name, fake.startCalls.last().bridgesEnabled.name)
+            assertEquals(config.bridges, fake.startCalls.last().bridges)
+            assertEquals(index, fake.shutdownCalls)
+            client.start(config.copy(), 5.seconds).getOrThrow()
+            assertEquals(index + 1, fake.startCalls.size)
+        }
+        client.shutdown()
+    }
 }

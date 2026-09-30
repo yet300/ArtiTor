@@ -6,6 +6,7 @@ pub(super) fn test_config() -> ArtiConfig {
         data_dir: "/tmp/artitor-test".into(),
         socks_port: 0,
         bridges: vec![],
+        bridges_enabled: BridgesEnabled::Auto,
         state_dir: None,
         cache_dir: None,
     }

@@ -46,6 +46,7 @@ fn main() {
             data_dir: dir.to_string_lossy().into_owned(),
             socks_port: 0, // ephemeral
             bridges: vec![],
+            bridges_enabled: arti_kmp_ffi::BridgesEnabled::Auto,
             state_dir: None,
             cache_dir: None,
         },

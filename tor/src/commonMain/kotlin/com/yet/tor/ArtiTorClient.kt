@@ -25,6 +25,7 @@ import com.yet.tor.ffi.ArtiException as FfiArtiException
 import com.yet.tor.ffi.ArtiTor as FfiArtiTor
 import com.yet.tor.ffi.ArtiTorInterface as FfiArtiTorInterface
 import com.yet.tor.ffi.ErrorKind as FfiErrorKind
+import com.yet.tor.ffi.BridgesEnabled as FfiBridgesEnabled
 import com.yet.tor.ffi.TorState as FfiTorState
 
 /** High-level lifecycle state (mirrors native UniFFI enum). */
@@ -58,13 +59,29 @@ data class TorStatus(
             socksPort != null
 }
 
+/** Bridge policy. Every supplied line is validated in every mode. */
+enum class BridgesEnabled {
+    /** Historical default: use bridges iff the list is non-empty. */
+    AUTO,
+    /** Require bridges; an empty list fails with [ArtiException.Config]. */
+    ON,
+    /** Validate and retain supplied lines, but use normal guards. */
+    OFF,
+}
+
 /**
  * Caller-supplied configuration. [dataDir] is required; the library never
  * invents platform paths.
  *
  * @param socksPort Local SOCKS bind. `0` = ephemeral (OS picks a free port);
  *   the actual port is reported in [TorStatus.socksPort].
- * @param bridges Bridge lines (one per entry). Empty = default guards.
+ * @param bridges Direct bridge lines (one per entry), validated in Rust before
+ *   bootstrap in every mode. Malformed lines fail with [ArtiException.Config].
+ *   PT support is outside stable 0.3. Treat lines as secrets; do not log this
+ *   config or persist it in unprotected storage.
+ * @param bridgesEnabled Bridge policy; defaults to historical AUTO behavior.
+ *   Changing this or [bridges] rebuilds TorClient and invalidates all sessions.
+ *   Stable 0.3 does not use live reconfiguration.
  * @param stateDir Override for `$dataDir/state`.
  * @param cacheDir Override for `$dataDir/cache`.
  */
@@ -72,6 +89,7 @@ data class ArtiConfig(
     val dataDir: String,
     val socksPort: Int = 0,
     val bridges: List<String> = emptyList(),
+    val bridgesEnabled: BridgesEnabled = BridgesEnabled.AUTO,
     val stateDir: String? = null,
     val cacheDir: String? = null,
 )
@@ -92,14 +110,15 @@ sealed class ArtiException(message: String, cause: Throwable? = null) :
 /**
  * True when [new] requires a new TorClient/bootstrap relative to [old].
  * Only `socksPort` may change without rebuilding; `dataDir`/`stateDir`/
- * `cacheDir`/`bridges` (compared exactly, so non-empty → empty counts)
+ * `cacheDir`/`bridges`/`bridgesEnabled` (compared exactly, so non-empty → empty counts)
  * define the client. Mirrors the native `tor_client_config_changed`.
  */
 internal fun torClientConfigChanged(old: ArtiConfig, new: ArtiConfig): Boolean =
     old.dataDir != new.dataDir ||
         old.stateDir != new.stateDir ||
         old.cacheDir != new.cacheDir ||
-        old.bridges != new.bridges
+        old.bridges != new.bridges ||
+        old.bridgesEnabled != new.bridgesEnabled
 
 /**
  * State-machine invariant violations for an observed snapshot, per
@@ -642,6 +661,11 @@ private fun ArtiConfig.toFfi(): FfiConfig = FfiConfig(
     dataDir = dataDir,
     socksPort = socksPort.toUShort(),
     bridges = bridges,
+    bridgesEnabled = when (bridgesEnabled) {
+        BridgesEnabled.AUTO -> FfiBridgesEnabled.AUTO
+        BridgesEnabled.ON -> FfiBridgesEnabled.ON
+        BridgesEnabled.OFF -> FfiBridgesEnabled.OFF
+    },
     stateDir = stateDir,
     cacheDir = cacheDir,
 )

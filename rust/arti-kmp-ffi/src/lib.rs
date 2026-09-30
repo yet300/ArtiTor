@@ -36,6 +36,14 @@ pub enum TorState {
     Error,
 }
 
+/// Bridge use policy. AUTO preserves historical list-based enablement.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, uniffi::Enum)]
+pub enum BridgesEnabled {
+    Auto,
+    On,
+    Off,
+}
+
 /// Caller-supplied configuration. Paths are provided by the caller.
 ///
 /// `socks_port == 0` binds an ephemeral port; the actual port is reported via
@@ -46,6 +54,7 @@ pub struct ArtiConfig {
     pub socks_port: u16,
     #[uniffi(default = [])]
     pub bridges: Vec<String>,
+    pub bridges_enabled: BridgesEnabled,
     #[uniffi(default = None)]
     pub state_dir: Option<String>,
     #[uniffi(default = None)]

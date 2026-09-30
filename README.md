@@ -75,8 +75,32 @@ WebSocket clients (OkHttp, Ktor, URLSession) used by apps like BitChat. There is
 - **Tor ON/OFF prefs, fail-closed policy, Nostr reconnect**: app layer (see lifecycle doc).
 - **On-demand `.so` delivery**: Play Feature Delivery / dynamic feature module — app concern.
 - **iOS background execution**: library targets foreground use; app decides pause vs keep-alive.
-- **Pluggable transports (obfs4/snowflake binaries)**: not bundled; plain bridge lines supported
-  via `ArtiConfig.bridges`.
+- **Pluggable transports (obfs4/snowflake)**: unsupported in stable 0.3; PT-shaped bridge
+  lines fail with `ArtiException.Config`. No PT binaries or transport features are enabled.
+
+## Bridge configuration
+
+`ArtiConfig.bridges` accepts one direct bridge line per entry. Each line is parsed and built
+with Arti's bridge parser in Rust before any bootstrap worker or TorClient is created.
+Direct lines require a numeric IP endpoint and an RSA identity fingerprint; an optional
+`Bridge` prefix and an optional ed25519 identity follow upstream syntax.
+
+`bridgesEnabled` defaults to `BridgesEnabled.AUTO`, preserving existing callers:
+
+| Policy | Behavior |
+|---|---|
+| `AUTO` | Use bridges iff the list is non-empty. |
+| `ON` | Require a non-empty valid list; an empty list fails with `ArtiException.Config`. |
+| `OFF` | Retain and validate supplied lines, but use normal guards. |
+
+Malformed lines, including empty/whitespace entries and unsupported PT-shaped lines, fail
+with the existing typed `ArtiException.Config` in **every** mode, including `OFF`.
+Diagnostics do not include bridge input. Treat bridge configuration as secret: do not log
+`ArtiConfig` or store it in unprotected preferences.
+
+Changing `bridges` or `bridgesEnabled` rebuilds TorClient and invalidates existing isolation
+sessions. Lists are compared exactly, including order and whitespace, even in `OFF` mode.
+Stable 0.3 does not use live `TorClient::reconfigure()`.
 
 ## Targets
 

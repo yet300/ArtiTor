@@ -3,7 +3,11 @@ use super::*;
 
 /// Spawn a cold bootstrap + SOCKS task on the owned runtime, creating the
 /// runtime on first use. The task reports typed failures via `on_error`.
-pub(super) fn spawn_cold(inner: &mut Inner, config: ArtiConfig) -> Result<(), ArtiError> {
+pub(super) fn spawn_cold(
+    inner: &mut Inner,
+    config: ArtiConfig,
+    tor_config: arti_client::config::TorClientConfig,
+) -> Result<(), ArtiError> {
     inner.shared.advance_engine_publication_under_gate();
     #[cfg(test)]
     if inner.test_spawn_cold_failure {
@@ -28,7 +32,7 @@ pub(super) fn spawn_cold(inner: &mut Inner, config: ArtiConfig) -> Result<(), Ar
     shared.advance_engine_publication_under_gate();
     let revision = shared.worker_revision.fetch_add(1, Ordering::SeqCst) + 1;
     let task = runtime.spawn(async move {
-        if let Err(e) = cold_start(config, shared.clone(), revision).await {
+        if let Err(e) = cold_start(config, tor_config, shared.clone(), revision).await {
             shared.notify_worker_error(Some(revision), &e, 0);
         }
     });
@@ -40,6 +44,7 @@ pub(super) fn spawn_cold(inner: &mut Inner, config: ArtiConfig) -> Result<(), Ar
 
 async fn cold_start(
     config: ArtiConfig,
+    tor_config: arti_client::config::TorClientConfig,
     shared: Arc<Shared>,
     revision: u64,
 ) -> Result<(), ArtiError> {
@@ -56,21 +61,6 @@ async fn cold_start(
     let (state_dir, cache_dir) = resolve_dirs(&config);
     std::fs::create_dir_all(&state_dir).ok();
     std::fs::create_dir_all(&cache_dir).ok();
-
-    let mut builder = TorClientConfigBuilder::from_directories(state_dir, cache_dir);
-    if !config.bridges.is_empty() {
-        for b in &config.bridges {
-            builder
-                .bridges()
-                .bridges()
-                .push(b.parse().map_err(|e| ArtiError::Config {
-                    msg: format!("bad bridge line: {e}"),
-                })?);
-        }
-    }
-    let tor_config = builder
-        .build()
-        .map_err(|e| ArtiError::Config { msg: e.to_string() })?;
 
     if let Some(l) = shared.listener() {
         l.on_log("config built; creating unbootstrapped client".into());

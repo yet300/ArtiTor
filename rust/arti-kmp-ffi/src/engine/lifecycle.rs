@@ -78,6 +78,7 @@ impl ArtiTor {
         config: ArtiConfig,
         listener: Box<dyn StatusListener>,
     ) -> Result<(), ArtiError> {
+        let tor_config = crate::config::build_tor_config(&config)?;
         let mut inner = self.inner.lock().unwrap();
         let listener: Arc<dyn StatusListener> = Arc::from(listener);
         init_tracing();
@@ -124,7 +125,7 @@ impl ArtiTor {
                 inner.shared.bound_port.store(0, Ordering::SeqCst);
                 inner.shared.abort_connections();
                 inner.last_config = Some(config.clone());
-                let result = spawn_cold(&mut inner, config);
+                let result = spawn_cold(&mut inner, config, tor_config);
                 drop(transition);
                 drop(inner);
                 for n in pending {
@@ -166,7 +167,7 @@ impl ArtiTor {
         let pending = inner.shared.invalidate_all_sessions();
         inner.shared.set_client_under_gate(None);
         inner.last_config = Some(config.clone());
-        let result = spawn_cold(&mut inner, config);
+        let result = spawn_cold(&mut inner, config, tor_config);
         drop(transition);
         drop(inner);
         for n in pending {

@@ -24,6 +24,7 @@ use session::{
 };
 #[cfg(test)]
 mod test_hooks;
+#[cfg(test)]
 use arti_client::config::TorClientConfigBuilder;
 use arti_client::TorClient;
 use futures::StreamExt;

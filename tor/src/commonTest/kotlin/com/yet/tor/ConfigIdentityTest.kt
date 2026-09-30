@@ -1,6 +1,7 @@
 package com.yet.tor
 
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -56,5 +57,27 @@ class ConfigIdentityTest {
     fun sameBridgesNeedNoNewClient() {
         val a = base().copy(bridges = listOf("obfs4 1.2.3.4:443 FINGERPRINT"))
         assertFalse(torClientConfigChanged(a, a.copy()))
+    }
+
+    @Test
+    fun bridgeDefaultsPreserveExistingCallers() {
+        assertEquals(emptyList(), base().bridges)
+        assertEquals(BridgesEnabled.AUTO, base().bridgesEnabled)
+        assertEquals(BridgesEnabled.AUTO, ArtiConfig(dataDir = "/tmp/a", bridges = listOf("fixture")).bridgesEnabled)
+    }
+
+    @Test
+    fun bridgeIdentityUsesExactLinesAndEveryMode() {
+        for (mode in BridgesEnabled.entries) {
+            val a = base().copy(bridges = listOf("A", "B"), bridgesEnabled = mode)
+            assertFalse(torClientConfigChanged(a, a.copy()))
+            assertFalse(torClientConfigChanged(a, a.copy(socksPort = 19050)))
+            for (other in BridgesEnabled.entries) {
+                assertEquals(mode != other, torClientConfigChanged(a, a.copy(bridgesEnabled = other)))
+            }
+            for (lines in listOf(listOf("B", "A"), listOf(" A", "B"), listOf("B"), emptyList())) {
+                assertTrue(torClientConfigChanged(a, a.copy(bridges = lines)))
+            }
+        }
     }
 }
