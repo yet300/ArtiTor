@@ -28,7 +28,10 @@ impl StatusListener for Printer {
         println!("LOG {line}");
     }
     fn on_error(&self, error: ArtiErrorDetail) {
-        println!("ERROR {:?} port={:?} ({})", error.kind, error.port, error.msg);
+        println!(
+            "ERROR {:?} port={:?} ({})",
+            error.kind, error.port, error.msg
+        );
     }
 }
 
@@ -46,9 +49,7 @@ fn main() {
             state_dir: None,
             cache_dir: None,
         },
-        Box::new(Printer {
-            port: port.clone(),
-        }),
+        Box::new(Printer { port: port.clone() }),
     )
     .expect("start failed");
 
@@ -79,10 +80,8 @@ fn main() {
         );
 
         println!("resume…");
-        tor.resume(Box::new(Printer {
-            port: port.clone(),
-        }))
-        .expect("resume failed");
+        tor.resume(Box::new(Printer { port: port.clone() }))
+            .expect("resume failed");
         let deadline = std::time::Instant::now() + Duration::from_secs(30);
         while std::time::Instant::now() < deadline {
             if tor.is_ready() {
