@@ -9,6 +9,9 @@ pub(super) fn test_config() -> ArtiConfig {
         bridges_enabled: BridgesEnabled::Auto,
         state_dir: None,
         cache_dir: None,
+        allow_onion_addrs: true,
+        connect_timeout_nanos: 10_000_000_000,
+        resolve_timeout_nanos: 10_000_000_000,
     }
 }
 

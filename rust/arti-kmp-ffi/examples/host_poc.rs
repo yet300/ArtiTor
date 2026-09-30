@@ -49,6 +49,9 @@ fn main() {
             bridges_enabled: arti_kmp_ffi::BridgesEnabled::Auto,
             state_dir: None,
             cache_dir: None,
+            allow_onion_addrs: true,
+            connect_timeout_nanos: 10_000_000_000,
+            resolve_timeout_nanos: 10_000_000_000,
         },
         Box::new(Printer { port: port.clone() }),
     )

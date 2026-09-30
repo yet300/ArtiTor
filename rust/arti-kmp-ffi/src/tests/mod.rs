@@ -12,3 +12,5 @@ mod publication;
 mod races;
 mod sessions;
 mod socks;
+
+mod stream_config;

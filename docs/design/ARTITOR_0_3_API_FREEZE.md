@@ -547,8 +547,14 @@ Any other public ArtiConfig change → teardown + rebuild (new TorClient, new bo
   advanced/future-only with a concrete product use case + threat review. Never
   default true.
 - Timeouts (`connectTimeout`/`resolveTimeout`, 10 s defaults): apply at client
-  construction (BEGIN wrap); no live update in 0.3 (rebuild path covers
-  changes).
+  construction; connect wraps BEGIN after circuit acquisition, resolve wraps
+  the forward-resolution operation after circuit acquisition. They are not
+  whole-bootstrap, whole-circuit-acquisition or HTTP-request deadlines. Reverse
+  resolution retains its upstream default. No live update in 0.3.
+  UniFFI transports exact signed64 nanoseconds. Kotlin rejects infinite or
+  non-roundtrippable values at the representation boundary; Rust rejects
+  negative representable values before mutation. Zero is allowed by pinned
+  Arti. No saturation, truncation or negative-to-unsigned wrapping.
 
 ---
 

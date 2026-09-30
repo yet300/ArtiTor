@@ -8,6 +8,59 @@ fn identical_config_needs_no_new_client() {
 }
 
 #[test]
+fn identity_parity_512_cases() {
+    // Shared explicit oracle with Kotlin ConfigIdentityTest: one bit for each
+    // field, with only SOCKS port excluded from TorClient replacement.
+    let original = test_config();
+    assert!(!tor_client_config_changed(&original, &original.clone()));
+    for mask in 0_u16..512 {
+        let mut changed = original.clone();
+        if mask & (1 << 0) != 0 {
+            changed.data_dir = "/tmp/other".into();
+        }
+        if mask & (1 << 1) != 0 {
+            changed.socks_port = 19050;
+        }
+        if mask & (1 << 2) != 0 {
+            changed.bridges = vec!["B".into(), "A".into()];
+        }
+        if mask & (1 << 3) != 0 {
+            changed.state_dir = Some("/tmp/s".into());
+        }
+        if mask & (1 << 4) != 0 {
+            changed.cache_dir = Some("/tmp/c".into());
+        }
+        if mask & (1 << 5) != 0 {
+            changed.bridges_enabled = BridgesEnabled::On;
+        }
+        if mask & (1 << 6) != 0 {
+            changed.allow_onion_addrs = false;
+        }
+        if mask & (1 << 7) != 0 {
+            changed.connect_timeout_nanos = 5_000_000_000;
+        }
+        if mask & (1 << 8) != 0 {
+            changed.resolve_timeout_nanos = 5_000_000_000;
+        }
+        let rebuild = mask & !(1 << 1) != 0;
+        assert_eq!(
+            tor_client_config_changed(&original, &changed),
+            rebuild,
+            "forward mask={mask}"
+        );
+        assert_eq!(
+            tor_client_config_changed(&changed, &original),
+            rebuild,
+            "reverse mask={mask}"
+        );
+        assert!(
+            !tor_client_config_changed(&changed, &changed.clone()),
+            "clone mask={mask}"
+        );
+    }
+}
+
+#[test]
 fn socks_port_only_needs_no_new_client() {
     let a = test_config();
     let mut b = test_config();

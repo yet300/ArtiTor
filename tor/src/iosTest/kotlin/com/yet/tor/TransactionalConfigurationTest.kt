@@ -5,7 +5,10 @@ import com.yet.tor.ffi.ArtiConfig as FfiConfig
 import com.yet.tor.ffi.TorState as FfiState
 import kotlinx.coroutines.runBlocking
 import kotlin.test.*
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.nanoseconds
+import kotlin.time.Duration.Companion.milliseconds
 
 /** Offline: scripted retained resources; malformed input uses the actual Rust FFI parser. */
 class TransactionalConfigurationTest {
@@ -149,6 +152,74 @@ class TransactionalConfigurationTest {
                 assertTrue(client.sessions.isEmpty())
                 assertEquals(1, native.shutdowns)
             } finally { client.shutdown() }
+        }
+    }
+
+    @Test fun invalidTimeoutReplacementPreservesRunningAndPausedResources() = runBlocking<Unit> {
+        for (paused in listOf(false, true)) {
+            val native = Native()
+            val client = ArtiTorClient(native)
+            try {
+                val good = ArtiConfig(dataDir = "/tmp/transactional-offline")
+                client.start(good, 1.seconds).getOrThrow()
+                val session = client.createIsolationSession().getOrThrow()
+                if (paused) client.pause()
+                val status = client.status.value
+                val sessionStatus = session.status.value
+                for (timeout in listOf((-1).nanoseconds, Duration.INFINITE, 10_000_000_000.seconds, 9_223_372_036_855.milliseconds)) {
+                    for (bad in listOf(good.copy(connectTimeout = timeout), good.copy(resolveTimeout = timeout))) {
+                        assertIs<ArtiException.Config>(client.start(bad, 1.seconds).exceptionOrNull())
+                        assertIs<ArtiException.Config>(client.restart(bad, 1.seconds).exceptionOrNull())
+                        assertEquals(status, client.status.value)
+                        assertEquals(sessionStatus, session.status.value)
+                        assertTrue(client.hasClient)
+                        assertEquals(0, native.shutdowns)
+                    }
+                }
+            } finally { client.shutdown() }
+        }
+    }
+
+    @Test fun zeroAndLargestExactNanosecondTimeoutsCrossFfiWithoutClamping() = runBlocking<Unit> {
+        for (timeout in listOf(Duration.ZERO, 9_223_372_036_854.milliseconds)) {
+            val native = Native()
+            val client = ArtiTorClient(native)
+            try {
+                val config = ArtiConfig(
+                    dataDir = "/tmp/transactional-offline",
+                    connectTimeout = timeout,
+                    resolveTimeout = timeout,
+                )
+                client.start(config, 1.seconds).getOrThrow()
+                assertEquals(timeout.inWholeNanoseconds, native.effective?.connectTimeoutNanos)
+                assertEquals(timeout.inWholeNanoseconds, native.effective?.resolveTimeoutNanos)
+            } finally { client.shutdown() }
+        }
+    }
+
+    @Test fun validOnionAndTimeoutReplacementInvalidatesOldHandles() = runBlocking<Unit> {
+        val good = ArtiConfig(dataDir = "/tmp/transactional-offline")
+        for (replacement in listOf(
+            good.copy(allowOnionAddrs = false),
+            good.copy(connectTimeout = 5.seconds),
+            good.copy(resolveTimeout = 5.seconds),
+        )) {
+            for (paused in listOf(false, true)) {
+                val native = Native()
+                val client = ArtiTorClient(native)
+                try {
+                    client.start(good, 1.seconds).getOrThrow()
+                    val session = client.createIsolationSession().getOrThrow()
+                    if (paused) client.pause()
+                    client.start(replacement, 1.seconds).getOrThrow()
+                    assertEquals(TorIsolationSessionState.INVALIDATED, session.status.value.state)
+                    assertEquals(null, session.status.value.socksEndpoint)
+                    assertEquals(TorState.RUNNING, client.status.value.state)
+                    assertTrue(client.hasClient)
+                    assertTrue(client.sessions.isEmpty())
+                    assertEquals(1, native.shutdowns)
+                } finally { client.shutdown() }
+            }
         }
     }
 

@@ -20,6 +20,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeout
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.nanoseconds
 import com.yet.tor.ffi.ArtiConfig as FfiConfig
 import com.yet.tor.ffi.ArtiErrorDetail as FfiErrorDetail
 import com.yet.tor.ffi.ArtiException as FfiArtiException
@@ -86,6 +87,12 @@ enum class BridgesEnabled {
  *   Stable 0.3 does not use live reconfiguration.
  * @param stateDir Override for `$dataDir/state`.
  * @param cacheDir Override for `$dataDir/cache`.
+ * @param allowOnionAddrs Allow public onion targets through SOCKS (default true).
+ * @param connectTimeout Tor connection operation timeout (default 10 seconds).
+ * @param resolveTimeout Tor resolution operation timeout (default 10 seconds).
+ *   Timeouts must be finite, nonnegative, and exactly representable as signed
+ *   64-bit nanoseconds. Changing any of these fields rebuilds the client and
+ *   invalidates sessions. These are separate from readiness wait deadlines.
  */
 data class ArtiConfig(
     val dataDir: String,
@@ -94,6 +101,9 @@ data class ArtiConfig(
     val stateDir: String? = null,
     val cacheDir: String? = null,
     val bridgesEnabled: BridgesEnabled = BridgesEnabled.AUTO,
+    val allowOnionAddrs: Boolean = true,
+    val connectTimeout: Duration = 10.seconds,
+    val resolveTimeout: Duration = 10.seconds,
 )
 
 /** Stable failure categories; independent of diagnostic message wording. */
@@ -131,7 +141,7 @@ sealed class ArtiException(message: String, cause: Throwable? = null) :
 /**
  * True when [new] requires a new TorClient/bootstrap relative to [old].
  * Only `socksPort` may change without rebuilding; `dataDir`/`stateDir`/
- * `cacheDir`/`bridges`/`bridgesEnabled` (compared exactly, so non-empty → empty counts)
+ * `cacheDir`/`bridges`/`bridgesEnabled`/onion policy/timeouts (compared exactly)
  * define the client. Mirrors the native `tor_client_config_changed`.
  */
 internal fun torClientConfigChanged(old: ArtiConfig, new: ArtiConfig): Boolean =
@@ -139,7 +149,10 @@ internal fun torClientConfigChanged(old: ArtiConfig, new: ArtiConfig): Boolean =
         old.stateDir != new.stateDir ||
         old.cacheDir != new.cacheDir ||
         old.bridges != new.bridges ||
-        old.bridgesEnabled != new.bridgesEnabled
+        old.bridgesEnabled != new.bridgesEnabled ||
+        old.allowOnionAddrs != new.allowOnionAddrs ||
+        old.connectTimeout != new.connectTimeout ||
+        old.resolveTimeout != new.resolveTimeout
 
 /**
  * State-machine invariant violations for an observed snapshot, per
@@ -706,7 +719,18 @@ private fun ArtiConfig.toFfi(): FfiConfig {
         },
         stateDir = stateDir,
         cacheDir = cacheDir,
+        allowOnionAddrs = allowOnionAddrs,
+        connectTimeoutNanos = connectTimeout.toFfiNanoseconds(),
+        resolveTimeoutNanos = resolveTimeout.toFfiNanoseconds(),
     )
+}
+
+/** Reject values the signed nanosecond FFI cannot represent exactly; Rust validates semantics. */
+private fun Duration.toFfiNanoseconds(): Long {
+    if (!isFinite()) throw ArtiException.Config("timeout must be finite")
+    val nanos = inWholeNanoseconds
+    if (nanos.nanoseconds != this) throw ArtiException.Config("timeout must fit signed nanoseconds exactly")
+    return nanos
 }
 
 internal fun FfiArtiException.toPublic(): ArtiException = when (this) {

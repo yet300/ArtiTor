@@ -59,6 +59,12 @@ pub struct ArtiConfig {
     pub state_dir: Option<String>,
     #[uniffi(default = None)]
     pub cache_dir: Option<String>,
+    #[uniffi(default = true)]
+    pub allow_onion_addrs: bool,
+    #[uniffi(default = 10000000000)]
+    pub connect_timeout_nanos: i64,
+    #[uniffi(default = 10000000000)]
+    pub resolve_timeout_nanos: i64,
 }
 
 #[derive(Debug, thiserror::Error, uniffi::Error)]
