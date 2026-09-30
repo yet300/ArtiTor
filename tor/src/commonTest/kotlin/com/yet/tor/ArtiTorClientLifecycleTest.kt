@@ -518,13 +518,13 @@ class ArtiTorClientLifecycleTest {
 
         assertTrue(
             client.start(
-                ArtiConfig(dataDir = "/tmp/a", bridges = listOf("obfs4 1.2.3.4:443 FP")),
+                ArtiConfig(dataDir = "/tmp/a", bridges = listOf("192.0.2.1:443 $0123456789ABCDEF0123456789ABCDEF01234567")),
                 5.seconds,
             ).isSuccess,
         )
         assertEquals(1, fake.shutdownCalls, "client-defining change must tear down first")
         assertEquals(
-            listOf("obfs4 1.2.3.4:443 FP"),
+            listOf("192.0.2.1:443 $0123456789ABCDEF0123456789ABCDEF01234567"),
             fake.startCalls.last().bridges,
         )
     }
@@ -574,7 +574,7 @@ class ArtiTorClientLifecycleTest {
         }
         val client = ArtiTorClient(fake)
         client.start(
-            ArtiConfig(dataDir = "/tmp/a", bridges = listOf("obfs4 1.2.3.4:443 FP")),
+            ArtiConfig(dataDir = "/tmp/a", bridges = listOf("192.0.2.1:443 $0123456789ABCDEF0123456789ABCDEF01234567")),
             5.seconds,
         ).getOrThrow()
         client.pause()

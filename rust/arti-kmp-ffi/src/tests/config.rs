@@ -114,6 +114,134 @@ const DIRECT_A: &str = "192.0.2.10:443 $1111111111111111111111111111111111111111
 const DIRECT_B: &str = "Bridge [2001:db8::42]:123 $2222222222222222222222222222222222222222";
 const PT: &str = "obfs4 203.0.113.44:49123 $1111111111111111111111111111111111111111 password=SECRET_TRANSPORT_OPTION_MARKER";
 
+#[tokio::test]
+async fn invalid_config_preserves_real_retained_running_and_paused_engine() {
+    for paused in [false, true] {
+        let (engine, sessions_recorder) = running_engine("invalid-retained-config");
+        let listener = ReentrantEngineListener::new(&engine);
+        engine
+            .start(test_config(), Box::new(listener.clone()))
+            .unwrap();
+        let shared = engine.inner.lock().unwrap().shared.clone();
+        let deadline = tokio::time::Instant::now() + Duration::from_secs(5);
+        while shared.bound_port.load(Ordering::SeqCst) == 0 {
+            assert!(
+                tokio::time::Instant::now() < deadline,
+                "root listener must bind"
+            );
+            tokio::time::sleep(Duration::from_millis(10)).await;
+        }
+        let session = engine
+            .create_session(Box::new(sessions_recorder.clone()))
+            .unwrap();
+        if paused {
+            engine.pause();
+        }
+        let before_status = session.status_snapshot();
+        let (
+            root,
+            isolated,
+            epoch,
+            generation,
+            worker_revision,
+            worker_id,
+            runtime_addr,
+            listener_before,
+            root_port,
+        ) = {
+            let inner = engine.inner.lock().unwrap();
+            let sessions = shared.sessions.lock().unwrap();
+            (
+                shared.client().unwrap(),
+                sessions.get(&session.id()).unwrap().isolated.clone(),
+                shared.client_epoch.load(Ordering::SeqCst),
+                inner.generation,
+                shared.worker_revision.load(Ordering::SeqCst),
+                inner.worker.as_ref().map(|worker| worker.id()),
+                inner.runtime.as_ref().unwrap() as *const Runtime as usize,
+                shared.listener().unwrap(),
+                shared.bound_port.load(Ordering::SeqCst),
+            )
+        };
+        let before_events = sessions_recorder.events();
+        for mode in [
+            BridgesEnabled::Auto,
+            BridgesEnabled::On,
+            BridgesEnabled::Off,
+        ] {
+            let mut invalid = test_config();
+            invalid.bridges_enabled = mode;
+            invalid.bridges = vec!["invalid SECRET_RETAINED_BRIDGE_MARKER".into()];
+            assert!(matches!(
+                crate::validate_config(invalid.clone()),
+                Err(ArtiError::Config { .. })
+            ));
+            let replacement_listener = ReentrantEngineListener::new(&engine);
+            assert!(matches!(
+                engine.start(invalid, Box::new(replacement_listener)),
+                Err(ArtiError::Config { .. })
+            ));
+            let inner = engine.inner.lock().unwrap();
+            assert!(Arc::ptr_eq(&root, &shared.client().unwrap()));
+            assert!(Arc::ptr_eq(
+                &isolated,
+                &shared
+                    .sessions
+                    .lock()
+                    .unwrap()
+                    .get(&session.id())
+                    .unwrap()
+                    .isolated
+            ));
+            assert!(Arc::ptr_eq(&listener_before, &shared.listener().unwrap()));
+            assert_eq!(
+                shared.engine_state(),
+                if paused {
+                    TorState::Paused
+                } else {
+                    TorState::Running
+                }
+            );
+            assert_eq!(shared.client_epoch.load(Ordering::SeqCst), epoch);
+            assert_eq!(inner.generation, generation);
+            assert_eq!(
+                shared.worker_revision.load(Ordering::SeqCst),
+                worker_revision
+            );
+            assert_eq!(inner.worker.as_ref().map(|worker| worker.id()), worker_id);
+            assert_eq!(
+                inner.runtime.as_ref().unwrap() as *const Runtime as usize,
+                runtime_addr
+            );
+            assert_eq!(shared.bound_port.load(Ordering::SeqCst), root_port);
+            assert!(shared.bootstrap_done.load(Ordering::SeqCst));
+            assert_eq!(
+                inner.last_config.as_ref().unwrap().bridges,
+                Vec::<String>::new()
+            );
+            assert_eq!(
+                inner.last_config.as_ref().unwrap().bridges_enabled,
+                BridgesEnabled::Auto
+            );
+            drop(inner);
+            assert_eq!(session.status_snapshot().state, before_status.state);
+            assert_eq!(session.status_snapshot().port, before_status.port);
+            assert_eq!(sessions_recorder.events(), before_events);
+            if !paused {
+                assert!(tokio::net::TcpStream::connect(("127.0.0.1", root_port))
+                    .await
+                    .is_ok());
+                assert!(
+                    tokio::net::TcpStream::connect(("127.0.0.1", before_status.port.unwrap()))
+                        .await
+                        .is_ok()
+                );
+            }
+        }
+        engine.shutdown();
+    }
+}
+
 #[test]
 fn bridge_enablement_matrix() {
     use crate::config::build_tor_config;

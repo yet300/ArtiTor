@@ -4,6 +4,7 @@ import com.yet.tor.ffi.SessionState
 import com.yet.tor.ffi.SessionStatusListener
 import com.yet.tor.ffi.SocksSession
 import com.yet.tor.ffi.StatusListener
+import com.yet.tor.ffi.validateConfig
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -89,9 +90,9 @@ data class ArtiConfig(
     val dataDir: String,
     val socksPort: Int = 0,
     val bridges: List<String> = emptyList(),
-    val bridgesEnabled: BridgesEnabled = BridgesEnabled.AUTO,
     val stateDir: String? = null,
     val cacheDir: String? = null,
+    val bridgesEnabled: BridgesEnabled = BridgesEnabled.AUTO,
 )
 
 /** Typed failures from the engine (maps UniFFI errors + Kotlin waits). */
@@ -434,33 +435,37 @@ class ArtiTorClient internal constructor(
         timeout: Duration = 90.seconds,
     ): Result<Unit> = lifecycleMutex.withLock {
         runCatching {
+            // Freeze caller-owned collections before comparing identity or
+            // validating; retain this same snapshot after a successful start.
+            val requested = config.copy(bridges = config.bridges.toList())
             val cur = _status.value
             if (cur.isReady) {
                 val effective = lastConfig
                 if (effective != null &&
-                    !torClientConfigChanged(effective, config) &&
-                    effective.socksPort == config.socksPort
+                    !torClientConfigChanged(effective, requested) &&
+                    effective.socksPort == requested.socksPort
                 ) {
                     return@runCatching
                 }
-                if (effective != null && !torClientConfigChanged(effective, config)) {
+                preflight(requested)
+                if (effective != null && !torClientConfigChanged(effective, requested)) {
                     // Port-only change while RUNNING: drop SOCKS, rebind.
                     doPauseLocked()
-                    kickStart(config)
+                    kickStart(requested)
                 } else {
                     // Client-defining change (or unknown baseline): cold start.
                     doShutdownLocked()
-                    kickStart(config)
+                    kickStart(requested)
                 }
             } else {
                 // OFF/ERROR/PAUSED/STARTING/BOOTSTRAPPING/STOPPING: the native
                 // layer applies config identity (rebind vs rebuild) for the
                 // PAUSED case; cold start otherwise; AlreadyRunning joins
                 // in-flight work.
-                kickStart(config)
+                kickStart(requested)
             }
             awaitReady(epoch.value, timeout)
-            lastConfig = config
+            lastConfig = requested
         }
     }
 
@@ -513,16 +518,18 @@ class ArtiTorClient internal constructor(
         timeout: Duration = 90.seconds,
     ): Result<Unit> = lifecycleMutex.withLock {
         runCatching {
-            val effective = config ?: lastConfig
+            val effective = (config ?: lastConfig)
                 ?: throw ArtiException.Config(
                     "restart() without a config requires a previous successful start",
                 )
+            val requested = effective.copy(bridges = effective.bridges.toList())
+            preflight(requested)
             doShutdownLocked()
-            kickStart(effective)
+            kickStart(requested)
             // Epoch captured after our own shutdown bump, so only *foreign*
             // pause/shutdown cancels this wait.
             awaitReady(epoch.value, timeout)
-            lastConfig = effective
+            lastConfig = requested
         }
     }
 
@@ -604,6 +611,14 @@ class ArtiTorClient internal constructor(
         }
     }
 
+    private fun preflight(config: ArtiConfig) {
+        try {
+            validateConfig(config.toFfi())
+        } catch (e: FfiArtiException) {
+            throw e.toPublic()
+        }
+    }
+
     private fun doPauseLocked() {
         native.pause()
         epoch.update { it + 1 }
@@ -657,18 +672,22 @@ class ArtiTorClient internal constructor(
     }
 }
 
-private fun ArtiConfig.toFfi(): FfiConfig = FfiConfig(
-    dataDir = dataDir,
-    socksPort = socksPort.toUShort(),
-    bridges = bridges,
-    bridgesEnabled = when (bridgesEnabled) {
-        BridgesEnabled.AUTO -> FfiBridgesEnabled.AUTO
-        BridgesEnabled.ON -> FfiBridgesEnabled.ON
-        BridgesEnabled.OFF -> FfiBridgesEnabled.OFF
-    },
-    stateDir = stateDir,
-    cacheDir = cacheDir,
-)
+private fun ArtiConfig.toFfi(): FfiConfig {
+    // The FFI u16 cannot represent these values; reject rather than wrap.
+    if (socksPort !in 0..65535) throw ArtiException.Config("SOCKS port must be between 0 and 65535")
+    return FfiConfig(
+        dataDir = dataDir,
+        socksPort = socksPort.toUShort(),
+        bridges = bridges,
+        bridgesEnabled = when (bridgesEnabled) {
+            BridgesEnabled.AUTO -> FfiBridgesEnabled.AUTO
+            BridgesEnabled.ON -> FfiBridgesEnabled.ON
+            BridgesEnabled.OFF -> FfiBridgesEnabled.OFF
+        },
+        stateDir = stateDir,
+        cacheDir = cacheDir,
+    )
+}
 
 private fun FfiArtiException.toPublic(): ArtiException = when (this) {
     is FfiArtiException.AlreadyRunning -> ArtiException.AlreadyRunning()

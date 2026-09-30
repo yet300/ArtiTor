@@ -1,4 +1,11 @@
 // Stable crate-root UniFFI facade (included by lib.rs to preserve metadata checksums).
+/// Internal facade preflight: validate without changing engine state or resources.
+/// The construction path uses the same Rust validator; no bridge syntax is duplicated.
+#[uniffi::export]
+pub fn validate_config(config: ArtiConfig) -> Result<(), ArtiError> {
+    config::build_tor_config(&config).map(|_| ())
+}
+
 #[uniffi::export]
 impl ArtiTor {
     #[uniffi::constructor]

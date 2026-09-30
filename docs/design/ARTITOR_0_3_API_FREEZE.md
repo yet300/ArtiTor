@@ -1,7 +1,7 @@
 # ArtiTor 0.3 API Freeze — Normative Implementation Contract
 
 Date: 2026-09-29
-Status: FROZEN — Phase-1 amendments accepted 2026-09-30 (independent audit remediation)
+Status: FROZEN — Phase 1 CLOSED; integrated 0.3 implementation in progress
 Baseline: ArtiTor 0.2 lifecycle contract stable; Ubique UniFFI migration
 complete; `arti-client` 0.46.0.
 Authority: this document is the implementation source of truth for 0.3.
@@ -98,9 +98,9 @@ data class ArtiConfig(
     val dataDir: String,
     val socksPort: Int = 0,                       // root listener; 0 = ephemeral
     val bridges: List<String> = emptyList(),      // UNCHANGED wire shape
-    val bridgesEnabled: BridgesEnabled = BridgesEnabled.AUTO, // NEW
     val stateDir: String? = null,
     val cacheDir: String? = null,
+    val bridgesEnabled: BridgesEnabled = BridgesEnabled.AUTO, // NEW, appended for 0.2 source compatibility
     val allowOnionAddrs: Boolean = true,          // NEW, Arti default
     // allowLocalAddrs: EXCLUDED from 0.3 (see §9).
     val connectTimeout: Duration = 10.seconds,    // NEW, Arti default
@@ -196,6 +196,15 @@ see §6); `openStream()`; SOCKS auth; `allowLocalAddrs`; `goDormant/wake`;
 session limit constant; typed bridge record.
 
 ---
+
+### Integrated-run compatibility and rejection clarification (2026-09-30)
+
+Phase 1 is CLOSED at `86da3c8dc71025278df66d588126cc0bef475b49`, independently accepted PASS WITH FOLLOW-UPS; the amendments above remain the governing semantics.
+Phase-2 bridge hardening was implemented at `8bb0d95a4a865b1d322086e2b2ec37c26fb22c57`; integrated remediation addresses the subsequently reproduced public replacement defect.
+
+The five pre-0.3 constructor positions are `dataDir`, `socksPort`, `bridges`, `stateDir`, `cacheDir`. New fields are appended after those positions. This corrects the decorative sketch's contradiction with §13's required old-source compilation; it changes no configuration semantics.
+
+A candidate rejected during configuration validation must preserve the previously effective client, root/session states, resources and identities in RUNNING and PAUSED. Validation precedes destructive pause/shutdown/replacement, including explicit restart with a supplied candidate. Rust remains the configuration parsing/build authority; a small internal UniFFI preflight is permitted, without a new public KMP validation API. This clarifies accepted replacement versus rejected candidate; it does not promise rollback after filesystem, construction, bootstrap or bind failures following acceptance.
 
 ## 4. Native ownership model (frozen)
 

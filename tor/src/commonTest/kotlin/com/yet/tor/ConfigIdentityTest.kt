@@ -64,6 +64,10 @@ class ConfigIdentityTest {
         assertEquals(emptyList(), base().bridges)
         assertEquals(BridgesEnabled.AUTO, base().bridgesEnabled)
         assertEquals(BridgesEnabled.AUTO, ArtiConfig(dataDir = "/tmp/a", bridges = listOf("fixture")).bridgesEnabled)
+        val oldPositional = ArtiConfig("/tmp/a", 9050, listOf("fixture"), "/tmp/s", "/tmp/c")
+        assertEquals("/tmp/s", oldPositional.stateDir)
+        assertEquals("/tmp/c", oldPositional.cacheDir)
+        assertEquals(BridgesEnabled.AUTO, oldPositional.bridgesEnabled)
     }
 
     @Test
