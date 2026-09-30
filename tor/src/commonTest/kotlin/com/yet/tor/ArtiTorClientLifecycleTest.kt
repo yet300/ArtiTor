@@ -161,7 +161,7 @@ class ArtiTorClientLifecycleTest {
             listener.onStatus(FfiTorState.STARTING, 0u, null, "starting")
             launch {
                 delay(20)
-                listener.onError(FfiErrorDetail(FfiErrorKind.BIND, 9060u, "address in use"))
+                listener.onError(FfiErrorDetail(FfiErrorKind.BIND, com.yet.tor.ffi.TorErrorKind.BIND, 9060u, "address in use"))
                 listener.onStatus(FfiTorState.ERROR, 0u, null, "error: bind")
             }
         }
@@ -183,7 +183,7 @@ class ArtiTorClientLifecycleTest {
             listener.onStatus(FfiTorState.BOOTSTRAPPING, 12u, null, "bootstrapping 12%")
             launch {
                 delay(20)
-                listener.onError(FfiErrorDetail(FfiErrorKind.BOOTSTRAP, null, "no consensus"))
+                listener.onError(FfiErrorDetail(FfiErrorKind.BOOTSTRAP, com.yet.tor.ffi.TorErrorKind.BOOTSTRAP, null, "no consensus"))
                 listener.onStatus(FfiTorState.ERROR, 0u, null, "error: bootstrap")
             }
         }
@@ -448,7 +448,7 @@ class ArtiTorClientLifecycleTest {
             if (calls == 1) {
                 launch {
                     delay(20)
-                    listener.onError(FfiErrorDetail(FfiErrorKind.BOOTSTRAP, null, "no consensus"))
+                    listener.onError(FfiErrorDetail(FfiErrorKind.BOOTSTRAP, com.yet.tor.ffi.TorErrorKind.BOOTSTRAP, null, "no consensus"))
                     listener.onStatus(FfiTorState.ERROR, 0u, null, "error")
                 }
             } else {
@@ -675,7 +675,7 @@ class ArtiTorClientLifecycleTest {
             lastListener = listener
             launch {
                 delay(20)
-                listener.onError(FfiErrorDetail(FfiErrorKind.RUNTIME, null, "boom"))
+                listener.onError(FfiErrorDetail(FfiErrorKind.RUNTIME, com.yet.tor.ffi.TorErrorKind.RUNTIME, null, "boom"))
                 listener.onStatus(FfiTorState.ERROR, 50u, null, "error")
             }
         }
@@ -702,7 +702,7 @@ class ArtiTorClientLifecycleTest {
             launch {
                 delay(20)
                 listener.onStatus(FfiTorState.ERROR, 0u, null, "error: bind")
-                listener.onError(FfiErrorDetail(FfiErrorKind.BIND, 9060u, "address in use"))
+                listener.onError(FfiErrorDetail(FfiErrorKind.BIND, com.yet.tor.ffi.TorErrorKind.BIND, 9060u, "address in use"))
             }
         }
         val client = ArtiTorClient(fake)

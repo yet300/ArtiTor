@@ -11,36 +11,36 @@ class ErrorMappingTest {
 
     @Test
     fun bindDetailMapsToBindWithPort() {
-        val e = FfiErrorDetail(FfiErrorKind.BIND, 9060u, "address in use").toPublic()
+        val e = FfiErrorDetail(FfiErrorKind.BIND, com.yet.tor.ffi.TorErrorKind.BIND, 9060u, "address in use").toPublic()
         assertIs<ArtiException.Bind>(e)
         assertEquals(9060, e.port)
     }
 
     @Test
     fun bootstrapDetailMapsToBootstrap() {
-        val e = FfiErrorDetail(FfiErrorKind.BOOTSTRAP, null, "no consensus").toPublic()
+        val e = FfiErrorDetail(FfiErrorKind.BOOTSTRAP, com.yet.tor.ffi.TorErrorKind.BOOTSTRAP, null, "no consensus").toPublic()
         assertIs<ArtiException.Bootstrap>(e)
     }
 
     @Test
     fun configDetailMapsToConfig() {
-        val e = FfiErrorDetail(FfiErrorKind.CONFIG, null, "bad bridge line").toPublic()
+        val e = FfiErrorDetail(FfiErrorKind.CONFIG, com.yet.tor.ffi.TorErrorKind.CONFIG, null, "bad bridge line").toPublic()
         assertIs<ArtiException.Config>(e)
     }
 
     @Test
     fun runtimeDetailMapsToRuntime() {
-        val e = FfiErrorDetail(FfiErrorKind.RUNTIME, null, "boom").toPublic()
+        val e = FfiErrorDetail(FfiErrorKind.RUNTIME, com.yet.tor.ffi.TorErrorKind.RUNTIME, null, "boom").toPublic()
         assertIs<ArtiException.Runtime>(e)
     }
 
     @Test
     fun alreadyRunningAndNotRunningMap() {
         assertIs<ArtiException.AlreadyRunning>(
-            FfiErrorDetail(FfiErrorKind.ALREADY_RUNNING, null, "x").toPublic(),
+            FfiErrorDetail(FfiErrorKind.ALREADY_RUNNING, com.yet.tor.ffi.TorErrorKind.ALREADY_RUNNING, null, "x").toPublic(),
         )
         assertIs<ArtiException.NotRunning>(
-            FfiErrorDetail(FfiErrorKind.NOT_RUNNING, null, "x").toPublic(),
+            FfiErrorDetail(FfiErrorKind.NOT_RUNNING, com.yet.tor.ffi.TorErrorKind.NOT_RUNNING, null, "x").toPublic(),
         )
     }
 
@@ -50,14 +50,14 @@ class ErrorMappingTest {
         // become Bind; a Bind message containing bootstrap-like text must NOT
         // become Bootstrap. Proves no string parsing.
         val bootstrap = FfiErrorDetail(
-            FfiErrorKind.BOOTSTRAP,
+            FfiErrorKind.BOOTSTRAP, com.yet.tor.ffi.TorErrorKind.BOOTSTRAP,
             null,
             "failed to bind SOCKS on 9050: address in use",
         ).toPublic()
         assertIs<ArtiException.Bootstrap>(bootstrap)
 
         val bind = FfiErrorDetail(
-            FfiErrorKind.BIND,
+            FfiErrorKind.BIND, com.yet.tor.ffi.TorErrorKind.BIND,
             9050u,
             "bootstrap failed: no consensus",
         ).toPublic()

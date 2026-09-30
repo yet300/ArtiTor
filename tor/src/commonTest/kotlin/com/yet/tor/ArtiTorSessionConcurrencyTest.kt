@@ -256,8 +256,8 @@ class ArtiTorSessionConcurrencyTest {
             FfiArtiException.AlreadyRunning() to ArtiException.AlreadyRunning::class,
             FfiArtiException.Bind(1234u, "collision") to ArtiException.Bind::class,
             FfiArtiException.Config("invalid") to ArtiException.Config::class,
-            FfiArtiException.Bootstrap("failed") to ArtiException.Bootstrap::class,
-            FfiArtiException.Runtime("session limit reached") to ArtiException.Runtime::class,
+            FfiArtiException.Bootstrap("failed", com.yet.tor.ffi.TorErrorKind.BOOTSTRAP) to ArtiException.Bootstrap::class,
+            FfiArtiException.Runtime("session limit reached", com.yet.tor.ffi.TorErrorKind.RUNTIME) to ArtiException.Runtime::class,
         )
         for ((failure, expected) in failures) {
             val fake = FakeSessionNative(this)
@@ -312,7 +312,7 @@ class ArtiTorSessionConcurrencyTest {
         val client = ArtiTorClient(fake)
         fake.createSessionBehavior = { listener ->
             listener.onSessionStatus("orphan", SessionState.PAUSED, null, 2u)
-            throw FfiArtiException.Runtime("session limit reached")
+            throw FfiArtiException.Runtime("session limit reached", com.yet.tor.ffi.TorErrorKind.RUNTIME)
         }
         assertTrue(client.createIsolationSession().isFailure)
         assertTrue(client.sessions.isEmpty())
@@ -804,7 +804,7 @@ class ArtiTorSessionConcurrencyTest {
         // Native ordering/freshness is tested against production notify_worker_error
         // in Rust. Here exercise the real facade during its typed callback assignment.
         fake.sessionListener!!.onSessionStatus(session.id, SessionState.PAUSED, null, 2u)
-        engineListener!!.onError(com.yet.tor.ffi.ArtiErrorDetail(com.yet.tor.ffi.ErrorKind.RUNTIME, null, "injected"))
+        engineListener!!.onError(com.yet.tor.ffi.ArtiErrorDetail(com.yet.tor.ffi.ErrorKind.RUNTIME, com.yet.tor.ffi.TorErrorKind.RUNTIME, null, "injected"))
         assertEquals(TorState.OFF, client.status.value.state)
         assertEquals(null, client.status.value.lastError)
         assertFalse(client.hasClient)

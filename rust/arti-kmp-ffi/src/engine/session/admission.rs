@@ -39,7 +39,7 @@ impl ArtiTor {
             };
             if shared.sessions.lock().unwrap().len() >= MAX_SESSIONS {
                 return Err(ArtiError::Runtime {
-                    msg: "session limit reached".into(),
+                    error_kind: crate::TorErrorKind::Runtime, msg: "session limit reached".into(),
                 });
             }
             let root = shared.client().ok_or(ArtiError::NotRunning)?;
@@ -47,7 +47,7 @@ impl ArtiTor {
                 .runtime
                 .as_ref()
                 .ok_or_else(|| ArtiError::Runtime {
-                    msg: "no runtime".into(),
+                    error_kind: crate::TorErrorKind::Runtime, msg: "no runtime".into(),
                 })?
                 .handle()
                 .clone();
@@ -203,7 +203,7 @@ impl ArtiTor {
                         let mut sessions = shared.sessions.lock().unwrap();
                         if sessions.len() >= MAX_SESSIONS {
                             Outcome::Gone(ArtiError::Runtime {
-                                msg: "session limit reached".into(),
+                                error_kind: crate::TorErrorKind::Runtime, msg: "session limit reached".into(),
                             })
                         } else {
                             let port = bound_port.unwrap();
@@ -226,7 +226,7 @@ impl ArtiTor {
                         let mut sessions = shared.sessions.lock().unwrap();
                         if sessions.len() >= MAX_SESSIONS {
                             Outcome::Gone(ArtiError::Runtime {
-                                msg: "session limit reached".into(),
+                                error_kind: crate::TorErrorKind::Runtime, msg: "session limit reached".into(),
                             })
                         } else {
                             let entry = SessionRuntime {

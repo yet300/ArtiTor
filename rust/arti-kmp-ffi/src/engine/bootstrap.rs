@@ -12,6 +12,7 @@ pub(super) fn spawn_cold(
     #[cfg(test)]
     if inner.test_spawn_cold_failure {
         return Err(ArtiError::Runtime {
+            error_kind: crate::TorErrorKind::Runtime,
             msg: "injected spawn_cold failure".into(),
         });
     }
@@ -21,7 +22,10 @@ pub(super) fn spawn_cold(
         None => tokio::runtime::Builder::new_multi_thread()
             .enable_all()
             .build()
-            .map_err(|e| ArtiError::Runtime { msg: e.to_string() })?,
+            .map_err(|_| ArtiError::Runtime {
+                error_kind: crate::TorErrorKind::Runtime,
+                msg: "failed to create async runtime".into(),
+            })?,
     };
 
     let shared = inner.shared.clone();
@@ -52,10 +56,7 @@ async fn cold_start(
         return Ok(());
     }
     if let Some(l) = shared.listener() {
-        l.on_log(format!(
-            "starting arti: data_dir={}, socks_port={}",
-            config.data_dir, config.socks_port
-        ));
+        l.on_log(format!("starting arti: socks_port={}", config.socks_port));
     }
 
     let (state_dir, cache_dir) = resolve_dirs(&config);
@@ -69,7 +70,7 @@ async fn cold_start(
     let client = TorClient::builder()
         .config(tor_config)
         .create_unbootstrapped()
-        .map_err(|e| ArtiError::Runtime { msg: e.to_string() })?;
+        .map_err(|e| ArtiError::client_creation(&e))?;
     {
         let _transition = shared.transition_gate.lock().unwrap();
         if shared.worker_revision.load(Ordering::SeqCst) != revision {
@@ -113,7 +114,7 @@ async fn cold_start(
                     if let Some(l) = shared.listener() {
                         l.on_log(format!("bootstrap() returned: ok={}", res.is_ok()));
                     }
-                    res.map_err(|e| ArtiError::Bootstrap { msg: e.to_string() })?;
+                    res.map_err(|e| ArtiError::bootstrap_failure(&e))?;
                     break;
                 }
             }

@@ -328,7 +328,7 @@ fn assert_spawn_cold_failure_notifies(rebuild: bool) {
     let listener = ReentrantEngineListener::new(&engine);
     let result = engine.start(config, Box::new(listener));
     assert!(
-        matches!(result, Err(ArtiError::Runtime { ref msg }) if msg == "injected spawn_cold failure")
+        matches!(result, Err(ArtiError::Runtime { ref msg, .. }) if msg == "injected spawn_cold failure")
     );
     assert_eq!(session.status_snapshot().state, SessionState::Invalidated);
     assert_eq!(session.status_snapshot().port, None);

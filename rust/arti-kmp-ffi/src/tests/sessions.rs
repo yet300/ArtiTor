@@ -256,7 +256,7 @@ async fn session_limit_is_enforced_without_engine_damage() {
         .create_session(Box::new(rec.clone()))
         .expect_err("over the cap");
     match err {
-        ArtiError::Runtime { msg } => assert!(
+        ArtiError::Runtime { msg, .. } => assert!(
             msg.contains("session limit reached"),
             "unexpected message: {msg}"
         ),

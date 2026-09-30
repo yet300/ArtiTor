@@ -146,7 +146,7 @@ impl ArtiTor {
                     .as_ref()
                     .map(|rt| rt.handle().clone())
                     .ok_or_else(|| ArtiError::Runtime {
-                        msg: "no runtime".into(),
+                        error_kind: crate::TorErrorKind::Runtime, msg: "no runtime".into(),
                     })?;
                 let shared = inner.shared.clone();
                 drop(transition);
@@ -220,7 +220,7 @@ impl ArtiTor {
                 .as_ref()
                 .map(|rt| rt.handle().clone())
                 .ok_or_else(|| ArtiError::Runtime {
-                    msg: "no runtime".into(),
+                    error_kind: crate::TorErrorKind::Runtime, msg: "no runtime".into(),
                 })?;
             let shared = inner.shared.clone();
             (ready, shared, runtime_handle)

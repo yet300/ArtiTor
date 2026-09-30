@@ -22,13 +22,17 @@ fn error_detail_preserves_declared_types() {
         ),
         (
             ArtiError::Bootstrap {
+                error_kind: crate::TorErrorKind::Bootstrap,
                 msg: "no consensus".into(),
             },
             ErrorKind::Bootstrap,
             None,
         ),
         (
-            ArtiError::Runtime { msg: "boom".into() },
+            ArtiError::Runtime {
+                error_kind: crate::TorErrorKind::Runtime,
+                msg: "boom".into(),
+            },
             ErrorKind::Runtime,
             None,
         ),
@@ -36,9 +40,41 @@ fn error_detail_preserves_declared_types() {
     for (err, kind, port) in cases {
         let d = ArtiErrorDetail::from(&err);
         assert_eq!(d.kind, kind, "kind for {err}");
+        assert_eq!(
+            d.error_kind,
+            match kind {
+                ErrorKind::AlreadyRunning => crate::TorErrorKind::AlreadyRunning,
+                ErrorKind::NotRunning => crate::TorErrorKind::NotRunning,
+                ErrorKind::Config => crate::TorErrorKind::Config,
+                ErrorKind::Bind => crate::TorErrorKind::Bind,
+                ErrorKind::Bootstrap => crate::TorErrorKind::Bootstrap,
+                ErrorKind::Runtime => crate::TorErrorKind::Runtime,
+            },
+            "legacy classification default for {err}"
+        );
         assert_eq!(d.port, port, "port for {err}");
         assert!(!d.msg.is_empty(), "msg for {err}");
     }
+}
+
+#[test]
+fn notify_error_preserves_upstream_category_and_operation_class() {
+    let recorder = Arc::new(Recorder {
+        statuses: StdMutex::new(vec![]),
+        errors: StdMutex::new(vec![]),
+    });
+    let shared = test_shared(recorder.clone());
+    shared.notify_error(
+        &ArtiError::Bootstrap {
+            msg: "Tor bootstrap failed".into(),
+            error_kind: crate::TorErrorKind::Network,
+        },
+        0,
+    );
+    let errors = recorder.errors.lock().unwrap();
+    assert_eq!(errors.len(), 1);
+    assert_eq!(errors[0].kind, ErrorKind::Bootstrap);
+    assert_eq!(errors[0].error_kind, crate::TorErrorKind::Network);
 }
 
 #[test]
@@ -66,6 +102,7 @@ fn notify_error_delivers_typed_detail_before_status() {
     shared.set_listener(rec.clone());
     shared.notify_error(
         &ArtiError::Bootstrap {
+            error_kind: crate::TorErrorKind::Bootstrap,
             msg: "no consensus".into(),
         },
         42,
@@ -151,6 +188,7 @@ fn assert_error_publication_freshness(
     shared.notify_worker_error(
         Some(worker),
         &ArtiError::Runtime {
+            error_kind: crate::TorErrorKind::Runtime,
             msg: "injected".into(),
         },
         100,
@@ -213,6 +251,7 @@ fn error_session_callback_pause_notifies_all_demoted_siblings() {
     shared.notify_worker_error(
         Some(shared.worker_revision.load(Ordering::SeqCst)),
         &ArtiError::Runtime {
+            error_kind: crate::TorErrorKind::Runtime,
             msg: "injected".into(),
         },
         100,
@@ -320,6 +359,7 @@ fn audit_error_callbacks_must_observe_demoted_sessions() {
     }));
     shared.notify_error(
         &ArtiError::Runtime {
+            error_kind: crate::TorErrorKind::Runtime,
             msg: "audit".into(),
         },
         100,

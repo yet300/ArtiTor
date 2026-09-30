@@ -37,7 +37,7 @@ fn assert_concurrent_cap(paused: bool) {
         results
             .iter()
             .filter(
-                |r| matches!(r, Err(ArtiError::Runtime { msg }) if msg == "session limit reached")
+                |r| matches!(r, Err(ArtiError::Runtime { msg, .. }) if msg == "session limit reached")
             )
             .count(),
         8
@@ -191,6 +191,7 @@ fn final_create_decision_rejects_completed_error() {
     gate.arrived.wait();
     shared.notify_error(
         &ArtiError::Runtime {
+            error_kind: crate::TorErrorKind::Runtime,
             msg: "final boundary".into(),
         },
         100,
@@ -212,6 +213,7 @@ fn old_root_worker_cannot_publish_after_pause_or_replacement() {
     shared.notify_worker_error(
         Some(revision),
         &ArtiError::Runtime {
+            error_kind: crate::TorErrorKind::Runtime,
             msg: "stale".into(),
         },
         100,

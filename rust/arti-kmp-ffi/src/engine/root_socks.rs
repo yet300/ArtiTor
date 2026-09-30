@@ -9,6 +9,7 @@ pub(super) struct RootBindReady {
 
 pub(super) fn spawn_socks(inner: &mut Inner, socks_port: u16) -> Result<RootBindReady, ArtiError> {
     let runtime = inner.runtime.as_ref().ok_or_else(|| ArtiError::Runtime {
+        error_kind: crate::TorErrorKind::Runtime,
         msg: "no runtime".into(),
     })?;
     let client = inner.shared.client().ok_or(ArtiError::NotRunning)?;
@@ -73,6 +74,7 @@ pub(super) async fn run_socks_worker(
     let actual_port = socks
         .local_addr()
         .map_err(|e| ArtiError::Runtime {
+            error_kind: crate::TorErrorKind::Runtime,
             msg: format!("local_addr: {e}"),
         })?
         .port();

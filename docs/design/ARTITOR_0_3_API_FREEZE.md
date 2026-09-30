@@ -175,8 +175,9 @@ sealed class ArtiException(message: String, cause: Throwable? = null) :
         ArtiException("failed to bind SOCKS on $port: $msg") {
         override val kind = TorErrorKind.BIND
     }
-    class Bootstrap(msg: String) : ArtiException("bootstrap failed: $msg") {
-        override val kind = TorErrorKind.BOOTSTRAP
+    class Bootstrap internal constructor(msg: String, override val kind: TorErrorKind) :
+        ArtiException("bootstrap failed: $msg") {
+        constructor(msg: String) : this(msg, TorErrorKind.BOOTSTRAP)
     }
     class Timeout(msg: String = "timed out waiting for Tor ready") : ArtiException(msg) {
         override val kind = TorErrorKind.TIMEOUT

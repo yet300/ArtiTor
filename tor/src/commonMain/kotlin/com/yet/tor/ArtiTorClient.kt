@@ -28,6 +28,7 @@ import com.yet.tor.ffi.ArtiTorInterface as FfiArtiTorInterface
 import com.yet.tor.ffi.ErrorKind as FfiErrorKind
 import com.yet.tor.ffi.BridgesEnabled as FfiBridgesEnabled
 import com.yet.tor.ffi.TorState as FfiTorState
+import com.yet.tor.ffi.TorErrorKind as FfiTorErrorKind
 
 /** High-level lifecycle state (mirrors native UniFFI enum). */
 enum class TorState {
@@ -95,17 +96,36 @@ data class ArtiConfig(
     val bridgesEnabled: BridgesEnabled = BridgesEnabled.AUTO,
 )
 
+/** Stable failure categories; independent of diagnostic message wording. */
+enum class TorErrorKind {
+    ALREADY_RUNNING, NOT_RUNNING, CONFIG, BIND, BOOTSTRAP, TIMEOUT, RUNTIME, NETWORK, EXIT_FAILED, TARGET_REJECTED, STORAGE, BOOTSTRAP_REQUIRED, SESSION_CLOSED, SESSION_INVALIDATED, UNKNOWN
+}
+
 /** Typed failures from the engine (maps UniFFI errors + Kotlin waits). */
 sealed class ArtiException(message: String, cause: Throwable? = null) :
     Exception(message, cause) {
-    class AlreadyRunning : ArtiException("Tor client already starting or running")
-    class NotRunning : ArtiException("Tor client is not running")
-    class Config(msg: String) : ArtiException("configuration error: $msg")
-    class Bind(val port: Int, msg: String) :
-        ArtiException("failed to bind SOCKS on $port: $msg")
-    class Bootstrap(msg: String) : ArtiException("bootstrap failed: $msg")
-    class Timeout(msg: String = "timed out waiting for Tor ready") : ArtiException(msg)
-    class Runtime(msg: String) : ArtiException("runtime error: $msg")
+    abstract val kind: TorErrorKind
+    class AlreadyRunning : ArtiException("Tor client already starting or running") {
+        override val kind = TorErrorKind.ALREADY_RUNNING
+    }
+    class NotRunning : ArtiException("Tor client is not running") {
+        override val kind = TorErrorKind.NOT_RUNNING
+    }
+    class Config(msg: String) : ArtiException("configuration error: $msg") {
+        override val kind = TorErrorKind.CONFIG
+    }
+    class Bind(val port: Int, msg: String) : ArtiException("failed to bind SOCKS on $port: $msg") {
+        override val kind = TorErrorKind.BIND
+    }
+    class Bootstrap internal constructor(msg: String, override val kind: TorErrorKind) :
+        ArtiException("bootstrap failed: $msg") {
+        constructor(msg: String) : this(msg, TorErrorKind.BOOTSTRAP)
+    }
+    class Timeout(msg: String = "timed out waiting for Tor ready") : ArtiException(msg) {
+        override val kind = TorErrorKind.TIMEOUT
+    }
+    class Runtime(msg: String, override val kind: TorErrorKind = TorErrorKind.RUNTIME) :
+        ArtiException("runtime error: $msg")
 }
 
 /**
@@ -689,21 +709,21 @@ private fun ArtiConfig.toFfi(): FfiConfig {
     )
 }
 
-private fun FfiArtiException.toPublic(): ArtiException = when (this) {
+internal fun FfiArtiException.toPublic(): ArtiException = when (this) {
     is FfiArtiException.AlreadyRunning -> ArtiException.AlreadyRunning()
     is FfiArtiException.NotRunning -> ArtiException.NotRunning()
     is FfiArtiException.Config -> ArtiException.Config(msg)
     is FfiArtiException.Bind -> ArtiException.Bind(port.toInt(), msg)
-    is FfiArtiException.Bootstrap -> ArtiException.Bootstrap(msg)
-    is FfiArtiException.Runtime -> ArtiException.Runtime(msg)
+    is FfiArtiException.Bootstrap -> ArtiException.Bootstrap(msg, errorKind.toPublic())
+    is FfiArtiException.Runtime -> ArtiException.Runtime(msg, errorKind.toPublic())
 }
 
 /** Typed async failure (no string parsing: [FfiErrorDetail.kind] drives the type). */
 internal fun FfiErrorDetail.toPublic(): ArtiException = when (kind) {
     FfiErrorKind.CONFIG -> ArtiException.Config(msg)
     FfiErrorKind.BIND -> ArtiException.Bind((port ?: 0u).toInt(), msg)
-    FfiErrorKind.BOOTSTRAP -> ArtiException.Bootstrap(msg)
-    FfiErrorKind.RUNTIME -> ArtiException.Runtime(msg)
+    FfiErrorKind.BOOTSTRAP -> ArtiException.Bootstrap(msg, errorKind.toPublic())
+    FfiErrorKind.RUNTIME -> ArtiException.Runtime(msg, errorKind.toPublic())
     FfiErrorKind.ALREADY_RUNNING -> ArtiException.AlreadyRunning()
     FfiErrorKind.NOT_RUNNING -> ArtiException.NotRunning()
 }
@@ -716,4 +736,22 @@ private fun FfiTorState.toCommon(): TorState = when (this) {
     FfiTorState.PAUSED -> TorState.PAUSED
     FfiTorState.STOPPING -> TorState.STOPPING
     FfiTorState.ERROR -> TorState.ERROR
+}
+
+internal fun FfiTorErrorKind.toPublic(): TorErrorKind = when (this) {
+    FfiTorErrorKind.ALREADY_RUNNING -> TorErrorKind.ALREADY_RUNNING
+    FfiTorErrorKind.NOT_RUNNING -> TorErrorKind.NOT_RUNNING
+    FfiTorErrorKind.CONFIG -> TorErrorKind.CONFIG
+    FfiTorErrorKind.BIND -> TorErrorKind.BIND
+    FfiTorErrorKind.BOOTSTRAP -> TorErrorKind.BOOTSTRAP
+    FfiTorErrorKind.TIMEOUT -> TorErrorKind.TIMEOUT
+    FfiTorErrorKind.RUNTIME -> TorErrorKind.RUNTIME
+    FfiTorErrorKind.NETWORK -> TorErrorKind.NETWORK
+    FfiTorErrorKind.EXIT_FAILED -> TorErrorKind.EXIT_FAILED
+    FfiTorErrorKind.TARGET_REJECTED -> TorErrorKind.TARGET_REJECTED
+    FfiTorErrorKind.STORAGE -> TorErrorKind.STORAGE
+    FfiTorErrorKind.BOOTSTRAP_REQUIRED -> TorErrorKind.BOOTSTRAP_REQUIRED
+    FfiTorErrorKind.SESSION_CLOSED -> TorErrorKind.SESSION_CLOSED
+    FfiTorErrorKind.SESSION_INVALIDATED -> TorErrorKind.SESSION_INVALIDATED
+    FfiTorErrorKind.UNKNOWN -> TorErrorKind.UNKNOWN
 }

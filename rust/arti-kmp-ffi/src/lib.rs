@@ -72,9 +72,15 @@ pub enum ArtiError {
     #[error("failed to bind SOCKS on port {port}: {msg}")]
     Bind { port: u16, msg: String },
     #[error("bootstrap failed: {msg}")]
-    Bootstrap { msg: String },
+    Bootstrap {
+        msg: String,
+        error_kind: TorErrorKind,
+    },
     #[error("runtime error: {msg}")]
-    Runtime { msg: String },
+    Runtime {
+        msg: String,
+        error_kind: TorErrorKind,
+    },
 }
 
 /// Typed error discriminant for asynchronous failure notification.
@@ -93,10 +99,32 @@ pub enum ErrorKind {
     Runtime,
 }
 
+/// Stable classification, independent from the six native operation classes.
+/// Future upstream error kinds map to `Unknown`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, uniffi::Enum)]
+pub enum TorErrorKind {
+    AlreadyRunning,
+    NotRunning,
+    Config,
+    Bind,
+    Bootstrap,
+    Timeout,
+    Runtime,
+    Network,
+    ExitFailed,
+    TargetRejected,
+    Storage,
+    BootstrapRequired,
+    SessionClosed,
+    SessionInvalidated,
+    Unknown,
+}
+
 /// Typed asynchronous failure payload (see [`ErrorKind`]).
 #[derive(Debug, Clone, uniffi::Record)]
 pub struct ArtiErrorDetail {
     pub kind: ErrorKind,
+    pub error_kind: TorErrorKind,
     /// Only meaningful when `kind == Bind`; `None` otherwise.
     pub port: Option<u16>,
     pub msg: String,
