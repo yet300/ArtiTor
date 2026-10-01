@@ -65,19 +65,41 @@ pub(super) async fn run_socks_worker(
     revision: u64,
 ) -> Result<(), ArtiError> {
     let addr = SocketAddr::from(([127, 0, 0, 1], socks_port));
-    let socks = tokio::net::TcpListener::bind(addr)
-        .await
-        .map_err(|e| ArtiError::Bind {
+    // Bind and register physical ownership in one authority transaction.
+    // No await/callback occurs here. Pause cannot pass between binding a known
+    // fixed port and making its controller discoverable, even before RUNNING.
+    let (socks, actual_port) = {
+        let _transition = shared.transition_gate.lock().unwrap();
+        if shared.worker_revision.load(Ordering::SeqCst) != revision {
+            return Ok(());
+        }
+        let bind_error = |e: std::io::Error| ArtiError::Bind {
             port: socks_port,
             msg: e.to_string(),
-        })?;
-    let actual_port = socks
-        .local_addr()
-        .map_err(|e| ArtiError::Runtime {
-            error_kind: crate::TorErrorKind::Runtime,
-            msg: format!("local_addr: {e}"),
-        })?
-        .port();
+        };
+        let socket = std::net::TcpListener::bind(addr).map_err(bind_error)?;
+        socket.set_nonblocking(true).map_err(bind_error)?;
+        let actual_port = socket
+            .local_addr()
+            .map_err(|e| ArtiError::Runtime {
+                error_kind: crate::TorErrorKind::Runtime,
+                msg: format!("local_addr: {e}"),
+            })?
+            .port();
+        let socket = tokio::net::TcpListener::from_std(socket).map_err(bind_error)?;
+        let socks = Arc::new(ListeningSocket::new(socket));
+        *shared.root_socket.lock().unwrap() = Some(socks.clone());
+        (socks, actual_port)
+    };
+    // Retain normal task-exit cleanup as well as direct lifecycle close. This
+    // guard always refers to this exact socket, never a later worker's socket.
+    struct CloseOnExit(Arc<ListeningSocket>);
+    impl Drop for CloseOnExit {
+        fn drop(&mut self) {
+            self.0.close();
+        }
+    }
+    let _close_on_exit = CloseOnExit(socks.clone());
 
     if let Some(l) = shared.listener() {
         l.on_log(format!("SOCKS listening on 127.0.0.1:{actual_port}"));

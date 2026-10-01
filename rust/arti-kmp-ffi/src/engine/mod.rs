@@ -6,6 +6,8 @@ use crate::socks::{parse_socks_request, SocksRequestError};
 use crate::*;
 mod bootstrap;
 mod dispatch;
+mod listening_socket;
+use listening_socket::ListeningSocket;
 include!("lifecycle.rs");
 include!("session/admission.rs");
 mod root_socks;
@@ -53,7 +55,8 @@ pub(super) struct Shared {
     /// sessions (and handles) carrying an older generation are stale.
     generation: u64,
     /// Lock order: inner -> transition_gate -> state/client -> sessions -> tombstones.
-    /// No callbacks or await while held.
+    /// No callbacks or await while held. Socket-controller locks are leaf locks:
+    /// poll_accept releases them before any authority check; close needs no task progress.
     transition_gate: Mutex<()>,
     client_epoch: AtomicU64,
     /// Cancels stale bootstrap/root-listener workers; distinct from publications.
@@ -71,6 +74,8 @@ pub(super) struct Shared {
     engine_state: Mutex<TorState>,
     /// Signals the active SOCKS loop to exit (pause / shutdown).
     socks_shutdown: Mutex<Option<oneshot::Sender<()>>>,
+    /// Sole physical root socket, detached from the worker's callback stack.
+    root_socket: Mutex<Option<Arc<ListeningSocket>>>,
     /// Per-connection SOCKS handlers. Aborted on pause/shutdown (fail-closed:
     /// Tor OFF means no traffic is retained; see `pause` docs).
     connections: Mutex<Vec<JoinHandle<()>>>,
@@ -115,6 +120,7 @@ impl Shared {
             bootstrap_done: AtomicBool::new(false),
             engine_state: Mutex::new(TorState::Off),
             socks_shutdown: Mutex::new(None),
+            root_socket: Mutex::new(None),
             connections: Mutex::new(Vec::new()),
             sessions: Mutex::new(HashMap::new()),
             tombstones: Mutex::new(HashMap::new()),
@@ -208,6 +214,9 @@ impl Shared {
     }
 
     fn signal_socks_shutdown(&self) {
+        if let Some(socket) = self.root_socket.lock().unwrap().take() {
+            socket.close();
+        }
         if let Some(tx) = self.socks_shutdown.lock().unwrap().take() {
             let _ = tx.send(());
         }

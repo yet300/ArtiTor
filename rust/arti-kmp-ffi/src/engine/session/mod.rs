@@ -62,6 +62,9 @@ pub(super) struct SessionRuntime {
     pub(super) shutdown_tx: Option<oneshot::Sender<()>>,
     /// Session accept-loop task (or in-flight rebind task on resume).
     pub(super) listener_task: Option<JoinHandle<()>>,
+    /// Sole physical socket; the task polls through this controller and cannot
+    /// retain the listener across Pending or a callback.
+    pub(super) socket: Option<Arc<ListeningSocket>>,
     /// Per-connection handlers accepted on this session's listener.
     pub(super) connections: Vec<JoinHandle<()>>,
     /// Kotlin status sink for atomic `(state, endpoint)` publications.
@@ -77,9 +80,12 @@ impl SessionRuntime {
         }
     }
 
-    /// Abort listener + tracked connections (fail-closed). Synchronous;
-    /// never awaits. Safe to call redundantly.
+    /// Physically close the listener, then request task/connection cancellation
+    /// (fail-closed). No task join, await or callback. Safe to call redundantly.
     pub(super) fn abort_all(&mut self) {
+        if let Some(socket) = self.socket.take() {
+            socket.close();
+        }
         if let Some(tx) = self.shutdown_tx.take() {
             let _ = tx.send(());
         }
@@ -275,6 +281,22 @@ pub(super) fn rebind_paused_sessions(shared: &Arc<Shared>, runtime: &tokio::runt
             }
         };
         let (shutdown_tx, shutdown_rx) = oneshot::channel();
+        let sock = {
+            let _context = runtime.enter();
+            match tokio::net::TcpListener::from_std(sock) {
+                Ok(socket) => Arc::new(ListeningSocket::new(socket)),
+                Err(e) => {
+                    if let Some(l) = shared.listener() {
+                        l.on_log(format!(
+                            "session={sid} listener convert failed: {}",
+                            e.kind()
+                        ));
+                    }
+                    continue;
+                }
+            }
+        };
+        let task_socket = sock.clone();
         let (barrier_tx, barrier_rx) = oneshot::channel();
         let task_shared = shared.clone();
         let task_listener = listener.clone();
@@ -288,7 +310,7 @@ pub(super) fn rebind_paused_sessions(shared: &Arc<Shared>, runtime: &tokio::runt
                 task_sid,
                 generation,
                 previous_revision + 1,
-                Some(sock),
+                Some(task_socket),
                 Arc::downgrade(&task_shared),
                 task_listener,
                 shutdown_rx,
@@ -331,6 +353,7 @@ pub(super) fn rebind_paused_sessions(shared: &Arc<Shared>, runtime: &tokio::runt
                     entry.state = SessionState::Active;
                     entry.shutdown_tx = shutdown_tx.take();
                     entry.listener_task = listener_task.take();
+                    entry.socket = Some(sock.clone());
                     Some(entry.status_revision)
                 }
                 _ => None,
@@ -340,6 +363,7 @@ pub(super) fn rebind_paused_sessions(shared: &Arc<Shared>, runtime: &tokio::runt
             listener.on_session_status(sid, SessionState::Active, Some(port), revision);
             let _ = barrier_tx.send(());
         } else {
+            sock.close();
             if let Some(h) = listener_task {
                 h.abort();
             }

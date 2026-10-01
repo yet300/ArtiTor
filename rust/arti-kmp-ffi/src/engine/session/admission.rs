@@ -68,7 +68,7 @@ impl ArtiTor {
 
         // Synchronous ephemeral loopback bind (blocking std socket: no
         // runtime, no await, no lock held). Never 0.0.0.0; no caller ports.
-        // The port travels alongside the socket (the task takes ownership).
+        // A controller owns the socket before publication; the task only polls it.
         let (bound_sock, bound_port): (Option<std::net::TcpListener>, Option<u16>) = if want_active
         {
             match std::net::TcpListener::bind("127.0.0.1:0") {
@@ -91,6 +91,17 @@ impl ArtiTor {
             }
         } else {
             (None, None)
+        };
+
+        let socket = match bound_sock {
+            Some(sock) => {
+                let _context = runtime.enter();
+                let sock = tokio::net::TcpListener::from_std(sock).map_err(|e| ArtiError::Bind {
+                    port: 0, msg: e.to_string(),
+                })?;
+                Some(Arc::new(ListeningSocket::new(sock)))
+            }
+            None => None,
         };
 
         let sid = next_session_id();
@@ -129,7 +140,7 @@ impl ArtiTor {
             let task_listener = listener.clone();
             let task_sid = sid.clone();
             let task_barrier = barrier_rx.unwrap();
-            let task_sock = bound_sock.unwrap();
+            let task_sock = socket.clone().unwrap();
             Some(runtime.spawn(async move {
                 // Wait for registry commit before accepting connections.
                 #[cfg(test)]
@@ -215,6 +226,7 @@ impl ArtiTor {
                                 port: Some(port),
                                 shutdown_tx: shutdown_tx_opt.take(),
                                 listener_task: listener_task_opt.take(),
+                                socket: socket.clone(),
                                 connections: Vec::new(),
                                 status_listener: Some(listener.clone()),
                             };
@@ -237,6 +249,7 @@ impl ArtiTor {
                                 port: None,
                                 shutdown_tx: None,
                                 listener_task: None,
+                                socket: None,
                                 connections: Vec::new(),
                                 status_listener: Some(listener.clone()),
                             };
@@ -251,6 +264,9 @@ impl ArtiTor {
 
         match outcome {
             Outcome::Gone(e) => {
+                if let Some(socket) = socket {
+                    socket.close();
+                }
                 if let Some(task) = listener_task_opt {
                     task.abort();
                 }
@@ -263,6 +279,9 @@ impl ArtiTor {
                 Err(e)
             }
             Outcome::Paused => {
+                if let Some(socket) = socket {
+                    socket.close();
+                }
                 if let Some(task) = listener_task_opt {
                     task.abort();
                 }

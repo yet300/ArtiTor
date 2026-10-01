@@ -51,13 +51,13 @@ pub(in crate::engine) fn session_listener_failed(
 /// Connections accepted after the entry vanished (close/shutdown race) are
 /// dropped immediately (fail-closed).
 ///
-/// `std_listener` is `None` only for sessions created while `Paused` (no
+/// `socket` is `None` only for sessions created while `Paused` (no
 /// listener bound yet; binds on next resume) — the task then exits at once.
 pub(in crate::engine) async fn run_session_listener(
     sid: String,
     generation: u64,
     listener_revision: u64,
-    std_listener: Option<std::net::TcpListener>,
+    socket: Option<Arc<ListeningSocket>>,
     weak: Weak<Shared>,
     _status_listener: Arc<dyn SessionStatusListener>,
     mut shutdown_rx: oneshot::Receiver<()>,
@@ -70,22 +70,8 @@ pub(in crate::engine) async fn run_session_listener(
     #[cfg(test)]
     let _test_dispatch_count =
         _test_dispatch_count.or_else(|| test_probe.as_ref().map(|p| p.dispatch_count.clone()));
-    let socks = match std_listener {
-        Some(sl) => match tokio::net::TcpListener::from_std(sl) {
-            Ok(t) => t,
-            Err(e) => {
-                session_listener_failed(&weak, &sid, generation, listener_revision);
-                if let Some(shared) = weak.upgrade() {
-                    if let Some(l) = shared.listener() {
-                        l.on_log(format!(
-                            "session={sid} listener convert failed: {}",
-                            e.kind()
-                        ));
-                    }
-                }
-                return;
-            }
-        },
+    let socks = match socket {
+        Some(socket) => socket,
         None => return,
     };
 
