@@ -1,0 +1,11 @@
+--- src/error.rs
++++ src/error.rs
+@@ -55,7 +55,7 @@
+ }
+ 
+ fn finish_classification(known: Option<TorErrorKind>) -> TorErrorKind {
+-    known.unwrap_or(TorErrorKind::Unknown)
++    known.unwrap_or(TorErrorKind::Runtime)
+ }
+ 
+ fn known_upstream_kind(kind: arti_client::ErrorKind) -> Option<TorErrorKind> {

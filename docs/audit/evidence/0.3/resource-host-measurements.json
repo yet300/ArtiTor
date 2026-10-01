@@ -1,0 +1,122 @@
+[
+  {
+    "label": "root-baseline",
+    "sessions": 0,
+    "rss_kib": 17360,
+    "threads": 12,
+    "fds": 14,
+    "listeners": 0
+  },
+  {
+    "label": "active-1-sample-0",
+    "sessions": 1,
+    "rss_kib": 18224,
+    "threads": 12,
+    "fds": 15,
+    "listeners": 1
+  },
+  {
+    "label": "active-1-sample-1",
+    "sessions": 1,
+    "rss_kib": 18224,
+    "threads": 12,
+    "fds": 15,
+    "listeners": 1
+  },
+  {
+    "label": "active-1-sample-2",
+    "sessions": 1,
+    "rss_kib": 18240,
+    "threads": 12,
+    "fds": 15,
+    "listeners": 1
+  },
+  {
+    "label": "active-8-sample-0",
+    "sessions": 8,
+    "rss_kib": 18288,
+    "threads": 12,
+    "fds": 22,
+    "listeners": 8
+  },
+  {
+    "label": "active-8-sample-1",
+    "sessions": 8,
+    "rss_kib": 18288,
+    "threads": 12,
+    "fds": 22,
+    "listeners": 8
+  },
+  {
+    "label": "active-8-sample-2",
+    "sessions": 8,
+    "rss_kib": 18320,
+    "threads": 12,
+    "fds": 22,
+    "listeners": 8
+  },
+  {
+    "label": "active-16-sample-0",
+    "sessions": 16,
+    "rss_kib": 18320,
+    "threads": 12,
+    "fds": 30,
+    "listeners": 16
+  },
+  {
+    "label": "active-16-sample-1",
+    "sessions": 16,
+    "rss_kib": 18320,
+    "threads": 12,
+    "fds": 30,
+    "listeners": 16
+  },
+  {
+    "label": "active-16-sample-2",
+    "sessions": 16,
+    "rss_kib": 18320,
+    "threads": 12,
+    "fds": 30,
+    "listeners": 16
+  },
+  {
+    "label": "active-32-sample-0",
+    "sessions": 32,
+    "rss_kib": 18352,
+    "threads": 12,
+    "fds": 46,
+    "listeners": 32
+  },
+  {
+    "label": "active-32-sample-1",
+    "sessions": 32,
+    "rss_kib": 18352,
+    "threads": 12,
+    "fds": 46,
+    "listeners": 32
+  },
+  {
+    "label": "active-32-sample-2",
+    "sessions": 32,
+    "rss_kib": 18352,
+    "threads": 12,
+    "fds": 46,
+    "listeners": 32
+  },
+  {
+    "label": "closed-all-root-retained",
+    "sessions": 0,
+    "rss_kib": 18592,
+    "threads": 12,
+    "fds": 14,
+    "listeners": 0
+  },
+  {
+    "label": "shutdown",
+    "sessions": 0,
+    "rss_kib": 18672,
+    "threads": 2,
+    "fds": 7,
+    "listeners": 0
+  }
+]

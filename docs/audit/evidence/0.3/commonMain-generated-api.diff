@@ -1,0 +1,23 @@
+--- phase3/arti_kmp_ffi.common.kt
++++ final/arti_kmp_ffi.common.kt
+@@ -96,6 +96,8 @@
+ 
+ 
+ 
++
++
+ interface ArtiTorInterface {
+     
+     /**
+@@ -497,7 +499,10 @@
+     val `bridgesEnabled`: BridgesEnabled
+         , 
+     val `stateDir`: kotlin.String? = null, 
+-    val `cacheDir`: kotlin.String? = null
++    val `cacheDir`: kotlin.String? = null, 
++    val `allowOnionAddrs`: kotlin.Boolean = true, 
++    val `connectTimeoutNanos`: kotlin.Long = 10000000000L, 
++    val `resolveTimeoutNanos`: kotlin.Long = 10000000000L
+ ) {
+     
+     

@@ -1,0 +1,12 @@
+--- src/error.rs
++++ src/error.rs
+@@ -47,7 +47,8 @@
+ /// Pinned to all 59 variants of tor-error 0.46.0/src/lib.rs:133–751.
+ /// Classification uses the upstream stable category, never its message.
+ pub(crate) fn classify_upstream(error: &impl arti_client::HasKind) -> TorErrorKind {
+-    classify_upstream_kind(error.kind())
++    let _ = error;
++    TorErrorKind::Network
+ }
+ 
+ pub(crate) fn classify_upstream_kind(kind: arti_client::ErrorKind) -> TorErrorKind {

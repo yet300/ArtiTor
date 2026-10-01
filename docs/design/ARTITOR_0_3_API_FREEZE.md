@@ -1,7 +1,7 @@
 # ArtiTor 0.3 API Freeze — Normative Implementation Contract
 
 Date: 2026-09-29
-Status: FROZEN — Phase 1 CLOSED; integrated 0.3 implementation in progress
+Status: FROZEN — integrated 0.3 implementation complete; release gate pending Android hardware and final independent review
 Baseline: ArtiTor 0.2 lifecycle contract stable; Ubique UniFFI migration
 complete; `arti-client` 0.46.0.
 Authority: this document is the implementation source of truth for 0.3.
@@ -201,7 +201,7 @@ session limit constant; typed bridge record.
 ### Integrated-run compatibility and rejection clarification (2026-09-30)
 
 Phase 1 is CLOSED at `86da3c8dc71025278df66d588126cc0bef475b49`, independently accepted PASS WITH FOLLOW-UPS; the amendments above remain the governing semantics.
-Phase-2 bridge hardening was implemented at `8bb0d95a4a865b1d322086e2b2ec37c26fb22c57`; integrated remediation addresses the subsequently reproduced public replacement defect.
+Phase-2 bridge hardening was implemented at `8bb0d95a4a865b1d322086e2b2ec37c26fb22c57`; transactional replacement and positional source compatibility were repaired at `50a62a4dc15089cbe0a52de02a7cd2138ca640a3`. Classification is implemented at `4bd683bc8e898fde103dca51d13e20d2e72ddf18`, onion/timeouts at `c00397a7fceec179e9f7482ea03971998d1ad4ba`. The integrated report records release hardening and all remaining gates.
 
 The five pre-0.3 constructor positions are `dataDir`, `socksPort`, `bridges`, `stateDir`, `cacheDir`. New fields are appended after those positions. This corrects the decorative sketch's contradiction with §13's required old-source compilation; it changes no configuration semantics.
 
@@ -304,11 +304,14 @@ impl ArtiTor {
 impl SocksSession { pub fn id(&self) -> String; pub fn close(&self); pub fn status_snapshot(&self) -> SessionStatusFfi; }
 ```
 
-`ArtiError` gains NO new variants for sessions in the FFI enum; session
-staleness is reported through the existing `Runtime`/`NotRunning` variants
-with `kind` set to `SESSION_CLOSED`/`SESSION_INVALIDATED` in the Kotlin
-mapping when Phase 3 adds the frozen kind taxonomy (see §8); Phase-1 admission
-failures use the existing error model and add no public taxonomy.
+`ArtiError` gains NO new variants for sessions in the FFI enum. Stable 0.3
+reports terminal sessions through infallible snapshots and idempotent close;
+there is no public fallible operation taking a terminal handle. The
+`SESSION_CLOSED`/`SESSION_INVALIDATED` categories are available in the existing
+Runtime transport for any future fallible live-resource operation (§6), without
+inventing a 0.3 throw trigger. Existing admission failures retain their operation
+classes. This clarifies the earlier future-operation sketch; terminal lifecycle
+behavior is unchanged.
 
 ---
 
@@ -490,9 +493,10 @@ Mapping rules (normative for Phase 3):
   exit refused/not-found/timeout → kind `EXIT_FAILED`; invalid/forbidden stream
   target (incl. `.onion` policy rejections) → kind `TARGET_REJECTED`; state/
   cache/keystore/`FsMistrust` → kind `STORAGE`; use-before-bootstrap →
-  kind `BOOTSTRAP_REQUIRED`; closed-session use → `Runtime` kind
-  `SESSION_CLOSED`; invalidated-generation use → `Runtime`/`NotRunning` kind
-  `SESSION_INVALIDATED`.
+  kind `BOOTSTRAP_REQUIRED`; a future fallible closed-session operation →
+  `Runtime` kind `SESSION_CLOSED`; a future fallible invalidated-generation
+  operation → `Runtime` kind `SESSION_INVALIDATED`. Current 0.3 status/close
+  operations remain infallible as specified in §6.
 - Upstream `#[non_exhaustive]` (`ErrorKind`, plus `DormantMode`-style enums
   generally): any unmapped or future variant → kind `UNKNOWN`. Future Arti
   variants MUST NOT require an ArtiTor breaking release.

@@ -1,0 +1,73 @@
+{
+  "r8_consumer": {
+    "apk": "/tmp/artitor-integrated/consumer-clean/app/build/outputs/apk/release/app-release-unsigned.apk",
+    "bytes": 24171691,
+    "native_abis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86_64"
+    ],
+    "jna_and_generated_names_kept": true,
+    "all_elf64_native_libraries": [
+      {
+        "entry": "lib/arm64-v8a/libarti_kmp_ffi.so",
+        "load_segments": [
+          "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x2f9c38 0x2f9c38 R   0x4000",
+          "LOAD           0x2f9c40 0x00000000002fdc40 0x00000000002fdc40 0x44dba0 0x44dba0 R E 0x4000",
+          "LOAD           0x7477e0 0x000000000074f7e0 0x000000000074f7e0 0x06d1a0 0x06d820 RW  0x4000",
+          "LOAD           0x7b4980 0x00000000007c0980 0x00000000007c0980 0x008798 0x0095d0 RW  0x4000"
+        ],
+        "16k_pass": true
+      },
+      {
+        "entry": "lib/arm64-v8a/libjnidispatch.so",
+        "load_segments": [
+          "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x025338 0x025338 R E 0x4000",
+          "LOAD           0x027b98 0x000000000002bb98 0x000000000002bb98 0x0006ac 0x000ee8 RW  0x4000"
+        ],
+        "16k_pass": true
+      },
+      {
+        "entry": "lib/arm64-v8a/libuniffi_runtime.so",
+        "load_segments": [
+          "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x055320 0x055320 R E 0x4000",
+          "LOAD           0x055320 0x0000000000059320 0x0000000000059320 0x001e90 0x002ce0 RW  0x4000",
+          "LOAD           0x0571b0 0x000000000005f1b0 0x000000000005f1b0 0x000998 0x001270 RW  0x4000"
+        ],
+        "16k_pass": true
+      },
+      {
+        "entry": "lib/x86_64/libarti_kmp_ffi.so",
+        "load_segments": [
+          "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x34da14 0x34da14 R   0x4000",
+          "LOAD           0x34da40 0x0000000000351a40 0x0000000000351a40 0x4e99a0 0x4e99a0 R E 0x4000",
+          "LOAD           0x8373e0 0x000000000083f3e0 0x000000000083f3e0 0x0898e0 0x089c20 RW  0x4000",
+          "LOAD           0x8c0cc0 0x00000000008cccc0 0x00000000008cccc0 0x008798 0x0095f0 RW  0x4000"
+        ],
+        "16k_pass": true
+      },
+      {
+        "entry": "lib/x86_64/libjnidispatch.so",
+        "load_segments": [
+          "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x01943c 0x01943c R E 0x4000",
+          "LOAD           0x01bb00 0x000000000001fb00 0x000000000001fb00 0x000674 0x000f48 RW  0x4000"
+        ],
+        "16k_pass": true
+      },
+      {
+        "entry": "lib/x86_64/libuniffi_runtime.so",
+        "load_segments": [
+          "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x05a860 0x05a860 R E 0x4000",
+          "LOAD           0x05a860 0x000000000005e860 0x000000000005e860 0x002548 0x0027a0 RW  0x4000",
+          "LOAD           0x05cda8 0x0000000000064da8 0x0000000000064da8 0x0009a0 0x001268 RW  0x4000"
+        ],
+        "16k_pass": true
+      }
+    ]
+  },
+  "consumer_ios_framework": {
+    "path": "/tmp/artitor-integrated/consumer-clean/build/bin/iosSimulatorArm64/debugFramework/ArtiTor03Consumer.framework/ArtiTor03Consumer",
+    "bytes": 22341120,
+    "global_sqlite3_count": 0
+  }
+}

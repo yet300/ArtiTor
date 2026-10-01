@@ -1,0 +1,10 @@
+--- src/config.rs
++++ src/config.rs
+@@ -15,7 +15,6 @@
+         || old.cache_dir != new.cache_dir
+         || old.bridges != new.bridges
+         || old.bridges_enabled != new.bridges_enabled
+-        || old.allow_onion_addrs != new.allow_onion_addrs
+         || old.connect_timeout_nanos != new.connect_timeout_nanos
+         || old.resolve_timeout_nanos != new.resolve_timeout_nanos
+ }

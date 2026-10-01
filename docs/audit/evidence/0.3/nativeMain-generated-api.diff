@@ -1,0 +1,62 @@
+--- phase3/arti_kmp_ffi.native.kt
++++ final/arti_kmp_ffi.native.kt
+@@ -1037,6 +1037,27 @@
+ }
+ 
+ 
++public object FfiConverterLong: FfiConverter<Long, Long> {
++    override fun lift(value: Long): Long {
++        return value
++    }
++
++    override fun read(buf: ByteBuffer): Long {
++        return buf.getLong()
++    }
++
++    override fun lower(value: Long): Long {
++        return value
++    }
++
++    override fun allocationSize(value: Long) = 8UL
++
++    override fun write(value: Long, buf: ByteBuffer) {
++        buf.putLong(value)
++    }
++}
++
++
+ public object FfiConverterBoolean: FfiConverter<Boolean, Byte> {
+     override fun lift(value: Byte): Boolean {
+         return value.toInt() != 0
+@@ -1817,6 +1838,9 @@
+             FfiConverterTypeBridgesEnabled.read(buf),
+             FfiConverterOptionalString.read(buf),
+             FfiConverterOptionalString.read(buf),
++            FfiConverterBoolean.read(buf),
++            FfiConverterLong.read(buf),
++            FfiConverterLong.read(buf),
+         )
+     }
+ 
+@@ -1826,7 +1850,10 @@
+             FfiConverterSequenceString.allocationSize(value.`bridges`) +
+             FfiConverterTypeBridgesEnabled.allocationSize(value.`bridgesEnabled`) +
+             FfiConverterOptionalString.allocationSize(value.`stateDir`) +
+-            FfiConverterOptionalString.allocationSize(value.`cacheDir`)
++            FfiConverterOptionalString.allocationSize(value.`cacheDir`) +
++            FfiConverterBoolean.allocationSize(value.`allowOnionAddrs`) +
++            FfiConverterLong.allocationSize(value.`connectTimeoutNanos`) +
++            FfiConverterLong.allocationSize(value.`resolveTimeoutNanos`)
+     )
+ 
+     override fun write(value: ArtiConfig, buf: ByteBuffer) {
+@@ -1836,6 +1863,9 @@
+             FfiConverterTypeBridgesEnabled.write(value.`bridgesEnabled`, buf)
+             FfiConverterOptionalString.write(value.`stateDir`, buf)
+             FfiConverterOptionalString.write(value.`cacheDir`, buf)
++            FfiConverterBoolean.write(value.`allowOnionAddrs`, buf)
++            FfiConverterLong.write(value.`connectTimeoutNanos`, buf)
++            FfiConverterLong.write(value.`resolveTimeoutNanos`, buf)
+     }
+ }
+ 

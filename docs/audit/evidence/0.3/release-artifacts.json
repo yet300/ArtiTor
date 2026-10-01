@@ -1,0 +1,226 @@
+{
+  "published_aar": {
+    "path": "/Users/yet/.m2/repository/io/github/yet300/tor-android/0.3.0/tor-android-0.3.0.aar",
+    "bytes": 10825882,
+    "native_entries": [
+      {
+        "name": "jni/arm64-v8a/libarti_kmp_ffi.so",
+        "bytes": 8116888
+      },
+      {
+        "name": "jni/armeabi-v7a/libarti_kmp_ffi.so",
+        "bytes": 5182788
+      },
+      {
+        "name": "jni/x86_64/libarti_kmp_ffi.so",
+        "bytes": 9215448
+      }
+    ]
+  },
+  "packaged_elf64": [
+    {
+      "path": "/tmp/artitor-integrated/final-release/arm64-v8a-libarti_kmp_ffi.so",
+      "bytes": 8116888,
+      "load_segments": [
+        "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x2f9c38 0x2f9c38 R   0x4000",
+        "LOAD           0x2f9c40 0x00000000002fdc40 0x00000000002fdc40 0x44dba0 0x44dba0 R E 0x4000",
+        "LOAD           0x7477e0 0x000000000074f7e0 0x000000000074f7e0 0x06d1a0 0x06d820 RW  0x4000",
+        "LOAD           0x7b4980 0x00000000007c0980 0x00000000007c0980 0x008798 0x0095d0 RW  0x4000"
+      ],
+      "16k_pass": true
+    },
+    {
+      "path": "/tmp/artitor-integrated/final-release/x86_64-libarti_kmp_ffi.so",
+      "bytes": 9215448,
+      "load_segments": [
+        "LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x34da14 0x34da14 R   0x4000",
+        "LOAD           0x34da40 0x0000000000351a40 0x0000000000351a40 0x4e99a0 0x4e99a0 R E 0x4000",
+        "LOAD           0x8373e0 0x000000000083f3e0 0x000000000083f3e0 0x0898e0 0x089c20 RW  0x4000",
+        "LOAD           0x8c0cc0 0x00000000008cccc0 0x00000000008cccc0 0x008798 0x0095f0 RW  0x4000"
+      ],
+      "16k_pass": true
+    }
+  ],
+  "apple_symbols": [
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target/aarch64-apple-ios/release/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 283,
+      "bytes": 111646264
+    },
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/tor/build/uniffi/build/rust/aarch64-apple-ios/release/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 0,
+      "bytes": 27619056
+    },
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target/aarch64-apple-ios/debug/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 283,
+      "bytes": 432773896
+    },
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/tor/build/uniffi/build/rust/aarch64-apple-ios/debug/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 0,
+      "bytes": 94523168
+    },
+    {
+      "path": "/tmp/artitor-integrated/final-release/tor-iosarm64-included-0.a",
+      "global_sqlite3_count": 0,
+      "bytes": 27619056
+    },
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target/aarch64-apple-ios-sim/release/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 283,
+      "bytes": 111641128
+    },
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/tor/build/uniffi/build/rust/aarch64-apple-ios-sim/release/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 0,
+      "bytes": 27602976
+    },
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target/aarch64-apple-ios-sim/debug/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 283,
+      "bytes": 432132728
+    },
+    {
+      "path": "/Users/yet/development/Multiplatform/ArtiTor/tor/build/uniffi/build/rust/aarch64-apple-ios-sim/debug/libarti_kmp_ffi.a",
+      "global_sqlite3_count": 0,
+      "bytes": 94397984
+    },
+    {
+      "path": "/tmp/artitor-integrated/final-release/tor-iossimulatorarm64-included-0.a",
+      "global_sqlite3_count": 0,
+      "bytes": 27602976
+    }
+  ],
+  "cargo_identity": {
+    "old_version": "0.2.0",
+    "new_version": "0.3.0",
+    "only_root_version_changed": true,
+    "dependencies": {
+      "arti-client": {
+        "version": "0.46",
+        "default-features": false,
+        "features": [
+          "tokio",
+          "rustls",
+          "compression",
+          "bridge-client",
+          "onion-service-client",
+          "static-sqlite"
+        ]
+      },
+      "tor-rtcompat": {
+        "version": "0.46",
+        "features": [
+          "tokio",
+          "rustls"
+        ]
+      },
+      "rustls": {
+        "version": "0.23",
+        "default-features": false,
+        "features": [
+          "ring"
+        ]
+      },
+      "tokio": {
+        "version": "1",
+        "features": [
+          "rt-multi-thread",
+          "net",
+          "io-util",
+          "time",
+          "sync",
+          "macros"
+        ]
+      },
+      "futures": "0.3",
+      "uniffi": "0.32.0",
+      "thiserror": "2",
+      "tracing": "0.1",
+      "tracing-subscriber": {
+        "version": "0.3",
+        "default-features": false,
+        "features": [
+          "registry",
+          "std",
+          "fmt"
+        ]
+      }
+    }
+  },
+  "generated_binding_changes": [
+    {
+      "platform": "commonMain",
+      "diff_lines": 23,
+      "phase4_fields_present": true
+    },
+    {
+      "platform": "nativeMain",
+      "diff_lines": 62,
+      "phase4_fields_present": true
+    },
+    {
+      "platform": "androidMain",
+      "diff_lines": 43,
+      "phase4_fields_present": true
+    }
+  ],
+  "matching_size_comparison": [
+    {
+      "path": "tor/build/outputs/aar/tor.aar",
+      "before_bytes": 10646930,
+      "after_bytes": 10825882,
+      "delta_bytes": 178952
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/aarch64-apple-ios-sim/release/libarti_kmp_ffi.a",
+      "before_bytes": 110615840,
+      "after_bytes": 111641128,
+      "delta_bytes": 1025288
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/armv7-linux-androideabi/release/libarti_kmp_ffi.so",
+      "before_bytes": 5131140,
+      "after_bytes": 5182788,
+      "delta_bytes": 51648
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/armv7-linux-androideabi/release/libarti_kmp_ffi.a",
+      "before_bytes": 120967850,
+      "after_bytes": 122092984,
+      "delta_bytes": 1125134
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/aarch64-apple-ios/release/libarti_kmp_ffi.a",
+      "before_bytes": 110620240,
+      "after_bytes": 111646264,
+      "delta_bytes": 1026024
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/x86_64-linux-android/release/libarti_kmp_ffi.so",
+      "before_bytes": 9110760,
+      "after_bytes": 9215448,
+      "delta_bytes": 104688
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/x86_64-linux-android/release/libarti_kmp_ffi.a",
+      "before_bytes": 128314186,
+      "after_bytes": 129466338,
+      "delta_bytes": 1152152
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/aarch64-linux-android/release/libarti_kmp_ffi.so",
+      "before_bytes": 8036768,
+      "after_bytes": 8116888,
+      "delta_bytes": 80120
+    },
+    {
+      "path": "rust/arti-kmp-ffi/target/aarch64-linux-android/release/libarti_kmp_ffi.a",
+      "before_bytes": 137130628,
+      "after_bytes": 138368244,
+      "delta_bytes": 1237616
+    }
+  ]
+}

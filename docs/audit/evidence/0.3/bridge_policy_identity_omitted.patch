@@ -1,0 +1,10 @@
+--- src/config.rs
++++ src/config.rs
+@@ -13,7 +13,6 @@
+         || old.state_dir != new.state_dir
+         || old.cache_dir != new.cache_dir
+         || old.bridges != new.bridges
+-        || old.bridges_enabled != new.bridges_enabled
+ }
+ 
+ pub(super) fn resolve_dirs(config: &ArtiConfig) -> (PathBuf, PathBuf) {

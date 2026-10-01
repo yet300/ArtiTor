@@ -1,0 +1,11 @@
+--- ArtiTorClient.kt
++++ ArtiTorClient.kt
+@@ -283,7 +283,7 @@
+             }
+             if (accepted.value != target) continue
+             client.beforeSessionStatusPublication?.invoke(id, target.revision)
+-            if (!publicStatus.compareAndSet(observedPublic, target.status)) continue
++            publicStatus.value = target.status
+             // A resumed collector may have accepted/published a newer revision.
+             if (accepted.value == target) return
+         }

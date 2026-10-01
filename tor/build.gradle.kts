@@ -13,7 +13,7 @@ plugins {
 // Maven Central namespace (io.github.<user> is auto-verified via the GitHub repo).
 // The Kotlin package stays `com.yet.tor`; group and package need not match.
 group = "io.github.yet300"
-version = "0.2.0"
+version = "0.3.0"
 
 // The Rust crate lives outside this Gradle module.
 cargo {
@@ -93,8 +93,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.coroutines.core)
+            api(libs.kotlinx.coroutines.core)
         }
+        // Compile the actual documentation sample against every test target.
+        getByName("commonTest").kotlin.srcDir(rootProject.file("docs/examples"))
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.core)

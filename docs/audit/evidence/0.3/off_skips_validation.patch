@@ -1,0 +1,10 @@
+--- src/config.rs
++++ src/config.rs
+@@ -40,6 +40,7 @@
+     };
+     let mut validated = Vec::with_capacity(config.bridges.len());
+     for line in &config.bridges {
++        if config.bridges_enabled == BridgesEnabled::Off { continue; }
+         let bridge = line
+             .parse::<BridgeConfigBuilder>()
+             .map_err(|_| invalid_bridge())?;

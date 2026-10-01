@@ -1,0 +1,28 @@
+{
+  "diagnosis": "Stale transformCommonMainDependenciesMetadata consumer output after same-coordinate 0.3.0 republish. Resolved dependencies included coroutines but compiler transformed classpath omitted it. --rerun-tasks regenerated output and clean consumer confirmed fix.",
+  "metadata_before": [
+    "kotlin-stdlib/commonMain",
+    "tor/commonMain"
+  ],
+  "metadata_after": [
+    "kotlin-stdlib/commonMain",
+    "tor/commonMain",
+    "kotlinx-coroutines-core/concurrentMain",
+    "kotlinx-coroutines-core/commonMain"
+  ],
+  "runs": [
+    {
+      "command": "rtk ./gradlew -p /tmp/artitor-integrated/consumer --offline compileCommonMainKotlinMetadata --rerun-tasks",
+      "exit": 0,
+      "result": "BUILD SUCCESSFUL in721ms;3 executed"
+    },
+    {
+      "command": "rtk ./gradlew -p /tmp/artitor-integrated/consumer-clean --offline compileCommonMainKotlinMetadata compileAndroidMain",
+      "exit": 0,
+      "result": "BUILD SUCCESSFUL in1s;4 executed"
+    }
+  ],
+  "dependency_workarounds": false,
+  "repository_edits": false,
+  "native_tasks_run": false
+}

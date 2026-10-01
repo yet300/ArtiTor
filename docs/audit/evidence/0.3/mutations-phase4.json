@@ -1,0 +1,178 @@
+[
+  {
+    "label": "baseline-allow_onion_addrs_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_settings_change_client_identity",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "baseline-connect_timeout_nanos_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_settings_change_client_identity",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "baseline-resolve_timeout_nanos_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_settings_change_client_identity",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "baseline-onion_builder_fixed_true",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_config_matches_independent_upstream_builders",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "allow_onion_addrs_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/allow_onion_addrs_identity_omitted/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_settings_change_client_identity",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test engine::tests::stream_config::native_stream_settings_change_client_identity ... FAILED"
+    ]
+  },
+  {
+    "label": "connect_timeout_nanos_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/connect_timeout_nanos_identity_omitted/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_settings_change_client_identity",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test engine::tests::stream_config::native_stream_settings_change_client_identity ... FAILED"
+    ]
+  },
+  {
+    "label": "resolve_timeout_nanos_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/resolve_timeout_nanos_identity_omitted/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_settings_change_client_identity",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test engine::tests::stream_config::native_stream_settings_change_client_identity ... FAILED"
+    ]
+  },
+  {
+    "label": "onion_builder_fixed_true",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/phase4/onion_builder_fixed_true/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "native_stream_config_matches_independent_upstream_builders",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test engine::tests::stream_config::native_stream_config_matches_independent_upstream_builders ... FAILED"
+    ]
+  }
+]

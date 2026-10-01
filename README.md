@@ -9,24 +9,32 @@ implemented in Rust). One dependency gives you an embedded Tor client with a loc
   (UniFFI for Kotlin Multiplatform): one Rust surface → Kotlin for Android
   (JNA-backed generated bindings) and Kotlin/Native cinterop (iOS).
 - rustls only (no OpenSSL). Android `.so` are 16 KB-page aligned (Google Play, Nov 2025).
-- The async tokio runtime lives inside the native layer; calls never block the caller's thread.
+- The async tokio runtime lives inside the native layer; bootstrap runs asynchronously. Lifecycle calls perform synchronous native state transitions.
 - **Lifecycle**: `start` / `pause` (keep client) / `resume` / `shutdown` — suited for chat apps
   that toggle Tor without a full re-bootstrap.
 
 ## Status
 
-PoC proven end-to-end on Android (arm64, on-device) and the iOS simulator: bootstrap to 100% over the
-real Tor network, then an HTTP request through the SOCKS proxy exits via a Tor relay.
+The repository implements the frozen 0.3 API in
+[the API contract](docs/design/ARTITOR_0_3_API_FREEZE.md). The 0.3.0 release candidate adds isolation sessions,
+bridge policy, error categories, and onion/timeout controls.
 
-See [docs/api-lifecycle-bitchat.md](docs/api-lifecycle-bitchat.md) for the 0.2 API design aimed at a
-BitChat KMP port.
+See [the integrated implementation report](docs/audit/ARTITOR_0_3_INTEGRATED_IMPLEMENTATION_REPORT.md)
+for exact test targets and remaining release evidence. Simulator results do not establish
+physical iOS device performance or background execution support.
 
 ## Install
+
+The APIs below require the **0.3.0 release candidate**. Local Maven consumer verification
+checks the candidate with `mavenLocal()`; it does not establish Maven Central availability.
+For local candidate validation, run `./gradlew :tor:publishToMavenLocal -PreleaseBuild=true`
+and use `mavenLocal()` in a separate consumer. The release flag builds all three Android ABIs.
+For a published release, use `mavenCentral()` after verifying that 0.3.0 is available.
 
 ```kotlin
 // settings.gradle.kts -> dependencyResolutionManagement { repositories { mavenCentral() } }
 commonMain.dependencies {
-    implementation("io.github.yet300:tor:0.2.0")
+    implementation("io.github.yet300:tor:0.3.0")
 }
 ```
 
@@ -61,6 +69,41 @@ tor.resume().getOrThrow()
 // Full teardown (process exit / panic wipe).
 tor.shutdown()
 ```
+
+### One isolation session per application identity
+
+The root/default SOCKS endpoint is one circuit isolation domain. Use an additional
+`TorIsolationSession` for each application identity that needs its own domain:
+
+```kotlin
+val alice = tor.createIsolationSession().getOrThrow()
+val bob = tor.createIsolationSession().getOrThrow()
+// Build separate HTTP clients and connection pools from each handle's current
+// status.value.socksEndpoint. Never share pools across identities or sessions.
+alice.status.collect { status ->
+    // Close Alice's previous HTTP pool on each status/endpoint change.
+    // ACTIVE: create a fresh SOCKS-only pool for status.socksEndpoint.
+    // PAUSED/CLOSED/INVALIDATED: keep Alice unavailable; never route directly.
+}
+```
+
+[The compilable application TorController example](docs/examples/TorController.kt) maps identity
+strings to session handles and uses an application-supplied `HttpPoolFactory`. It discards pools
+when session status changes, builds them from the current endpoint on demand, rechecks status after
+factory suspension and before use, and clears failed initialization. The factory must create a
+fresh pool per identity/session/endpoint, resolve target names through SOCKS, and abort outstanding
+requests when its pool closes. Platform HTTP configuration belongs in that factory; a global or
+shared default connection pool violates this separation.
+
+`pause()` retains circuit identity while synchronously removing root and session endpoints.
+`resume()` rebinds listeners; ports may change. `close()` closes one handle; `shutdown()`, `restart()`,
+and client-defining configuration replacement invalidate old handles permanently. Closed and
+invalidated handles remain terminal observers. Close an application's identity entry explicitly
+before creating a new session for it; handles never silently attach to a new client generation.
+
+This partitions circuits across identities. It does not guarantee different exit relays or
+persistent identity unlinkability. Application cookies, login state, timing, and other identifiers
+still belong to the application's isolation model.
 
 ### SOCKS limits
 
@@ -101,6 +144,47 @@ Diagnostics do not include bridge input. Treat bridge configuration as secret: d
 Changing `bridges` or `bridgesEnabled` rebuilds TorClient and invalidates existing isolation
 sessions. Lists are compared exactly, including order and whitespace, even in `OFF` mode.
 Stable 0.3 does not use live `TorClient::reconfigure()`.
+
+## Onion addresses and network timeouts
+
+`.onion` names use the same SOCKS5 CONNECT endpoint as other targets. Pass the hostname to SOCKS;
+never resolve it with the platform DNS resolver. Stable 0.3 supports public onion clients, with no
+onion-service hosting or authenticated onion-client API.
+
+```kotlin
+import kotlin.time.Duration.Companion.seconds
+
+val config = ArtiConfig(
+    dataDir = dir,
+    allowOnionAddrs = true,       // default
+    connectTimeout = 10.seconds, // default Arti connect timeout
+    resolveTimeout = 10.seconds, // default Arti resolve timeout
+)
+```
+
+`connectTimeout` bounds Tor's BEGIN exchange after circuit acquisition; `resolveTimeout`
+bounds the resolution operation after circuit acquisition. Neither is a whole HTTP request,
+circuit acquisition, or bootstrap deadline. The `start`/`resume` readiness deadline is separate.
+Zero is permitted. Values must be finite, nonnegative, and representable exactly as signed
+64-bit nanoseconds.
+Configuration failures return `ArtiException.Config`; input is never clamped or wrapped.
+Changing any of these three values rebuilds TorClient and invalidates isolation sessions.
+Invalid replacement configuration is validated before retained RUNNING/PAUSED resources are
+discarded, including `restart(config)`. A valid rebuild can still fail during bootstrap or binding.
+
+## Typed failures
+
+The original seven `ArtiException` subclasses remain exhaustive. Each now has `kind: TorErrorKind`
+for stable classification independent of diagnostic text. Arti bootstrap/runtime failures retain
+categories such as `NETWORK`, `STORAGE`, `BOOTSTRAP_REQUIRED`, and `TARGET_REJECTED` when their
+underlying error path supplies them. Unsupported future categories map to `UNKNOWN`.
+
+SOCKS connection failures arrive as SOCKS replies; this API does not turn every per-stream network
+error into an engine exception or promise a `TorErrorKind` callback for every rejected target.
+Use kinds where provided; never classify by parsing messages. Native lifecycle and SOCKS
+diagnostics redact bridge material, target names, and keys. Upstream tracing forwards only
+level/module metadata; event payloads and panic payloads are withheld. Avoid logging
+configurations, requests, or application identity secrets.
 
 ## Targets
 

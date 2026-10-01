@@ -1,0 +1,24 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.48s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 1 test
+test logging::tests::production_forwarding_omits_adversarial_event_payloads_and_custom_target ... FAILED
+
+failures:
+
+---- logging::tests::production_forwarding_omits_adversarial_event_payloads_and_custom_target stdout ----
+
+thread 'logging::tests::production_forwarding_omits_adversarial_event_payloads_and_custom_target' (1314891) panicked at src/logging.rs:117:9:
+assertion `left == right` failed
+  left: "INFO [PRIVATE_CUSTOM_TARGET.example] bridge=\"203.0.113.42:443\" fingerprint=\"SECRET_FINGERPRINT\" host=\"SECRET_HOST.example\" key=\"SECRET_AUTH_KEY\" path=\"/private/SECRET_STATE\" isolation_token=\"SECRET_ISOLATION_TOKEN\" SECRET_MESSAGE"
+ right: "INFO [arti_kmp_ffi::logging::tests]"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    logging::tests::production_forwarding_omits_adversarial_event_payloads_and_custom_target
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 95 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`

@@ -1,0 +1,56 @@
+[
+  {
+    "run": "baseline",
+    "exit": 0,
+    "suite": {
+      "name": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-09-30T17:21:41.648Z",
+      "hostname": "Mac.lan",
+      "time": "0.001"
+    },
+    "failures": []
+  },
+  {
+    "run": "mutant",
+    "exit": 1,
+    "suite": {
+      "name": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "2",
+      "errors": "0",
+      "timestamp": "2026-09-30T17:22:17.911Z",
+      "hostname": "Mac.lan",
+      "time": "0.151"
+    },
+    "failures": [
+      {
+        "test": "a01CachedActiveCannotPublishAfterCompletedClose[iosSimulatorArm64]",
+        "message": "kotlin.AssertionError: kotlin.AssertionError: terminal history resurrected: [TorIsolationSessionStatus(state=ACTIVE, socksEndpoint=TorSocksEndpoint(host=127.0.0.1, port=20001)), TorIsolationSessionStatus(state=CLOSED, socksEndpoint=null), TorIsolationSessionStatus(state=ACTIVE, socksEndpoint=TorSocksEndpoint(host=127.0.0.1, port=21001)), TorIsolationSessionStatus(state=CLOSED, socksEndpoint=null)]"
+      },
+      {
+        "test": "a01CachedActiveCannotPublishAfterCompletedInvalidation[iosSimulatorArm64]",
+        "message": "kotlin.AssertionError: kotlin.AssertionError: terminal history resurrected: [TorIsolationSessionStatus(state=ACTIVE, socksEndpoint=TorSocksEndpoint(host=127.0.0.1, port=20001)), TorIsolationSessionStatus(state=INVALIDATED, socksEndpoint=null), TorIsolationSessionStatus(state=ACTIVE, socksEndpoint=TorSocksEndpoint(host=127.0.0.1, port=21001)), TorIsolationSessionStatus(state=INVALIDATED, socksEndpoint=null)]"
+      }
+    ]
+  },
+  {
+    "run": "restored",
+    "exit": 0,
+    "suite": {
+      "name": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-09-30T17:22:44.376Z",
+      "hostname": "Mac.lan",
+      "time": "0.0"
+    },
+    "failures": []
+  }
+]

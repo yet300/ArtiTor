@@ -1,0 +1,10 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.17s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 2 tests
+test logging::tests::panic_payload_is_never_forwarded ... ok
+test logging::tests::production_forwarding_omits_adversarial_event_payloads_and_custom_target ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 95 filtered out; finished in 0.00s
+

@@ -1,0 +1,11 @@
+--- src/config.rs
++++ src/config.rs
+@@ -55,7 +55,7 @@
+     let mut builder = TorClientConfigBuilder::from_directories(state_dir, cache_dir);
+     builder
+         .address_filter()
+-        .allow_onion_addrs(config.allow_onion_addrs);
++        .allow_onion_addrs(true);
+     builder.stream_timeouts().connect_timeout(connect_timeout);
+     builder.stream_timeouts().resolve_timeout(resolve_timeout);
+     builder.bridges().enabled(match config.bridges_enabled {

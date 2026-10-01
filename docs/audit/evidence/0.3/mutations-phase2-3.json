@@ -1,0 +1,178 @@
+[
+  {
+    "label": "baseline-off_skips_validation",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "bridge_invalid_matrix_is_secret_safe_and_starts_no_worker",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "baseline-bridge_policy_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "bridge_identity_is_exact_in_all_modes",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "baseline-forced_wrong_upstream_kind",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "upstream_classification_ignores_diagnostic_and_redacts_transport",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "baseline-unknown_fallback_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/baseline/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "synthetic_future_kind_uses_same_unknown_fallback",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 0,
+    "failed_tests": []
+  },
+  {
+    "label": "off_skips_validation",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/off_skips_validation/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "bridge_invalid_matrix_is_secret_safe_and_starts_no_worker",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test engine::tests::config::bridge_invalid_matrix_is_secret_safe_and_starts_no_worker ... FAILED"
+    ]
+  },
+  {
+    "label": "bridge_policy_identity_omitted",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/bridge_policy_identity_omitted/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "bridge_identity_is_exact_in_all_modes",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test engine::tests::config::bridge_identity_is_exact_in_all_modes ... FAILED"
+    ]
+  },
+  {
+    "label": "forced_wrong_upstream_kind",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/forced_wrong_upstream_kind/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "upstream_classification_ignores_diagnostic_and_redacts_transport",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test error::classification_tests::upstream_classification_ignores_diagnostic_and_redacts_transport ... FAILED"
+    ]
+  },
+  {
+    "label": "unknown_fallback_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--offline",
+      "--manifest-path",
+      "/tmp/artitor-integrated/mutations/unknown_fallback_runtime/Cargo.toml",
+      "--target-dir",
+      "/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target",
+      "--lib",
+      "synthetic_future_kind_uses_same_unknown_fallback",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit": 101,
+    "failed_tests": [
+      "test error::classification_tests::synthetic_future_kind_uses_same_unknown_fallback ... FAILED"
+    ]
+  }
+]

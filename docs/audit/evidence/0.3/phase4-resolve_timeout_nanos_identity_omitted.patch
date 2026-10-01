@@ -1,0 +1,10 @@
+--- src/config.rs
++++ src/config.rs
+@@ -17,7 +17,6 @@
+         || old.bridges_enabled != new.bridges_enabled
+         || old.allow_onion_addrs != new.allow_onion_addrs
+         || old.connect_timeout_nanos != new.connect_timeout_nanos
+-        || old.resolve_timeout_nanos != new.resolve_timeout_nanos
+ }
+ 
+ pub(super) fn resolve_dirs(config: &ArtiConfig) -> (PathBuf, PathBuf) {

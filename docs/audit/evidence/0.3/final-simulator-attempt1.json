@@ -1,0 +1,90 @@
+[
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+    "tests": "12",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.002"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+    "tests": "6",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.0"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.BridgeConfigurationTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.0"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+    "tests": "6",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.001"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest",
+    "tests": "2",
+    "failures": "1",
+    "errors": "0",
+    "skipped": "0",
+    "time": "69.107"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest",
+    "tests": "5",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.0"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+    "tests": "30",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.004"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+    "tests": "25",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "1.017"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+    "tests": "9",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.001"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe",
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "23.081"
+  },
+  {
+    "name": "iosSimulatorArm64Test.com.yet.tor.TorControllerExampleTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.0"
+  }
+]
