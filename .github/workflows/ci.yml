@@ -45,6 +45,13 @@ jobs:
             unzip -l "$AAR" | grep -q "jni/$abi/libarti_kmp_ffi.so" || { echo "MISSING ABI: $abi"; exit 1; }
           done
           echo "All 3 expected ABIs present."
+      - name: Verify JNA metadata in minified Maven consumer DEX
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK_ROOT: ${{ steps.setup-ndk.outputs.ndk-path }}
+        run: |
+          ./gradlew :tor:publishToMavenLocal -PreleaseBuild=true --no-configuration-cache
+          ./gradlew -p tests/android-minified-consumer :app:verifyJnaMetadata --refresh-dependencies --no-configuration-cache
 
   apple:
     name: iOS (device + simulator)

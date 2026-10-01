@@ -13,6 +13,13 @@
 # `@Structure.FieldOrder` is read reflectively when the struct layout is built.
 -keepattributes RuntimeVisibleAnnotations
 
+# R8 full mode retains class annotations only on classes matched by a keep rule.
+# Ubique's runtime structs live outside com.yet.tor.ffi; member-only JNA rules
+# preserve their fields but not @Structure.FieldOrder. Keep the class metadata
+# eligible while allowing unused structs to shrink and names to be obfuscated.
+# The JNA member rule above preserves reflected fields and constructors.
+-keep,allowshrinking,allowoptimization,allowobfuscation class uniffi.runtime.** extends com.sun.jna.Structure
+
 # UniFFI-generated bindings: JNA Structure subclasses (field order/names read by JNA)
 # and callback-interface dispatchers invoked from native code.
 -keep class com.yet.tor.ffi.** { *; }
