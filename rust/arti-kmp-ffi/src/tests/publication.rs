@@ -49,7 +49,13 @@ struct PublicationReentryListener {
     action: PublicationAction,
     // Keep the listener runnable after the callback mutates the registry,
     // so this test observes the dispatch gate rather than task abortion.
-    retained_task: Mutex<Option<(JoinHandle<()>, Option<oneshot::Sender<()>>)>>,
+    retained_task: Mutex<
+        Option<(
+            JoinHandle<()>,
+            Option<oneshot::Sender<()>>,
+            Option<Arc<ListeningSocket>>,
+        )>,
+    >,
     traffic: Mutex<Option<std::net::TcpStream>>,
 }
 
@@ -87,6 +93,7 @@ impl SessionStatusListener for Arc<PublicationReentryListener> {
             *self.retained_task.lock().unwrap() = Some((
                 entry.listener_task.take().unwrap(),
                 entry.shutdown_tx.take(),
+                entry.socket.take(),
             ));
         }
         match self.action {
@@ -141,7 +148,10 @@ fn assert_publication_reentry(rebind: bool, action: PublicationAction) {
             vec![SessionState::Active, expected]
         }
     );
-    let (task, shutdown) = listener.retained_task.lock().unwrap().take().unwrap();
+    let (task, shutdown, socket) = listener.retained_task.lock().unwrap().take().unwrap();
+    if let Some(socket) = socket {
+        socket.close();
+    }
     task.abort();
     drop(shutdown);
     engine.shutdown();

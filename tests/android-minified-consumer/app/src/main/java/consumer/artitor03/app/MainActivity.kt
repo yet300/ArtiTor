@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import java.io.File
 import java.net.InetSocketAddress
+import java.net.ConnectException
 import java.net.ServerSocket
 import java.net.Socket
 import java.util.Collections
@@ -30,8 +31,14 @@ class MainActivity : Activity() {
         emit("RESOURCE,$label,sessions=${tor.sessions.size},listeners=${tor.sessions.count { it.status.value.socksEndpoint != null } + if(tor.socksEndpoint != null) 1 else 0},fd=${File("/proc/self/fd").list()!!.size},threads=${File("/proc/self/task").list()!!.size},$rss,pss_kb=${Debug.getPss()}")
     }
     private fun dead(port: Int, label: String) {
-        val connected = runCatching { Socket().use { it.connect(InetSocketAddress("127.0.0.1", port), 1500) } }.isSuccess
-        ok("listener_dead,$label", !connected)
+        try {
+            Socket().use { it.connect(InetSocketAddress("127.0.0.1", port), 1500) }
+            error("old listener accepted TCP: $label port=$port")
+        } catch (error: ConnectException) {
+            val errno = generateSequence(error as Throwable?) { it.cause }
+                .filterIsInstance<android.system.ErrnoException>().firstOrNull()?.errno
+            ok("listener_dead,$label,errno=$errno", errno == android.system.OsConstants.ECONNREFUSED)
+        }
     }
     // Only opens a loopback SOCKS socket. Target names are sent to Tor; no direct DNS or fallback path exists.
     private fun request(port: Int, host: String, label: String, rejected: Boolean = false) {
@@ -57,8 +64,15 @@ class MainActivity : Activity() {
     override fun onCreate(state: Bundle?) {
         super.onCreate(state); setContentView(TextView(this).apply { text = "Running ArtiTor release hardware gate" })
         evidence = File(getExternalFilesDir(null), "gate-${intent.getStringExtra("run") ?: "first"}.txt")
+        emit("CONTROL,ARTITOR_FIRST_PROCESS_CAPTURE,mode=${intent.getStringExtra("mode") ?: "integrated"},pid=${android.os.Process.myPid()}")
         CoroutineScope(Dispatchers.IO).launch {
-            try { gate(); emit("GATE_COMPLETED,PASS") }
+            try {
+                val mode = intent.getStringExtra("mode")
+                if (mode == "reliability" || mode == "reliability-local") {
+                    ReliabilityDiagnostic(this@MainActivity, ::emit).run(localOnly = mode == "reliability-local")
+                } else gate()
+                emit("GATE_COMPLETED,PASS")
+            }
             catch(t: Throwable) { emit("GATE_FAILED,${t.javaClass.name},${t.message}\n${t.stackTraceToString()}") }
         }
     }
@@ -96,7 +110,7 @@ class MainActivity : Activity() {
             ok("distinct_root_A_B", setOf(root(), port(a), port(b)).size == 3)
             request(port(a), "api.ipify.org", "A_first_cold")
             request(port(b), "api.ipify.org", "B_first_cold")
-            val oldA = port(a); a.close(); delay(100)
+            val oldA = port(a); a.close()
             ok("A_CLOSED", a.status.value.state == TorIsolationSessionState.CLOSED && a.status.value.socksEndpoint == null)
             dead(oldA, "closed_A")
             request(root(), "api.ipify.org", "root_after_A_close")
@@ -117,12 +131,12 @@ class MainActivity : Activity() {
             }
             val cap = tor.createIsolationSession().exceptionOrNull()
             ok("33rd_public_Runtime", cap is ArtiException.Runtime && cap.kind == TorErrorKind.RUNTIME)
-            val idlePorts = idle.drop(1).map { port(it) }; idle.drop(1).forEach { it.close() }; delay(1000)
+            val idlePorts = idle.drop(1).map { port(it) }; idle.drop(1).forEach { it.close() }
             idlePorts.forEach { dead(it,"idle_closed") }; resources("after_31_close_B_retained", tor)
             val live = b
             request(port(live),"api.ipify.org","remaining_before_pause")
             val oldRoot=root(); val oldLive=port(live); val pauseAt=System.nanoTime()
-            tor.pause(); delay(1000)
+            tor.pause()
             ok("pause_retains_client", tor.hasClient && tor.status.value.state == TorState.PAUSED && tor.socksEndpoint == null)
             ok("session_PAUSED",live.status.value.state == TorIsolationSessionState.PAUSED && live.status.value.socksEndpoint == null)
             dead(oldRoot,"paused_root"); dead(oldLive,"paused_session")
@@ -151,7 +165,7 @@ class MainActivity : Activity() {
             request(root(),"bad.onion","malformed_onion",true); delay(300)
             ok("malformed_onion_TargetRejected",logLines.drop(logStart).any { it.contains("arti_kind=InvalidStreamTarget") })
             val endRoot=root(); val endSession=port(live)
-            resources("before_shutdown",tor); tor.shutdown(); delay(1000)
+            resources("before_shutdown",tor); tor.shutdown()
             ok("shutdown_no_client",!tor.hasClient && tor.socksEndpoint==null && tor.sessions.isEmpty())
             ok("shutdown_INVALIDATED",live.status.value.state==TorIsolationSessionState.INVALIDATED && live.status.value.socksEndpoint==null)
             dead(endRoot,"shutdown_root"); dead(endSession,"shutdown_session"); resources("after_shutdown",tor)

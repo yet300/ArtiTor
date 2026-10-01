@@ -14,3 +14,4 @@ mod sessions;
 mod socks;
 
 mod stream_config;
+mod teardown;

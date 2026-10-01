@@ -42,3 +42,17 @@ This executable app does not treat DEX metadata presence as proof of runtime
 callbacks. A release decision also requires a completed hardware log ending in
 `GATE_COMPLETED,PASS`, inspection for secret markers, and the remaining release
 checks documented in the hardware gate report.
+
+For the finite listener/request diagnostic, add `--es mode reliability` to the
+launch. It exercises root RUNNING and session ACTIVE greeting barriers, old-port
+refusal after pause, 100 retained-session resume cycles and three cold starts.
+Local phases send only SOCKS greetings. The program stops at the first local
+failure; only a completed local phase proceeds to four fixed HTTPS requests
+with explicit SOCKS/TLS/HTTP stage evidence. The pre-construction control marker
+supports nonempty, process-scoped Logcat redaction verification. Preserve each
+uniquely named run, including failed and interrupted attempts. This mode is a
+release investigation tool and does not change the normal integrated flow.
+
+Use `--es mode reliability-local` for the same finite local phases with no
+external CONNECT matrix. Integrated teardown probes now require ECONNREFUSED
+immediately after synchronous close/pause/shutdown; no teardown delay is used.
