@@ -1,0 +1,29 @@
+Baseline: e75336411a7eaadda4a2c828d668cd373dc6b0e1
+These are execution/tooling failures, not product acceptance failures.
+
+Initial cargo test inside sandbox:
+52 passed; 45 failed; 0 ignored. Socket bind failed with Operation not permitted (os error 1).
+Host-permitted cargo test: 97 passed.
+Host-permitted cargo test -- --test-threads=1: 97 passed.
+
+First connectedAndroidDeviceTest:
+Test execution failed with fatal error!
+adb command [install-multiple --bypass-low-target-sdk-block -t --user 0 /Users/yet/development/Multiplatform/ArtiTor/tor/build/outputs/apk/androidTest/tor-androidTest.apk] failed due to timeout.
+Timed out waiting for 360000 ms
+ErrorName: Test APK installation Error
+NameSpace: AndroidTestApkInstallerPlugin
+ErrorCode: 2002
+Starting 0 tests on Pixel 6a - 17
+Finished 0 tests on Pixel 6a - 17
+BUILD FAILED in 53m 38s
+
+Non-streaming ADB instrumentation-install recovery attempt:
+adb: error: failed to read copy response: EOF
+tor/build/outputs/apk/androidTest/tor-androidTest.apk: 1 file pushed, 0 skipped. 0.0 MB/s (27269388 bytes in 3613.118s)
+adb: error: failed to read copy response: EOF
+Performing Push Install
+Exit code 255.
+
+The UTP build-output textproto was cleared by the recovered Gradle execution before it could be copied. This file preserves the observed exact error/result lines; it is not represented as the original complete raw transcript.
+
+The first correctly installed minified diagnostic emitted a control marker and redacted Config exception in PID 17070, but its capture disconnected before a local probe outcome. On reconnect, Android user 0 no longer had the consumer installed and its external evidence file was absent. The package code remained installed for user 11. No cause of that installation/data-state change is inferred. The already-installed code was restored for user 0; that newly named diagnostic produced the preserved local failure.

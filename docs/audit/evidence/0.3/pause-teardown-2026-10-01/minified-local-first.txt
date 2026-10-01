@@ -1,0 +1,1256 @@
+CONTROL,ARTITOR_FIRST_PROCESS_CAPTURE,mode=reliability-local,pid=6723
+RELIABILITY_VERSION,arti-kmp-ffi 0.3.0 (arti-client 0.46, rustls)
+REDACTION_EXCEPTION_PASS,kind=CONFIG,exception=u: configuration error: invalid bridge configuration
+DIAGNOSTIC_PUBLIC_LOG,starting arti: socks_port=0
+DIAGNOSTIC_PUBLIC_LOG,config built; creating unbootstrapped client
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_memquota::mtracker]
+DIAGNOSTIC_PUBLIC_LOG,client created; starting bootstrap
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,bootstrap() returned: ok=true
+DIAGNOSTIC_PUBLIC_LOG,bootstrap complete
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46117
+LOCAL_PASS,cold_1,port=46117,at_ns=542525428655850,end_ns=542525432220547
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_1,port=46117,at_ns=542525433138394,end_ns=542525434737312
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_2,port=46117,at_ns=542525435164761,end_ns=542525436953336
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_3,port=46117,at_ns=542525437289924,end_ns=542525439060351
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_4,port=46117,at_ns=542525439587898,end_ns=542525442351732
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_5,port=46117,at_ns=542525442739306,end_ns=542525444232673
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_6,port=46117,at_ns=542525444704678,end_ns=542525445941983
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_7,port=46117,at_ns=542525446260668,end_ns=542525447597216
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_8,port=46117,at_ns=542525447896898,end_ns=542525449517748
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_9,port=46117,at_ns=542525449831184,end_ns=542525451252245
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_10,port=46117,at_ns=542525451709846,end_ns=542525452919726
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_11,port=46117,at_ns=542525453220792,end_ns=542525454630053
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_12,port=46117,at_ns=542525454970995,end_ns=542525456437955
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_13,port=46117,at_ns=542525456868619,end_ns=542525458115201
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_14,port=46117,at_ns=542525458436490,end_ns=542525461566413
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_15,port=46117,at_ns=542525461887743,end_ns=542525463379646
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_16,port=46117,at_ns=542525463692715,end_ns=542525464964322
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_17,port=46117,at_ns=542525465241259,end_ns=542525467866910
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_18,port=46117,at_ns=542525468226407,end_ns=542525469610033
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_19,port=46117,at_ns=542525469905077,end_ns=542525471208788
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_20,port=46117,at_ns=542525471486295,end_ns=542525472905891
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_21,port=46117,at_ns=542525473314175,end_ns=542525474748054
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_22,port=46117,at_ns=542525475232266,end_ns=542525476652066
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_23,port=46117,at_ns=542525476903002,end_ns=542525478209602
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_24,port=46117,at_ns=542525478466723,end_ns=542525479934537
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_25,port=46117,at_ns=542525480234138,end_ns=542525481865933
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_26,port=46117,at_ns=542525482097867,end_ns=542525483273729
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_27,port=46117,at_ns=542525483510383,end_ns=542525484960172
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_28,port=46117,at_ns=542525485197761,end_ns=542525487072761
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_29,port=46117,at_ns=542525487564704,end_ns=542525489176887
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_30,port=46117,at_ns=542525489448738,end_ns=542525490696622
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_31,port=46117,at_ns=542525490973803,end_ns=542525492591804
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_32,port=46117,at_ns=542525492838020,end_ns=542525493911832
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_33,port=46117,at_ns=542525494133389,end_ns=542525495180630
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_34,port=46117,at_ns=542525495407559,end_ns=542525496463183
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_35,port=46117,at_ns=542525496685351,end_ns=542525497683194
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_36,port=46117,at_ns=542525497906623,end_ns=542525498902473
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_37,port=46117,at_ns=542525499122810,end_ns=542525500137377
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_38,port=46117,at_ns=542525500356697,end_ns=542525501312060
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_39,port=46117,at_ns=542525501541470,end_ns=542525502208463
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_40,port=46117,at_ns=542525502430997,end_ns=542525503818936
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_41,port=46117,at_ns=542525504097053,end_ns=542525504927375
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_42,port=46117,at_ns=542525505185635,end_ns=542525506410692
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_43,port=46117,at_ns=542525506659553,end_ns=542525507729011
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_44,port=46117,at_ns=542525507980720,end_ns=542525509452766
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_45,port=46117,at_ns=542525509769294,end_ns=542525510642545
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_46,port=46117,at_ns=542525510960334,end_ns=542525511910692
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_47,port=46117,at_ns=542525512241950,end_ns=542525512999804
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,root_observation_48,port=46117,at_ns=542525513268399,end_ns=542525513967089
+LOCAL_PASS,root_observation_49,port=46117,at_ns=542525514206347,end_ns=542525514838915
+ROOT_INITIAL_SUMMARY,pass=50
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,session_create_0,port=42753,at_ns=542525518151252,end_ns=542525518921923
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000001 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,session_create_1,port=42341,at_ns=542525521600268,end_ns=542525522338671
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000002 conn error: early eof
+LOCAL_PASS,session_create_2,port=39127,at_ns=542525525884854,end_ns=542525526841967
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000003 conn error: early eof
+LOCAL_PASS,session_create_3,port=42461,at_ns=542525529460863,end_ns=542525530284675
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000004 conn error: early eof
+LOCAL_PASS,session_create_4,port=32967,at_ns=542525533198900,end_ns=542525534081631
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000005 conn error: early eof
+LOCAL_PASS,session_create_5,port=44669,at_ns=542525536901944,end_ns=542525537751431
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000006 conn error: early eof
+LOCAL_PASS,session_create_6,port=44183,at_ns=542525540816047,end_ns=542525542648363
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000007 conn error: early eof
+LOCAL_PASS,session_create_7,port=45081,at_ns=542525545223396,end_ns=542525546250089
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000008 conn error: early eof
+LOCAL_PASS,session_create_8,port=45407,at_ns=542525548693204,end_ns=542525549593472
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000009 conn error: early eof
+LOCAL_PASS,session_create_9,port=45973,at_ns=542525551809822,end_ns=542525552593310
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000a conn error: early eof
+LOCAL_PASS,session_create_10,port=45739,at_ns=542525554753547,end_ns=542525555718513
+LOCAL_PASS,session_create_11,port=40911,at_ns=542525557903490,end_ns=542525558546272
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000c conn error: early eof
+LOCAL_PASS,session_create_12,port=36323,at_ns=542525560150154,end_ns=542525560762540
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000d conn error: early eof
+LOCAL_PASS,session_create_13,port=36503,at_ns=542525562199104,end_ns=542525562789354
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000e conn error: early eof
+LOCAL_PASS,session_create_14,port=39405,at_ns=542525564189949,end_ns=542525564779630
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000f conn error: early eof
+LOCAL_PASS,session_create_15,port=40959,at_ns=542525566141975,end_ns=542525566684944
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000010 conn error: early eof
+LOCAL_PASS,session_create_16,port=43045,at_ns=542525568053311,end_ns=542525568662605
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000011 conn error: early eof
+LOCAL_PASS,session_create_17,port=43389,at_ns=542525570115811,end_ns=542525570666715
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000012 conn error: early eof
+LOCAL_PASS,session_create_18,port=44773,at_ns=542525571991910,end_ns=542525572643196
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000013 conn error: early eof
+LOCAL_PASS,session_create_19,port=32915,at_ns=542525574388720,end_ns=542525574966397
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000014 conn error: early eof
+LOCAL_PASS,session_create_20,port=45965,at_ns=542525576269416,end_ns=542525576820523
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000015 conn error: early eof
+LOCAL_PASS,session_create_21,port=40043,at_ns=542525578091275,end_ns=542525578664517
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000016 conn error: early eof
+LOCAL_PASS,session_create_22,port=33451,at_ns=542525579967699,end_ns=542525580526985
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000017 conn error: early eof
+LOCAL_PASS,session_create_23,port=41985,at_ns=542525581757453,end_ns=542525582271247
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000018 conn error: early eof
+LOCAL_PASS,session_create_24,port=38697,at_ns=542525583529996,end_ns=542525584098762
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000019 conn error: early eof
+LOCAL_PASS,session_create_25,port=32803,at_ns=542525585366422,end_ns=542525585892504
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001a conn error: early eof
+LOCAL_PASS,session_create_26,port=39479,at_ns=542525587169197,end_ns=542525587785408
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001b conn error: early eof
+LOCAL_PASS,session_create_27,port=38271,at_ns=542525589195808,end_ns=542525589761726
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001c conn error: early eof
+LOCAL_PASS,session_create_28,port=46653,at_ns=542525591120897,end_ns=542525591801684
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001d conn error: early eof
+LOCAL_PASS,session_create_29,port=43001,at_ns=542525593153572,end_ns=542525593774950
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001e conn error: early eof
+LOCAL_PASS,session_create_30,port=41473,at_ns=542525595060106,end_ns=542525595651293
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001f conn error: early eof
+LOCAL_PASS,session_create_31,port=42205,at_ns=542525597021247,end_ns=542525597626106
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000020 conn error: early eof
+LOCAL_PASS,session_create_32,port=33039,at_ns=542525598928596,end_ns=542525599517178
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000021 conn error: early eof
+LOCAL_PASS,session_create_33,port=40689,at_ns=542525600979825,end_ns=542525601580980
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000022 conn error: early eof
+LOCAL_PASS,session_create_34,port=38591,at_ns=542525602975146,end_ns=542525603568651
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000023 conn error: early eof
+LOCAL_PASS,session_create_35,port=35863,at_ns=542525604985888,end_ns=542525605575854
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000024 conn error: early eof
+LOCAL_PASS,session_create_36,port=35353,at_ns=542525606923225,end_ns=542525607550951
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000025 conn error: early eof
+LOCAL_PASS,session_create_37,port=44513,at_ns=542525609018847,end_ns=542525609642178
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000026 conn error: early eof
+LOCAL_PASS,session_create_38,port=34597,at_ns=542525611004239,end_ns=542525611613166
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000027 conn error: early eof
+LOCAL_PASS,session_create_39,port=38553,at_ns=542525613082079,end_ns=542525613645556
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000028 conn error: early eof
+LOCAL_PASS,session_create_40,port=33363,at_ns=542525614900235,end_ns=542525615467292
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000029 conn error: early eof
+LOCAL_PASS,session_create_41,port=42987,at_ns=542525616704068,end_ns=542525617257860
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002a conn error: early eof
+LOCAL_PASS,session_create_42,port=32851,at_ns=542525618498949,end_ns=542525619058845
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002b conn error: early eof
+LOCAL_PASS,session_create_43,port=43505,at_ns=542525620301155,end_ns=542525620882860
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002c conn error: early eof
+LOCAL_PASS,session_create_44,port=33181,at_ns=542525622097623,end_ns=542525622680264
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002d conn error: early eof
+LOCAL_PASS,session_create_45,port=33223,at_ns=542525624998949,end_ns=542525625730069
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002e conn error: early eof
+LOCAL_PASS,session_create_46,port=35759,at_ns=542525627344001,end_ns=542525628058113
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002f conn error: early eof
+LOCAL_PASS,session_create_47,port=33415,at_ns=542525629463142,end_ns=542525630116096
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000030 conn error: early eof
+LOCAL_PASS,session_create_48,port=36681,at_ns=542525634787971,end_ns=542525635593920
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000031 conn error: early eof
+LOCAL_PASS,session_create_49,port=43301,at_ns=542525637357592,end_ns=542525638191983
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000032 conn error: early eof
+LOCAL_PASS,session_create_50,port=40321,at_ns=542525639818977,end_ns=542525640680549
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000033 conn error: early eof
+LOCAL_PASS,session_create_51,port=39737,at_ns=542525642276334,end_ns=542525643273404
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000034 conn error: early eof
+LOCAL_PASS,session_create_52,port=36533,at_ns=542525644956387,end_ns=542525645767707
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000035 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+LOCAL_PASS,session_create_53,port=33733,at_ns=542525647246589,end_ns=542525648442146
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000036 conn error: early eof
+LOCAL_PASS,session_create_54,port=33819,at_ns=542525650032234,end_ns=542525650771410
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000037 conn error: early eof
+LOCAL_PASS,session_create_55,port=45893,at_ns=542525652356086,end_ns=542525653137906
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000038 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+LOCAL_PASS,session_create_56,port=37127,at_ns=542525654500984,end_ns=542525655239957
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000039 conn error: early eof
+LOCAL_PASS,session_create_57,port=38767,at_ns=542525656887418,end_ns=542525657966845
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003a conn error: early eof
+LOCAL_PASS,session_create_58,port=40241,at_ns=542525659250821,end_ns=542525659899787
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003b conn error: early eof
+LOCAL_PASS,session_create_59,port=33469,at_ns=542525661243293,end_ns=542525661861783
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003c conn error: early eof
+LOCAL_PASS,session_create_60,port=46647,at_ns=542525663096443,end_ns=542525663647305
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003d conn error: early eof
+LOCAL_PASS,session_create_61,port=43185,at_ns=542525664898526,end_ns=542525665473559
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003e conn error: early eof
+LOCAL_PASS,session_create_62,port=39701,at_ns=542525666722989,end_ns=542525667281379
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003f conn error: early eof
+LOCAL_PASS,session_create_63,port=43687,at_ns=542525668532885,end_ns=542525669113695
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000040 conn error: early eof
+LOCAL_PASS,session_create_64,port=44733,at_ns=542525670370287,end_ns=542525670936205
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000041 conn error: early eof
+LOCAL_PASS,session_create_65,port=34107,at_ns=542525672202847,end_ns=542525672844286
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000042 conn error: early eof
+LOCAL_PASS,session_create_66,port=33629,at_ns=542525674046516,end_ns=542525674621467
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000043 conn error: early eof
+LOCAL_PASS,session_create_67,port=36453,at_ns=542525675859016,end_ns=542525676498949
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000044 conn error: early eof
+LOCAL_PASS,session_create_68,port=42975,at_ns=542525677754320,end_ns=542525678326260
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000045 conn error: early eof
+LOCAL_PASS,session_create_69,port=33135,at_ns=542525679532681,end_ns=542525680143806
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000046 conn error: early eof
+LOCAL_PASS,session_create_70,port=36539,at_ns=542525681367602,end_ns=542525681956347
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000047 conn error: early eof
+LOCAL_PASS,session_create_71,port=35879,at_ns=542525683155240,end_ns=542525683695035
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000048 conn error: early eof
+LOCAL_PASS,session_create_72,port=34799,at_ns=542525684948575,end_ns=542525685604866
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000049 conn error: early eof
+LOCAL_PASS,session_create_73,port=44233,at_ns=542525686816373,end_ns=542525687406908
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004a conn error: early eof
+LOCAL_PASS,session_create_74,port=34383,at_ns=542525688652961,end_ns=542525689213223
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004b conn error: early eof
+LOCAL_PASS,session_create_75,port=33025,at_ns=542525690512621,end_ns=542525691155565
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004c conn error: early eof
+LOCAL_PASS,session_create_76,port=39209,at_ns=542525692516365,end_ns=542525693226081
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004d conn error: early eof
+LOCAL_PASS,session_create_77,port=33027,at_ns=542525694542732,end_ns=542525695164436
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004e conn error: early eof
+LOCAL_PASS,session_create_78,port=38881,at_ns=542525696410937,end_ns=542525696990364
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004f conn error: early eof
+LOCAL_PASS,session_create_79,port=33983,at_ns=542525698212572,end_ns=542525698764086
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000050 conn error: early eof
+LOCAL_PASS,session_create_80,port=35753,at_ns=542525699996549,end_ns=542525700578743
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000051 conn error: early eof
+LOCAL_PASS,session_create_81,port=46309,at_ns=542525701826138,end_ns=542525702423062
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000052 conn error: early eof
+LOCAL_PASS,session_create_82,port=42559,at_ns=542525703708178,end_ns=542525704381477
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000053 conn error: early eof
+LOCAL_PASS,session_create_83,port=33889,at_ns=542525705660652,end_ns=542525706288988
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000054 conn error: early eof
+LOCAL_PASS,session_create_84,port=34129,at_ns=542525707536710,end_ns=542525708130541
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000055 conn error: early eof
+LOCAL_PASS,session_create_85,port=43309,at_ns=542525709418627,end_ns=542525710014574
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000056 conn error: early eof
+LOCAL_PASS,session_create_86,port=39859,at_ns=542525711182706,end_ns=542525711735603
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000057 conn error: early eof
+LOCAL_PASS,session_create_87,port=38787,at_ns=542525713092292,end_ns=542525713619555
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000058 conn error: early eof
+LOCAL_PASS,session_create_88,port=41627,at_ns=542525714779955,end_ns=542525715295499
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000059 conn error: early eof
+LOCAL_PASS,session_create_89,port=34115,at_ns=542525716489957,end_ns=542525717048876
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005a conn error: early eof
+LOCAL_PASS,session_create_90,port=38219,at_ns=542525718280077,end_ns=542525718937344
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005b conn error: early eof
+LOCAL_PASS,session_create_91,port=38189,at_ns=542525720288704,end_ns=542525720922696
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005c conn error: early eof
+LOCAL_PASS,session_create_92,port=45477,at_ns=542525722082283,end_ns=542525722659675
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005d conn error: early eof
+LOCAL_PASS,session_create_93,port=35215,at_ns=542525723884569,end_ns=542525724485440
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005e conn error: early eof
+LOCAL_PASS,session_create_94,port=45021,at_ns=542525725700772,end_ns=542525726290372
+DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005f conn error: early eof
+LOCAL_PASS,session_create_95,port=42915,at_ns=542525727495206,end_ns=542525728251269
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000060 conn error: early eof
+LOCAL_PASS,session_create_96,port=35019,at_ns=542525731389452,end_ns=542525732072354
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000061 conn error: early eof
+LOCAL_PASS,session_create_97,port=37553,at_ns=542525733262418,end_ns=542525733866991
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000062 conn error: early eof
+LOCAL_PASS,session_create_98,port=44867,at_ns=542525734963915,end_ns=542525735508267
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000063 conn error: early eof
+LOCAL_PASS,session_create_99,port=46317,at_ns=542525736613777,end_ns=542525737164965
+SESSION_CREATE_SUMMARY,pass=100
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000064 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=0,duration_ns=803996
+OLD_REFUSED,pause_root_0,port=46117,errno=111
+OLD_REFUSED,pause_session_0,port=45277,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43025
+LOCAL_PASS,resume_root_0,port=43025,at_ns=542525744047248,end_ns=542525745739591
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_0,port=39541,at_ns=542525746488817,end_ns=542525747760261
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=1,duration_ns=2591919
+OLD_REFUSED,pause_root_1,port=43025,errno=111
+OLD_REFUSED,pause_session_1,port=39541,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41027
+LOCAL_PASS,resume_root_1,port=41027,at_ns=542525757473925,end_ns=542525759210253
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_1,port=45385,at_ns=542525760169359,end_ns=542525761442594
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=2,duration_ns=3284993
+OLD_REFUSED,pause_root_2,port=41027,errno=111
+OLD_REFUSED,pause_session_2,port=45385,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45543
+LOCAL_PASS,resume_root_2,port=45543,at_ns=542525775095466,end_ns=542525777119229
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_2,port=45189,at_ns=542525778443122,end_ns=542525779926155
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=3,duration_ns=3168620
+OLD_REFUSED,pause_root_3,port=45543,errno=111
+OLD_REFUSED,pause_session_3,port=45189,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45209
+LOCAL_PASS,resume_root_3,port=45209,at_ns=542525796249926,end_ns=542525798482429
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_3,port=40209,at_ns=542525799633023,end_ns=542525801109789
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=4,duration_ns=2389241
+OLD_REFUSED,pause_root_4,port=45209,errno=111
+OLD_REFUSED,pause_session_4,port=40209,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45763
+LOCAL_PASS,resume_root_4,port=45763,at_ns=542525812113370,end_ns=542525814416633
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_4,port=40703,at_ns=542525815490649,end_ns=542525817090665
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=5,duration_ns=3269247
+OLD_REFUSED,pause_root_5,port=45763,errno=111
+OLD_REFUSED,pause_session_5,port=40703,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38221
+LOCAL_PASS,resume_root_5,port=38221,at_ns=542525829446134,end_ns=542525831133430
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_5,port=34765,at_ns=542525831762336,end_ns=542525833851529
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=6,duration_ns=1692342
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+OLD_REFUSED,pause_root_6,port=38221,errno=111
+OLD_REFUSED,pause_session_6,port=34765,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37181
+LOCAL_PASS,resume_root_6,port=37181,at_ns=542525844310839,end_ns=542525846067919
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_6,port=38739,at_ns=542525847118131,end_ns=542525848860400
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=7,duration_ns=2116537
+OLD_REFUSED,pause_root_7,port=37181,errno=111
+OLD_REFUSED,pause_session_7,port=38739,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41465
+LOCAL_PASS,resume_root_7,port=41465,at_ns=542525859602424,end_ns=542525861729011
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_7,port=34825,at_ns=542525862846565,end_ns=542525864284675
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=8,duration_ns=3078329
+OLD_REFUSED,pause_root_8,port=41465,errno=111
+OLD_REFUSED,pause_session_8,port=34825,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39029
+LOCAL_PASS,resume_root_8,port=39029,at_ns=542525879190803,end_ns=542525881652310
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_8,port=39823,at_ns=542525883003425,end_ns=542525885183886
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=9,duration_ns=3901896
+OLD_REFUSED,pause_root_9,port=39029,errno=111
+OLD_REFUSED,pause_session_9,port=39823,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34497
+LOCAL_PASS,resume_root_9,port=34497,at_ns=542525901062874,end_ns=542525902985440
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_9,port=37147,at_ns=542525904429329,end_ns=542525908234097
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=10,duration_ns=3443400
+OLD_REFUSED,pause_root_10,port=34497,errno=111
+OLD_REFUSED,pause_session_10,port=37147,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35229
+LOCAL_PASS,resume_root_10,port=35229,at_ns=542525926168709,end_ns=542525928212206
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_10,port=39413,at_ns=542525929415046,end_ns=542525931228075
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=11,duration_ns=3025554
+OLD_REFUSED,pause_root_11,port=35229,errno=111
+OLD_REFUSED,pause_session_11,port=39413,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45477
+LOCAL_PASS,resume_root_11,port=45477,at_ns=542525946617642,end_ns=542525948724861
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_11,port=33831,at_ns=542525949808723,end_ns=542525951526252
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=12,duration_ns=2134196
+OLD_REFUSED,pause_root_12,port=45477,errno=111
+OLD_REFUSED,pause_session_12,port=33831,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39439
+LOCAL_PASS,resume_root_12,port=39439,at_ns=542525966956754,end_ns=542525969186287
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_12,port=36645,at_ns=542525970243212,end_ns=542525971808520
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=13,duration_ns=2122315
+OLD_REFUSED,pause_root_13,port=39439,errno=111
+OLD_REFUSED,pause_session_13,port=36645,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34813
+LOCAL_PASS,resume_root_13,port=34813,at_ns=542525982206469,end_ns=542525984166715
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_13,port=39893,at_ns=542525985196622,end_ns=542525986750943
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=14,duration_ns=1615641
+OLD_REFUSED,pause_root_14,port=34813,errno=111
+OLD_REFUSED,pause_session_14,port=39893,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43785
+LOCAL_PASS,resume_root_14,port=43785,at_ns=542525998139452,end_ns=542525999808601
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_14,port=42389,at_ns=542526000393684,end_ns=542526002728482
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=15,duration_ns=3128256
+OLD_REFUSED,pause_root_15,port=43785,errno=111
+OLD_REFUSED,pause_session_15,port=42389,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:42795
+LOCAL_PASS,resume_root_15,port=42795,at_ns=542526016433845,end_ns=542526018227302
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_15,port=39759,at_ns=542526019204231,end_ns=542526020218554
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=16,duration_ns=1287353
+OLD_REFUSED,pause_root_16,port=42795,errno=111
+OLD_REFUSED,pause_session_16,port=39759,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46105
+LOCAL_PASS,resume_root_16,port=46105,at_ns=542526032089729,end_ns=542526033673632
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_16,port=38659,at_ns=542526034310107,end_ns=542526035917854
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=17,duration_ns=2408935
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+OLD_REFUSED,pause_root_17,port=46105,errno=111
+OLD_REFUSED,pause_session_17,port=38659,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39147
+LOCAL_PASS,resume_root_17,port=39147,at_ns=542526046536588,end_ns=542526048380378
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_17,port=35641,at_ns=542526049456917,end_ns=542526051085945
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=18,duration_ns=2910400
+OLD_REFUSED,pause_root_18,port=39147,errno=111
+OLD_REFUSED,pause_session_18,port=35641,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:40709
+LOCAL_PASS,resume_root_18,port=40709,at_ns=542526063112516,end_ns=542526064869758
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_18,port=41705,at_ns=542526065804044,end_ns=542526067602791
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=19,duration_ns=3397950
+OLD_REFUSED,pause_root_19,port=40709,errno=111
+OLD_REFUSED,pause_session_19,port=41705,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:42995
+LOCAL_PASS,resume_root_19,port=42995,at_ns=542526083283577,end_ns=542526085425300
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_19,port=42309,at_ns=542526086284797,end_ns=542526087669115
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=20,duration_ns=2334065
+OLD_REFUSED,pause_root_20,port=42995,errno=111
+OLD_REFUSED,pause_session_20,port=42309,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43173
+LOCAL_PASS,resume_root_20,port=43173,at_ns=542526097522468,end_ns=542526098676480
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_20,port=41913,at_ns=542526099363818,end_ns=542526101181241
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=21,duration_ns=1343343
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+OLD_REFUSED,pause_root_21,port=43173,errno=111
+OLD_REFUSED,pause_session_21,port=41913,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38011
+LOCAL_PASS,resume_root_21,port=38011,at_ns=542526108629117,end_ns=542526110135180
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_21,port=33601,at_ns=542526111384081,end_ns=542526112800504
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=22,duration_ns=2128988
+OLD_REFUSED,pause_root_22,port=38011,errno=111
+OLD_REFUSED,pause_session_22,port=33601,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43345
+LOCAL_PASS,resume_root_22,port=43345,at_ns=542526123429329,end_ns=542526125239265
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_22,port=39235,at_ns=542526126738045,end_ns=542526128261238
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=23,duration_ns=3532105
+OLD_REFUSED,pause_root_23,port=43345,errno=111
+OLD_REFUSED,pause_session_23,port=39235,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:40969
+LOCAL_PASS,resume_root_23,port=40969,at_ns=542526142535123,end_ns=542526144951261
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_23,port=39623,at_ns=542526146357755,end_ns=542526150021777
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=24,duration_ns=3691041
+OLD_REFUSED,pause_root_24,port=40969,errno=111
+OLD_REFUSED,pause_session_24,port=39623,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46097
+LOCAL_PASS,resume_root_24,port=46097,at_ns=542526167220263,end_ns=542526169533129
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_24,port=41521,at_ns=542526170590665,end_ns=542526172483202
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=25,duration_ns=3034952
+OLD_REFUSED,pause_root_25,port=46097,errno=111
+OLD_REFUSED,pause_session_25,port=41521,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:36449
+LOCAL_PASS,resume_root_25,port=36449,at_ns=542526186775276,end_ns=542526189103360
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_25,port=34417,at_ns=542526190379728,end_ns=542526193238980
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=26,duration_ns=2133138
+OLD_REFUSED,pause_root_26,port=36449,errno=111
+OLD_REFUSED,pause_session_26,port=34417,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34549
+LOCAL_PASS,resume_root_26,port=34549,at_ns=542526205879890,end_ns=542526208492805
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_26,port=41197,at_ns=542526210072477,end_ns=542526212359342
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=27,duration_ns=4722453
+OLD_REFUSED,pause_root_27,port=34549,errno=111
+OLD_REFUSED,pause_session_27,port=41197,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:36435
+LOCAL_PASS,resume_root_27,port=36435,at_ns=542526227754809,end_ns=542526229579597
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_27,port=38733,at_ns=542526230558967,end_ns=542526231877205
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=28,duration_ns=2022705
+OLD_REFUSED,pause_root_28,port=36435,errno=111
+OLD_REFUSED,pause_session_28,port=38733,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35393
+LOCAL_PASS,resume_root_28,port=35393,at_ns=542526243015755,end_ns=542526245627286
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_28,port=45255,at_ns=542526250825406,end_ns=542526257784513
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+PAUSE_TIMING,cycle=29,duration_ns=1143067
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+OLD_REFUSED,pause_root_29,port=35393,errno=111
+OLD_REFUSED,pause_session_29,port=45255,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44665
+LOCAL_PASS,resume_root_29,port=44665,at_ns=542526271482226,end_ns=542526274012988
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_29,port=46195,at_ns=542526275497973,end_ns=542526278469571
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=30,duration_ns=4124593
+OLD_REFUSED,pause_root_30,port=44665,errno=111
+OLD_REFUSED,pause_session_30,port=46195,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41931
+LOCAL_PASS,resume_root_30,port=41931,at_ns=542526296048795,end_ns=542526298083504
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_30,port=40313,at_ns=542526299170133,end_ns=542526300656054
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=31,duration_ns=3258749
+OLD_REFUSED,pause_root_31,port=41931,errno=111
+OLD_REFUSED,pause_session_31,port=40313,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44165
+LOCAL_PASS,resume_root_31,port=44165,at_ns=542526313127897,end_ns=542526314980110
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_31,port=44621,at_ns=542526316065030,end_ns=542526318035530
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_guardmgr::guard]
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=32,duration_ns=4135905
+OLD_REFUSED,pause_root_32,port=44165,errno=111
+OLD_REFUSED,pause_session_32,port=44621,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:33269
+LOCAL_PASS,resume_root_32,port=33269,at_ns=542526334830818,end_ns=542526336581062
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_32,port=34527,at_ns=542526337391568,end_ns=542526338860644
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=33,duration_ns=3739298
+OLD_REFUSED,pause_root_33,port=33269,errno=111
+OLD_REFUSED,pause_session_33,port=34527,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45677
+LOCAL_PASS,resume_root_33,port=45677,at_ns=542526352853401,end_ns=542526354746020
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_33,port=45101,at_ns=542526355683357,end_ns=542526356985400
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=34,duration_ns=1819051
+OLD_REFUSED,pause_root_34,port=45677,errno=111
+OLD_REFUSED,pause_session_34,port=45101,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:33249
+LOCAL_PASS,resume_root_34,port=33249,at_ns=542526367076057,end_ns=542526368329964
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_34,port=42265,at_ns=542526369145719,end_ns=542526371540982
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=35,duration_ns=1391358
+OLD_REFUSED,pause_root_35,port=33249,errno=111
+OLD_REFUSED,pause_session_35,port=42265,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45709
+LOCAL_PASS,resume_root_35,port=45709,at_ns=542526379170621,end_ns=542526380639737
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_35,port=34709,at_ns=542526381546069,end_ns=542526383593635
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=36,duration_ns=2035400
+OLD_REFUSED,pause_root_36,port=45709,errno=111
+OLD_REFUSED,pause_session_36,port=34709,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43419
+LOCAL_PASS,resume_root_36,port=43419,at_ns=542526394779467,end_ns=542526396971321
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_36,port=38883,at_ns=542526398169238,end_ns=542526400047859
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=37,duration_ns=3299845
+OLD_REFUSED,pause_root_37,port=43419,errno=111
+OLD_REFUSED,pause_session_37,port=38883,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41171
+LOCAL_PASS,resume_root_37,port=41171,at_ns=542526417528735,end_ns=542526419028002
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_37,port=33323,at_ns=542526419633512,end_ns=542526421561572
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=38,duration_ns=6647461
+OLD_REFUSED,pause_root_38,port=41171,errno=111
+OLD_REFUSED,pause_session_38,port=33323,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46011
+LOCAL_PASS,resume_root_38,port=46011,at_ns=542526436093229,end_ns=542526438052132
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_38,port=43039,at_ns=542526439126554,end_ns=542526440560432
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=39,duration_ns=3576945
+OLD_REFUSED,pause_root_39,port=46011,errno=111
+OLD_REFUSED,pause_session_39,port=43039,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39883
+LOCAL_PASS,resume_root_39,port=39883,at_ns=542526452660408,end_ns=542526454282112
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_39,port=46569,at_ns=542526455169278,end_ns=542526457268928
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=40,duration_ns=1355835
+OLD_REFUSED,pause_root_40,port=39883,errno=111
+OLD_REFUSED,pause_session_40,port=46569,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45841
+LOCAL_PASS,resume_root_40,port=45841,at_ns=542526465585050,end_ns=542526467328336
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_40,port=41683,at_ns=542526468509773,end_ns=542526470143033
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=41,duration_ns=2862304
+OLD_REFUSED,pause_root_41,port=45841,errno=111
+OLD_REFUSED,pause_session_41,port=41683,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43383
+LOCAL_PASS,resume_root_41,port=43383,at_ns=542526481957202,end_ns=542526483390958
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_41,port=40399,at_ns=542526484378385,end_ns=542526486509529
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=42,duration_ns=2187825
+OLD_REFUSED,pause_root_42,port=43383,errno=111
+OLD_REFUSED,pause_session_42,port=40399,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35605
+LOCAL_PASS,resume_root_42,port=35605,at_ns=542526497299039,end_ns=542526498725797
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_42,port=37955,at_ns=542526499667569,end_ns=542526500814135
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=43,duration_ns=2813313
+OLD_REFUSED,pause_root_43,port=35605,errno=111
+OLD_REFUSED,pause_session_43,port=37955,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39101
+LOCAL_PASS,resume_root_43,port=39101,at_ns=542526511459318,end_ns=542526513239306
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_43,port=33619,at_ns=542526514265511,end_ns=542526516122078
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=44,duration_ns=2080648
+OLD_REFUSED,pause_root_44,port=39101,errno=111
+OLD_REFUSED,pause_session_44,port=33619,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35489
+LOCAL_PASS,resume_root_44,port=35489,at_ns=542526526917122,end_ns=542526528695076
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_guardmgr::guard]
+LOCAL_PASS,resume_session_44,port=45609,at_ns=542526529747403,end_ns=542526531086433
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=45,duration_ns=3325033
+OLD_REFUSED,pause_root_45,port=35489,errno=111
+OLD_REFUSED,pause_session_45,port=45609,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43271
+LOCAL_PASS,resume_root_45,port=43271,at_ns=542526543469287,end_ns=542526544878141
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_45,port=33337,at_ns=542526545900195,end_ns=542526547172005
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=46,duration_ns=2149984
+OLD_REFUSED,pause_root_46,port=43271,errno=111
+OLD_REFUSED,pause_session_46,port=33337,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:40319
+LOCAL_PASS,resume_root_46,port=40319,at_ns=542526558174772,end_ns=542526559970345
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_46,port=44453,at_ns=542526561624153,end_ns=542526563805834
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,socks accept error: listener closed
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=47,duration_ns=3476765
+OLD_REFUSED,pause_root_47,port=40319,errno=111
+OLD_REFUSED,pause_session_47,port=44453,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43837
+LOCAL_PASS,resume_root_47,port=43837,at_ns=542526580852303,end_ns=542526582671028
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_47,port=40115,at_ns=542526583720060,end_ns=542526585584928
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=48,duration_ns=2305460
+OLD_REFUSED,pause_root_48,port=43837,errno=111
+OLD_REFUSED,pause_session_48,port=40115,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46059
+LOCAL_PASS,resume_root_48,port=46059,at_ns=542526597006396,end_ns=542526599171923
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_48,port=43575,at_ns=542526600395027,end_ns=542526601963183
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=49,duration_ns=2228435
+OLD_REFUSED,pause_root_49,port=46059,errno=111
+OLD_REFUSED,pause_session_49,port=43575,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:32953
+LOCAL_PASS,resume_root_49,port=32953,at_ns=542526615126066,end_ns=542526618282804
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_49,port=44763,at_ns=542526619990690,end_ns=542526622024788
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=50,duration_ns=3442220
+OLD_REFUSED,pause_root_50,port=32953,errno=111
+OLD_REFUSED,pause_session_50,port=44763,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45029
+LOCAL_PASS,resume_root_50,port=45029,at_ns=542526636926481,end_ns=542526638894417
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_50,port=45975,at_ns=542526640001310,end_ns=542526641395882
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=51,duration_ns=2554769
+OLD_REFUSED,pause_root_51,port=45029,errno=111
+OLD_REFUSED,pause_session_51,port=45975,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41863
+LOCAL_PASS,resume_root_51,port=41863,at_ns=542526654587247,end_ns=542526655879077
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_51,port=33207,at_ns=542526656690804,end_ns=542526658942268
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+PAUSE_TIMING,cycle=52,duration_ns=938883
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+OLD_REFUSED,pause_root_52,port=41863,errno=111
+OLD_REFUSED,pause_session_52,port=33207,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39255
+LOCAL_PASS,resume_root_52,port=39255,at_ns=542526668172005,end_ns=542526670042854
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_52,port=41155,at_ns=542526671073657,end_ns=542526672638069
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=53,duration_ns=3106568
+OLD_REFUSED,pause_root_53,port=39255,errno=111
+OLD_REFUSED,pause_session_53,port=41155,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35159
+LOCAL_PASS,resume_root_53,port=35159,at_ns=542526685436857,end_ns=542526687148974
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_53,port=43157,at_ns=542526688102628,end_ns=542526689825203
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=54,duration_ns=2514283
+OLD_REFUSED,pause_root_54,port=35159,errno=111
+OLD_REFUSED,pause_session_54,port=43157,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44661
+LOCAL_PASS,resume_root_54,port=44661,at_ns=542526702606087,end_ns=542526704745328
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_54,port=45799,at_ns=542526706574104,end_ns=542526708788867
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=55,duration_ns=3736735
+OLD_REFUSED,pause_root_55,port=44661,errno=111
+OLD_REFUSED,pause_session_55,port=45799,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38609
+LOCAL_PASS,resume_root_55,port=38609,at_ns=542526727314298,end_ns=542526729597176
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_55,port=36691,at_ns=542526731678881,end_ns=542526734030200
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=56,duration_ns=1309367
+OLD_REFUSED,pause_root_56,port=38609,errno=111
+OLD_REFUSED,pause_session_56,port=36691,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45697
+LOCAL_PASS,resume_root_56,port=45697,at_ns=542526747034838,end_ns=542526749232714
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_56,port=45041,at_ns=542526750920214,end_ns=542526754763517
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=57,duration_ns=3753703
+OLD_REFUSED,pause_root_57,port=45697,errno=111
+OLD_REFUSED,pause_session_57,port=45041,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:36753
+LOCAL_PASS,resume_root_57,port=36753,at_ns=542526770300667,end_ns=542526772784187
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_57,port=34837,at_ns=542526774603157,end_ns=542526777650236
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS shutdown signal
+PAUSE_TIMING,cycle=58,duration_ns=2858562
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+OLD_REFUSED,pause_root_58,port=36753,errno=111
+OLD_REFUSED,pause_session_58,port=34837,errno=111
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34047
+LOCAL_PASS,resume_root_58,port=34047,at_ns=542526796194954,end_ns=542526798301440
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_58,port=43197,at_ns=542526799579882,end_ns=542526801031136
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=59,duration_ns=2265381
+OLD_REFUSED,pause_root_59,port=34047,errno=111
+OLD_REFUSED,pause_session_59,port=43197,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35107
+LOCAL_PASS,resume_root_59,port=35107,at_ns=542526814688444,end_ns=542526817114876
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_59,port=33801,at_ns=542526818757047,end_ns=542526820497770
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=60,duration_ns=1008504
+OLD_REFUSED,pause_root_60,port=35107,errno=111
+OLD_REFUSED,pause_session_60,port=33801,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44697
+LOCAL_PASS,resume_root_60,port=44697,at_ns=542526831511075,end_ns=542526832944100
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_60,port=37623,at_ns=542526833635831,end_ns=542526835550911
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=61,duration_ns=1426798
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+OLD_REFUSED,pause_root_61,port=44697,errno=111
+OLD_REFUSED,pause_session_61,port=37623,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45797
+LOCAL_PASS,resume_root_61,port=45797,at_ns=542526847180957,end_ns=542526850287321
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_61,port=39449,at_ns=542526851785245,end_ns=542526854990730
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=62,duration_ns=2737101
+OLD_REFUSED,pause_root_62,port=45797,errno=111
+OLD_REFUSED,pause_session_62,port=39449,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:40311
+LOCAL_PASS,resume_root_62,port=40311,at_ns=542526867251351,end_ns=542526869074064
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_62,port=42667,at_ns=542526870207934,end_ns=542526872385058
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=63,duration_ns=2998291
+OLD_REFUSED,pause_root_63,port=40311,errno=111
+OLD_REFUSED,pause_session_63,port=42667,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37739
+LOCAL_PASS,resume_root_63,port=37739,at_ns=542526887185433,end_ns=542526888715584
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_63,port=45287,at_ns=542526889695483,end_ns=542526892418831
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=64,duration_ns=2176026
+OLD_REFUSED,pause_root_64,port=37739,errno=111
+OLD_REFUSED,pause_session_64,port=45287,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41739
+LOCAL_PASS,resume_root_64,port=41739,at_ns=542526904813647,end_ns=542526907124886
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_64,port=44385,at_ns=542526908568449,end_ns=542526910429899
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=65,duration_ns=3526367
+OLD_REFUSED,pause_root_65,port=41739,errno=111
+OLD_REFUSED,pause_session_65,port=44385,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46089
+LOCAL_PASS,resume_root_65,port=46089,at_ns=542526925275805,end_ns=542526927515511
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_65,port=38927,at_ns=542526929287199,end_ns=542526930783618
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=66,duration_ns=3049926
+OLD_REFUSED,pause_root_66,port=46089,errno=111
+OLD_REFUSED,pause_session_66,port=38927,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46581
+LOCAL_PASS,resume_root_66,port=46581,at_ns=542526943955900,end_ns=542526945759936
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_66,port=46845,at_ns=542526946819140,end_ns=542526949129728
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=67,duration_ns=2307170
+OLD_REFUSED,pause_root_67,port=46581,errno=111
+OLD_REFUSED,pause_session_67,port=46845,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:36197
+LOCAL_PASS,resume_root_67,port=36197,at_ns=542526962556689,end_ns=542526964285164
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_67,port=36153,at_ns=542526965217944,end_ns=542526967058520
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=68,duration_ns=2000651
+OLD_REFUSED,pause_root_68,port=36197,errno=111
+OLD_REFUSED,pause_session_68,port=36153,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39857
+LOCAL_PASS,resume_root_68,port=39857,at_ns=542526976722339,end_ns=542526978225757
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_68,port=41965,at_ns=542526979264249,end_ns=542526980586352
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=69,duration_ns=3459554
+OLD_REFUSED,pause_root_69,port=39857,errno=111
+OLD_REFUSED,pause_session_69,port=41965,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43929
+LOCAL_PASS,resume_root_69,port=43929,at_ns=542526992966967,end_ns=542526994683764
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_69,port=38327,at_ns=542526995904712,end_ns=542526997831551
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=70,duration_ns=2924642
+OLD_REFUSED,pause_root_70,port=43929,errno=111
+OLD_REFUSED,pause_session_70,port=38327,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:36693
+LOCAL_PASS,resume_root_70,port=36693,at_ns=542527010689258,end_ns=542527012754606
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_70,port=41773,at_ns=542527017780403,end_ns=542527018939624
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+PAUSE_TIMING,cycle=71,duration_ns=543579
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+OLD_REFUSED,pause_root_71,port=36693,errno=111
+OLD_REFUSED,pause_session_71,port=41773,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:33165
+LOCAL_PASS,resume_root_71,port=33165,at_ns=542527027046232,end_ns=542527028369881
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_71,port=38241,at_ns=542527029381111,end_ns=542527030570483
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=72,duration_ns=3527588
+OLD_REFUSED,pause_root_72,port=33165,errno=111
+OLD_REFUSED,pause_session_72,port=38241,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44783
+LOCAL_PASS,resume_root_72,port=44783,at_ns=542527050011401,end_ns=542527052156054
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_72,port=35573,at_ns=542527053701180,end_ns=542527055370288
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=73,duration_ns=3243368
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+OLD_REFUSED,pause_root_73,port=44783,errno=111
+OLD_REFUSED,pause_session_73,port=35573,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38667
+LOCAL_PASS,resume_root_73,port=38667,at_ns=542527073629931,end_ns=542527075624153
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_73,port=35799,at_ns=542527077373787,end_ns=542527079081063
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=74,duration_ns=3381917
+OLD_REFUSED,pause_root_74,port=38667,errno=111
+OLD_REFUSED,pause_session_74,port=35799,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37915
+LOCAL_PASS,resume_root_74,port=37915,at_ns=542527096113900,end_ns=542527100484098
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_74,port=46215,at_ns=542527102334562,end_ns=542527104373624
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=75,duration_ns=4911092
+OLD_REFUSED,pause_root_75,port=37915,errno=111
+OLD_REFUSED,pause_session_75,port=46215,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39109
+LOCAL_PASS,resume_root_75,port=39109,at_ns=542527120523567,end_ns=542527122516569
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_75,port=35481,at_ns=542527123181120,end_ns=542527124948738
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=76,duration_ns=1456991
+OLD_REFUSED,pause_root_76,port=39109,errno=111
+OLD_REFUSED,pause_session_76,port=35481,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34929
+LOCAL_PASS,resume_root_76,port=34929,at_ns=542527133911426,end_ns=542527135328987
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_76,port=37713,at_ns=542527136074145,end_ns=542527137576831
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=77,duration_ns=1439290
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+OLD_REFUSED,pause_root_77,port=34929,errno=111
+OLD_REFUSED,pause_session_77,port=37713,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:40675
+LOCAL_PASS,resume_root_77,port=40675,at_ns=542527146264982,end_ns=542527148192106
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_77,port=45935,at_ns=542527149633512,end_ns=542527151326098
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=78,duration_ns=2983561
+OLD_REFUSED,pause_root_78,port=40675,errno=111
+OLD_REFUSED,pause_session_78,port=45935,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37831
+LOCAL_PASS,resume_root_78,port=37831,at_ns=542527167157357,end_ns=542527168729256
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_78,port=34865,at_ns=542527169737679,end_ns=542527172147998
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=79,duration_ns=2057618
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+OLD_REFUSED,pause_root_79,port=37831,errno=111
+OLD_REFUSED,pause_session_79,port=34865,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38185
+LOCAL_PASS,resume_root_79,port=38185,at_ns=542527182958707,end_ns=542527185419279
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_79,port=34489,at_ns=542527187203662,end_ns=542527189184863
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=80,duration_ns=3192586
+OLD_REFUSED,pause_root_80,port=38185,errno=111
+OLD_REFUSED,pause_session_80,port=34489,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:32783
+LOCAL_PASS,resume_root_80,port=32783,at_ns=542527206918709,end_ns=542527209135954
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_80,port=32945,at_ns=542527211001554,end_ns=542527213470101
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=81,duration_ns=4791138
+OLD_REFUSED,pause_root_81,port=32783,errno=111
+OLD_REFUSED,pause_session_81,port=32945,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39125
+LOCAL_PASS,resume_root_81,port=39125,at_ns=542527234270394,end_ns=542527236435555
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_81,port=35119,at_ns=542527237779997,end_ns=542527240210254
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=82,duration_ns=4880940
+OLD_REFUSED,pause_root_82,port=39125,errno=111
+OLD_REFUSED,pause_session_82,port=35119,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46373
+LOCAL_PASS,resume_root_82,port=46373,at_ns=542527263430306,end_ns=542527266260872
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_82,port=38477,at_ns=542527268282886,end_ns=542527270702889
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=83,duration_ns=3957316
+OLD_REFUSED,pause_root_83,port=46373,errno=111
+OLD_REFUSED,pause_session_83,port=38477,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39909
+LOCAL_PASS,resume_root_83,port=39909,at_ns=542527290589404,end_ns=542527293111295
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_83,port=33719,at_ns=542527294584399,end_ns=542527296980517
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=84,duration_ns=4662598
+OLD_REFUSED,pause_root_84,port=39909,errno=111
+OLD_REFUSED,pause_session_84,port=33719,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34289
+LOCAL_PASS,resume_root_84,port=34289,at_ns=542527318446582,end_ns=542527320718351
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_84,port=37977,at_ns=542527322462329,end_ns=542527324967456
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=85,duration_ns=3909708
+OLD_REFUSED,pause_root_85,port=34289,errno=111
+OLD_REFUSED,pause_session_85,port=37977,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38553
+LOCAL_PASS,resume_root_85,port=38553,at_ns=542527344471891,end_ns=542527346037891
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_85,port=35473,at_ns=542527346876351,end_ns=542527347809822
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=86,duration_ns=4239461
+OLD_REFUSED,pause_root_86,port=38553,errno=111
+OLD_REFUSED,pause_session_86,port=35473,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41909
+LOCAL_PASS,resume_root_86,port=41909,at_ns=542527367822152,end_ns=542527370292529
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_86,port=36711,at_ns=542527372334481,end_ns=542527374773934
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=87,duration_ns=4017782
+OLD_REFUSED,pause_root_87,port=41909,errno=111
+OLD_REFUSED,pause_session_87,port=36711,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34919
+LOCAL_PASS,resume_root_87,port=34919,at_ns=542527395511930,end_ns=542527397237191
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_87,port=35971,at_ns=542527398243376,end_ns=542527400658089
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=88,duration_ns=3735921
+OLD_REFUSED,pause_root_88,port=34919,errno=111
+OLD_REFUSED,pause_session_88,port=35971,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34997
+LOCAL_PASS,resume_root_88,port=34997,at_ns=542527420470752,end_ns=542527423516040
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_88,port=39551,at_ns=542527425094124,end_ns=542527428290576
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=89,duration_ns=4337484
+OLD_REFUSED,pause_root_89,port=34997,errno=111
+OLD_REFUSED,pause_session_89,port=39551,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46133
+LOCAL_PASS,resume_root_89,port=46133,at_ns=542527449122038,end_ns=542527450762541
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_89,port=41993,at_ns=542527451998625,end_ns=542527454032519
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=90,duration_ns=3532063
+OLD_REFUSED,pause_root_90,port=46133,errno=111
+OLD_REFUSED,pause_session_90,port=41993,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44835
+LOCAL_PASS,resume_root_90,port=44835,at_ns=542527472590381,end_ns=542527475315885
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_90,port=44553,at_ns=542527477222461,end_ns=542527479391691
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=91,duration_ns=4808716
+OLD_REFUSED,pause_root_91,port=44835,errno=111
+OLD_REFUSED,pause_session_91,port=44553,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:32833
+LOCAL_PASS,resume_root_91,port=32833,at_ns=542527499370125,end_ns=542527501890023
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_91,port=38567,at_ns=542527503572884,end_ns=542527505480070
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=92,duration_ns=2774943
+OLD_REFUSED,pause_root_92,port=32833,errno=111
+OLD_REFUSED,pause_session_92,port=38567,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:33931
+LOCAL_PASS,resume_root_92,port=33931,at_ns=542527522508431,end_ns=542527526374967
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_92,port=37179,at_ns=542527528177742,end_ns=542527531587695
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=93,duration_ns=5498494
+OLD_REFUSED,pause_root_93,port=33931,errno=111
+OLD_REFUSED,pause_session_93,port=37179,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45377
+LOCAL_PASS,resume_root_93,port=45377,at_ns=542527555787565,end_ns=542527558524300
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_93,port=41511,at_ns=542527560890511,end_ns=542527563720711
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=94,duration_ns=3911132
+OLD_REFUSED,pause_root_94,port=45377,errno=111
+OLD_REFUSED,pause_session_94,port=41511,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39673
+LOCAL_PASS,resume_root_94,port=39673,at_ns=542527586037362,end_ns=542527590478971
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_94,port=43643,at_ns=542527593187874,end_ns=542527595557747
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=95,duration_ns=3830322
+OLD_REFUSED,pause_root_95,port=39673,errno=111
+OLD_REFUSED,pause_session_95,port=43643,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41901
+LOCAL_PASS,resume_root_95,port=41901,at_ns=542527616571501,end_ns=542527619009408
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_95,port=46541,at_ns=542527621100960,end_ns=542527623257577
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+PAUSE_TIMING,cycle=96,duration_ns=1584839
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+OLD_REFUSED,pause_root_96,port=41901,errno=111
+OLD_REFUSED,pause_session_96,port=46541,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44135
+LOCAL_PASS,resume_root_96,port=44135,at_ns=542527637726204,end_ns=542527639519458
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_96,port=38575,at_ns=542527640813403,end_ns=542527643587248
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=97,duration_ns=1503052
+OLD_REFUSED,pause_root_97,port=44135,errno=111
+OLD_REFUSED,pause_session_97,port=38575,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45215
+LOCAL_PASS,resume_root_97,port=45215,at_ns=542527658568530,end_ns=542527660164233
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_97,port=45957,at_ns=542527661412565,end_ns=542527663056934
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=98,duration_ns=2737793
+OLD_REFUSED,pause_root_98,port=45215,errno=111
+OLD_REFUSED,pause_session_98,port=45957,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:40817
+LOCAL_PASS,resume_root_98,port=40817,at_ns=542527677542692,end_ns=542527679194792
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_98,port=46097,at_ns=542527680327808,end_ns=542527682321786
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+PAUSE_TIMING,cycle=99,duration_ns=3240071
+OLD_REFUSED,pause_root_99,port=40817,errno=111
+OLD_REFUSED,pause_session_99,port=46097,errno=111
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46771
+LOCAL_PASS,resume_root_99,port=46771,at_ns=542527697381315,end_ns=542527699030933
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_PASS,resume_session_99,port=36123,at_ns=542527700218921,end_ns=542527701603076
+DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+RESUME_SUMMARY,pass=100,root_pass=150,old_refused=200
+DIAGNOSTIC_PUBLIC_LOG,starting arti: socks_port=0
+DIAGNOSTIC_PUBLIC_LOG,config built; creating unbootstrapped client
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_memquota::mtracker]
+DIAGNOSTIC_PUBLIC_LOG,client created; starting bootstrap
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_circmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_circmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,bootstrap() returned: ok=true
+DIAGNOSTIC_PUBLIC_LOG,bootstrap complete
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:40133
+LOCAL_PASS,cold_2,port=40133,at_ns=542535551156343,end_ns=542535553471448
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+DIAGNOSTIC_PUBLIC_LOG,SOCKS shutdown signal
+DIAGNOSTIC_PUBLIC_LOG,starting arti: socks_port=0
+DIAGNOSTIC_PUBLIC_LOG,config built; creating unbootstrapped client
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_memquota::mtracker]
+DIAGNOSTIC_PUBLIC_LOG,client created; starting bootstrap
+DIAGNOSTIC_PUBLIC_LOG,INFO [arti_client::client]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_circmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+DIAGNOSTIC_PUBLIC_LOG,bootstrap() returned: ok=true
+DIAGNOSTIC_PUBLIC_LOG,bootstrap complete
+DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35333
+LOCAL_PASS,cold_3,port=35333,at_ns=542543814522762,end_ns=542543816905290
+DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+LOCAL_SUMMARY,root=152,session_create=100,resume=100,cold=3,failures=0
+GATE_COMPLETED,PASS

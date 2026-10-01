@@ -1,0 +1,42 @@
+10-01 12:17:44.560 17070 17070 I libprocessgroup: Created cgroup /sys/fs/cgroup/apps/uid_10535/pid_17070
+10-01 12:17:44.566 17070 17070 I Zygote  : Process 17070 created for consumer.artitor03.hardwaregate
+10-01 12:17:44.566 17070 17070 I 03.hardwaregate: Using generational CollectorTypeCMC GC.
+10-01 12:17:44.572 17070 17070 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+10-01 12:17:44.582 17070 17070 D CompatChangeReporter: Compat change id reported: 333566037; UID 10535; state: ENABLED
+10-01 12:17:44.593 17070 17070 D nativeloader: Configuring clns-9 for other apk /data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk. target_sdk_version=37, uses_libraries=, library_path=/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/lib/arm64:/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/consumer.artitor03.hardwaregate
+10-01 12:17:44.599 17070 17070 D ActivityThread: Set OS env TMPDIR to /data/user/0/consumer.artitor03.hardwaregate/cache
+10-01 12:17:44.602 17070 17070 V GraphicsEnvironment: Currently set values for:
+10-01 12:17:44.602 17070 17070 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[com.android.angle]
+10-01 12:17:44.602 17070 17070 V GraphicsEnvironment:   angle_gl_driver_selection_values=[angle]
+10-01 12:17:44.602 17070 17070 V GraphicsEnvironment: consumer.artitor03.hardwaregate is not listed in per-application setting
+10-01 12:17:44.602 17070 17070 V GraphicsEnvironment: No special selections for ANGLE, returning default driver choice
+10-01 12:17:44.603 17070 17070 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-01 12:17:44.604 17070 17070 D CompatChangeReporter: Compat change id reported: 407952621; UID 10535; state: ENABLED
+10-01 12:17:44.604 17070 17070 D CompatChangeReporter: Compat change id reported: 419020719; UID 10535; state: ENABLED
+10-01 12:17:44.609 17070 17088 I DisplayManager: Choreographer implicitly registered for the refresh rate.
+10-01 12:17:44.611 17070 17088 D vulkan  : searching for layers in '/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/lib/arm64'
+10-01 12:17:44.612 17070 17088 D vulkan  : searching for layers in '/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk!/lib/arm64-v8a'
+10-01 12:17:44.624 17070 17070 I ArtiGate: CONTROL,ARTITOR_FIRST_PROCESS_CAPTURE,mode=reliability,pid=17070
+10-01 12:17:44.626 17070 17070 I ContentCaptureHelper: Setting logging level to OFF
+10-01 12:17:44.626 17070 17104 D CompatChangeReporter: Compat change id reported: 458413887; UID 10535; state: ENABLED
+10-01 12:17:44.628 17070 17101 D nativeloader: Load /data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk!/lib/arm64-v8a/libjnidispatch.so using class loader ns clns-9 (caller=/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk): ok
+10-01 12:17:44.632 17070 17070 D CompatChangeReporter: Compat change id reported: 418924588; UID 10535; state: ENABLED
+10-01 12:17:44.640 17070 17070 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@4dddad4
+10-01 12:17:44.640 17070 17070 D VRI[MainActivity]: WindowInsets changed: 1080x2400 statusBars:[0,132,0,0] navigationBars:[0,0,0,69] mandatorySystemGestures:[0,167,0,92] 
+10-01 12:17:44.640 17070 17070 I HWUI    : Using FreeType backend (prop=Auto)
+10-01 12:17:44.640 17070 17104 D WindowOnBackDispatcher: setOnBackInvokedCallbackInfo: android.app.Activity$$ExternalSyntheticLambda0@4dddad4
+10-01 12:17:44.645 17070 17070 I Surface : Creating surface for consumer unnamed-17070-0 with slotExpansion=1 for 64 slots
+10-01 12:17:44.645 17070 17070 I Surface : Creating surface for consumer VRI[MainActivity]#0(BLAST Consumer)0 with slotExpansion=1 for 64 slots
+10-01 12:17:44.657 17070 17101 I ArtiGate: RELIABILITY_VERSION,arti-kmp-ffi 0.3.0 (arti-client 0.46, rustls)
+10-01 12:17:44.661 17070 17101 I ArtiGate: REDACTION_EXCEPTION_PASS,kind=CONFIG,exception=u: configuration error: invalid bridge configuration
+10-01 12:17:44.666 17070 17114 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,starting arti: socks_port=0
+10-01 12:17:44.667 17070 17114 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,config built; creating unbootstrapped client
+10-01 12:17:44.668 17070 17114 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_memquota::mtracker]
+10-01 12:17:44.697 17070 17070 D InsetsController: hide(ime())
+10-01 12:17:44.697 17070 17070 I ImeTracker: consumer.artitor03.hardwaregate:2a285375: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-01 12:17:44.655 17070 17070 W DefaultDispatch: type=1400 audit(0.0:203003): avc:  denied  { search } for  name="/" dev="cgroup2" ino=1 scontext=u:r:untrusted_app:s0:c23,c258,c512,c768 tcontext=u:object_r:cgroup_v2:s0 tclass=dir permissive=0 app=consumer.artitor03.hardwaregate
+10-01 12:17:44.708 17070 17114 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,client created; starting bootstrap
+10-01 12:17:44.717 17070 17114 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+10-01 12:17:44.718 17070 17114 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]
+10-01 12:17:47.350 17070 17119 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]
+10-01 12:17:47.740 17070 17119 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]

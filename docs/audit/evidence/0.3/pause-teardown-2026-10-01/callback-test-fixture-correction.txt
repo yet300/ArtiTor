@@ -1,0 +1,21 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.79s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 1 test
+
+thread 'engine::tests::teardown::callback_reentry_pause_shutdown_and_close_do_not_join_their_worker' (1938043) panicked at src/engine/../tests/teardown.rs:226:31:
+assertion `left == right` failed
+  left: Invalidated
+ right: Closed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test engine::tests::teardown::callback_reentry_pause_shutdown_and_close_do_not_join_their_worker ... FAILED
+
+failures:
+
+failures:
+    engine::tests::teardown::callback_reentry_pause_shutdown_and_close_do_not_join_their_worker
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 102 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `--lib`

@@ -1,0 +1,140 @@
+
+> Configure project :tor
+WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+
+> Task :tor:buildLibraryForBindings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.17s
+
+> Task :tor:installBindgen UP-TO-DATE
+> Task :tor:buildBindings
+> Task :tor:kmpPartiallyResolvedDependenciesChecker
+> Task :tor:checkKotlinGradlePluginConfigurationErrors SKIPPED
+
+> Task :tor:cargoBuildAarch64AppleIosRelease
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `release` profile [optimized] target(s) in 6.94s
+hide-sqlite3-symbols: localized bundled sqlite3 in /Users/yet/development/Multiplatform/ArtiTor/tor/build/uniffi/build/rust/aarch64-apple-ios/release/libarti_kmp_ffi.a
+
+> Task :tor:generateDefFileForIosArm64
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+note: link against the following native artifacts when linking against this static library. The order and any duplication can be significant on some platforms
+
+note: native-static-libs: -liconv -lSystem -lc -lm
+
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.46s
+
+> Task :tor:downloadKotlinNativeDistribution UP-TO-DATE
+> Task :tor:generateAndroidDeviceTestAssets UP-TO-DATE
+> Task :tor:androidPreBuild UP-TO-DATE
+> Task :tor:preAndroidDeviceTestBuild UP-TO-DATE
+> Task :tor:mergeAndroidDeviceTestAssets UP-TO-DATE
+> Task :tor:compressAndroidDeviceTestAssets UP-TO-DATE
+> Task :tor:generateAndroidDeviceTestResources UP-TO-DATE
+> Task :tor:packageAndroidDeviceTestResources UP-TO-DATE
+> Task :tor:processAndroidDeviceTestNavigationResources UP-TO-DATE
+> Task :tor:parseAndroidDeviceTestLocalResources UP-TO-DATE
+> Task :tor:generateAndroidDeviceTestRFile UP-TO-DATE
+> Task :tor:processAndroidDeviceTestJavaRes NO-SOURCE
+> Task :tor:compileAndroidMain UP-TO-DATE
+> Task :tor:processAndroidMainJavaRes UP-TO-DATE
+> Task :tor:mergeAndroidDeviceTestJavaResource UP-TO-DATE
+> Task :tor:checkAndroidDeviceTestDuplicateClasses UP-TO-DATE
+> Task :tor:desugarAndroidDeviceTestFileDependencies UP-TO-DATE
+> Task :tor:mergeExtDexAndroidDeviceTest UP-TO-DATE
+> Task :tor:preAndroidMainBuild UP-TO-DATE
+> Task :tor:bundleLibRuntimeToDirAndroidMain UP-TO-DATE
+> Task :tor:androidJar UP-TO-DATE
+> Task :tor:mergeLibDexAndroidDeviceTest UP-TO-DATE
+> Task :tor:bundleAndroidMainClassesToCompileJar UP-TO-DATE
+> Task :tor:writeAndroidMainAarMetadata UP-TO-DATE
+> Task :tor:checkAndroidDeviceTestAarMetadata UP-TO-DATE
+> Task :tor:mapAndroidDeviceTestSourceSetPaths UP-TO-DATE
+> Task :tor:compileAndroidDeviceTestNavigationResources UP-TO-DATE
+> Task :tor:generateAndroidMainEmptyResourceFiles UP-TO-DATE
+> Task :tor:mergeAndroidDeviceTestResources UP-TO-DATE
+> Task :tor:processAndroidMainManifest UP-TO-DATE
+> Task :tor:mergeAndroidDeviceTestManifest UP-TO-DATE
+> Task :tor:processAndroidDeviceTestManifest UP-TO-DATE
+> Task :tor:processAndroidDeviceTestResources UP-TO-DATE
+> Task :tor:compileAndroidDeviceTest
+> Task :tor:cinteropUniffi-cinteropIosArm64
+
+> Task :tor:cargoBuildAarch64AndroidRelease
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `release` profile [optimized] target(s) in 7.73s
+
+> Task :tor:compileKotlinIosArm64
+> Task :tor:dexBuilderAndroidDeviceTest
+> Task :tor:mergeProjectDexAndroidDeviceTest
+
+> Task :tor:cargoBuildArmV7AndroidRelease
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `release` profile [optimized] target(s) in 7.20s
+
+> Task :tor:cargoBuildX64AndroidRelease
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `release` profile [optimized] target(s) in 6.95s
+
+> Task :tor:mergeUniffiAndroidJniLibs
+> Task :tor:mergeAndroidMainJniLibFolders
+> Task :tor:mergeAndroidDeviceTestJniLibFolders UP-TO-DATE
+> Task :tor:validateSigningAndroidDeviceTest UP-TO-DATE
+> Task :tor:writeAndroidDeviceTestSigningConfigVersions UP-TO-DATE
+> Task :tor:mergeAndroidMainNativeLibs
+
+> Task :tor:cargoBuildAarch64AppleIosSimulatorRelease
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `release` profile [optimized] target(s) in 6.85s
+hide-sqlite3-symbols: localized bundled sqlite3 in /Users/yet/development/Multiplatform/ArtiTor/tor/build/uniffi/build/rust/aarch64-apple-ios-sim/release/libarti_kmp_ffi.a
+
+> Task :tor:copyAndroidMainJniLibsProjectOnly
+
+> Task :tor:generateDefFileForIosSimulatorArm64
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+note: link against the following native artifacts when linking against this static library. The order and any duplication can be significant on some platforms
+
+note: native-static-libs: -liconv -lSystem -lc -lm
+
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.39s
+
+> Task :tor:iosSimulatorArm64ProcessResources NO-SOURCE
+> Task :tor:validateLocalSwiftPMDependencies
+> Task :tor:computeLocalPackageDependencyInputFiles UP-TO-DATE
+> Task :tor:fingerprintSyntheticPackage UP-TO-DATE
+> Task :tor:generateSyntheticLinkageSwiftPMImportProjectForCinteropsAndLdDump SKIPPED
+> Task :tor:serializeSwiftPMDependenciesMetadataForLockFiles UP-TO-DATE
+> Task :tor:generateUmbrellaPackageIdentifierBasedResolutionForDefault SKIPPED
+> Task :tor:fetchUmbrellaPackageIdentifierForDefault SKIPPED
+> Task :tor:syncPersistedPackageResolvedToSynthetic SKIPPED
+> Task :tor:fetchSyntheticImportProjectPackages SKIPPED
+> Task :tor:fingerprintXcodebuildIphonesimulator UP-TO-DATE
+> Task :tor:dumpXcodebuildArgsIphonesimulator SKIPPED
+> Task :tor:convertSyntheticImportProjectIntoDefFileIphonesimulator UP-TO-DATE
+> Task :tor:mergeAndroidDeviceTestNativeLibs
+> Task :tor:stripAndroidDeviceTestDebugSymbols
+> Task :tor:packageAndroidDeviceTest
+> Task :tor:createAndroidDeviceTestApkListingFileRedirect UP-TO-DATE
+> Task :tor:assembleAndroidDeviceTest
+> Task :tor:cinteropUniffi-cinteropIosSimulatorArm64
+> Task :tor:compileKotlinIosSimulatorArm64
+> Task :tor:iosSimulatorArm64MainKlibrary
+
+> Task :tor:compileTestKotlinIosSimulatorArm64
+w: file:///Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:229:65 'companion object Companion : CStructVar.Type' is deprecated. Use sizeOf<T>() or alignOf<T>() instead.
+w: file:///Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:308:65 'companion object Companion : CStructVar.Type' is deprecated. Use sizeOf<T>() or alignOf<T>() instead.
+
+> Task :tor:linkDebugTestIosSimulatorArm64
+> Task :tor:iosSimulatorArm64Test
+w: Detected multiple Kotlin daemon sessions at 
+
+[Incubating] Problems report is available at: file:///Users/yet/development/Multiplatform/ArtiTor/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.8.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 2m 27s
+66 actionable tasks: 28 executed, 38 up-to-date

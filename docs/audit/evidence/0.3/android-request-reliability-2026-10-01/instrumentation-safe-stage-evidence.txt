@@ -1,0 +1,12 @@
+10-01 14:20:31.203 32141 32159 I TorE2E  : status = TorStatus(state=OFF, bootstrapPercent=0, socksPort=null, bootstrapSummary=, lastError=null)
+10-01 14:20:31.208 32141 32159 I TorE2E  : status = TorStatus(state=STARTING, bootstrapPercent=0, socksPort=null, bootstrapSummary=starting, lastError=null)
+10-01 14:20:31.246 32141 32159 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=0, socksPort=null, bootstrapSummary=bootstrapping 0%, lastError=null)
+10-01 14:20:31.364 32141 32159 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=8, socksPort=null, bootstrapSummary=bootstrapping 8%, lastError=null)
+10-01 14:20:31.826 32141 32159 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=15, socksPort=null, bootstrapSummary=bootstrapping 15%, lastError=null)
+10-01 14:20:33.487 32141 32159 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=36, socksPort=null, bootstrapSummary=bootstrapping 36%, lastError=null)
+10-01 14:20:34.049 32141 32159 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=45, socksPort=null, bootstrapSummary=bootstrapping 45%, lastError=null)
+10-01 14:20:52.276 32141 32159 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=99, socksPort=null, bootstrapSummary=bootstrapping 100%, lastError=null)
+10-01 14:20:52.303 32141 32159 I TorE2E  : status = TorStatus(state=RUNNING, bootstrapPercent=100, socksPort=36603, bootstrapSummary=proxy ready, lastError=null)
+10-01 14:20:52.310 32141 32159 I TorE2E  : BOOTSTRAP complete, SOCKS on 127.0.0.1:36603
+10-01 14:21:17.937 32141 32159 I TorE2E  : LIVE_TIMING,cold_ms=24006
+10-01 14:21:43.069 32141 32159 I TorE2E  : LIVE_TIMING,resume_ms=17

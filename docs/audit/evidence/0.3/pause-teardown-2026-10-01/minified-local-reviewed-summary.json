@@ -1,0 +1,8 @@
+{
+  "completion": true,
+  "old_refusals": 200,
+  "old_accepts": 0,
+  "local_summary": [
+    "LOCAL_SUMMARY,root=152,session_create=100,resume=100,cold=3,failures=0"
+  ]
+}

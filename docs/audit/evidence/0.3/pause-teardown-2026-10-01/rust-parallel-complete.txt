@@ -1,0 +1,131 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.47s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 104 tests
+test engine::tests::config::data_dir_change_needs_new_client ... ok
+test engine::tests::config::bridges_empty_to_nonempty_needs_new_client ... ok
+test engine::tests::config::cache_dir_override_change_needs_new_client ... ok
+test engine::tests::config::identical_config_needs_no_new_client ... ok
+test engine::tests::config::bridges_nonempty_to_empty_needs_new_client ... ok
+test engine::tests::config::same_bridges_need_no_new_client ... ok
+test engine::tests::config::bridge_identity_is_exact_in_all_modes ... ok
+test engine::tests::config::socks_port_only_needs_no_new_client ... ok
+test engine::tests::config::state_dir_override_change_needs_new_client ... ok
+test engine::tests::config::resolve_dirs_defaults_and_overrides ... ok
+test engine::tests::config::identity_parity_512_cases ... ok
+test engine::tests::config::pt_shape_is_rejected_by_pinned_parser_without_support ... ok
+test engine::tests::errors::error_detail_preserves_declared_types ... ok
+test engine::tests::config::malformed_bridge_is_rejected_before_worker_creation ... ok
+test engine::tests::config::bridge_invalid_matrix_is_secret_safe_and_starts_no_worker ... ok
+test engine::tests::errors::notify_error_delivers_typed_detail_before_status ... ok
+test engine::tests::errors::notify_error_preserves_upstream_category_and_operation_class ... ok
+test engine::tests::config::bridge_enablement_matrix ... ok
+test engine::tests::errors::error_session_callback_shutdown_suppresses_remaining_error_publications ... ok
+AUDIT session snapshots during on_error/on_status(ERROR): [SessionStatusFfi { state: Paused, port: None, revision: 2 }, SessionStatusFfi { state: Paused, port: None, revision: 2 }]
+test engine::tests::errors::error_session_callback_pause_notifies_all_demoted_siblings ... ok
+test engine::tests::errors::error_callback_pause_publication_finishes_paused ... ok
+test engine::tests::errors::audit_error_callbacks_must_observe_demoted_sessions ... ok
+test engine::tests::errors::error_normal_publication_keeps_demotion_typed_error_status_order ... ok
+test engine::tests::lifecycle::callback_reentry_does_not_deadlock ... ok
+test engine::tests::errors::error_callback_shutdown_publication_finishes_off ... ok
+AUDIT start after ERROR: snapshot=SessionStatusFfi { state: Invalidated, port: None, revision: 3 }, events=[("sess-0000000000000009", Active, Some(57172)), ("sess-0000000000000009", Paused, None), ("sess-0000000000000009", Invalidated, None)]
+test engine::tests::lifecycle::audit_start_after_error_must_invalidate_retained_sessions ... ok
+test engine::tests::lifecycle::engine_error_freezes_sessions_paused_with_null_endpoints ... ok
+test engine::tests::lifecycle::callback_reentry_shutdown_does_not_deadlock ... ok
+test engine::tests::lifecycle::callback_reentry_pause_does_not_deadlock ... ok
+test engine::tests::lifecycle::cold_error_recovery_spawn_cold_failure_still_notifies_invalidated ... ok
+test engine::tests::lifecycle::fixed_port_collision_is_typed_bind ... ok
+test engine::tests::ownership::abort_connections_drains_tracked_tasks ... ok
+test engine::tests::lifecycle::pause_freezes_sessions_synchronously_and_keeps_identity ... ok
+test engine::tests::lifecycle::rebuild_spawn_cold_failure_still_notifies_invalidated ... ok
+test engine::tests::lifecycle::session_invalidated_callback_reentry_does_not_deadlock ... ok
+test engine::tests::lifecycle::resume_root_bind_failure_never_activates_sessions ... ok
+test engine::tests::lifecycle::session_paused_callback_reentry_does_not_deadlock ... ok
+test engine::tests::config::bridge_changes_use_existing_session_replacement_path ... ok
+test engine::tests::ownership::shutdown_invalidates_all_and_releases_strong_refs ... ok
+test engine::tests::publication::delayed_active_publication_carries_older_revision_than_pause ... ok
+test engine::tests::ownership::restart_never_resurrects_stale_sessions ... ok
+AUDIT rebuild: before=1, after=1, create=Err(NotRunning), registry=[]
+test engine::tests::races::audit_create_crosses_failed_rebuild_without_generation_barrier ... ok
+test engine::tests::races::concurrent_create_at_max_limit_is_atomic ... ok
+test engine::tests::races::concurrent_create_paused_at_max_limit_is_atomic ... ok
+test engine::tests::races::create_vs_pause_race_deterministic ... ok
+test engine::tests::races::create_vs_shutdown_race_deterministic ... ok
+test engine::tests::publication::create_active_callback_pause_precedes_barrier_and_rejects_dispatch ... ok
+test engine::tests::publication::create_active_callback_close_precedes_barrier_and_rejects_dispatch ... ok
+test engine::tests::publication::rebind_active_callback_close_precedes_barrier_and_rejects_dispatch ... ok
+test engine::tests::publication::rebind_active_callback_pause_precedes_barrier_and_rejects_dispatch ... ok
+test engine::tests::lifecycle::resume_rebinds_sessions_without_rebootstrap ... ok
+test engine::tests::publication::session_listener_does_not_dispatch_before_active_commit ... ok
+test engine::tests::races::final_create_decision_rejects_completed_error ... ok
+test engine::tests::sessions::fresh_isolation_tokens_are_mutually_incompatible ... ok
+test engine::tests::sessions::close_is_idempotent_and_never_throws ... ok
+test engine::tests::races::final_rebind_decision_rejects_completed_pause ... ok
+test engine::tests::sessions::session_ids_are_unique_and_opaque ... ok
+test engine::tests::sessions::create_while_paused_registers_paused_without_listener ... ok
+test engine::tests::sessions::create_rejected_without_live_client ... ok
+test engine::tests::races::old_root_worker_cannot_publish_after_pause_or_replacement ... ok
+test engine::tests::sessions::native_tombstones_are_bounded_diagnostics ... ok
+test engine::tests::sessions::stream_isolation_requires_matching_owner_and_stream ... ok
+test engine::tests::sessions::create_while_running_binds_and_registers_active ... ok
+test engine::tests::sessions::isolated_client_handles_are_distinct ... ok
+test engine::tests::socks::socks_request_parses_hostname_target ... ok
+test engine::tests::socks::socks_request_parses_ipv4_target ... ok
+test engine::tests::socks::socks_request_rejects_non_connect_truncated_and_unknown ... ok
+test engine::tests::socks::socks_request_parses_ipv6_target ... ok
+test engine::tests::lifecycle::ephemeral_port_binds_and_reports_running ... ok
+test engine::tests::sessions::session_limit_is_enforced_without_engine_damage ... ok
+test engine::tests::stream_config::native_negative_stream_timeouts_are_config_errors ... ok
+test engine::tests::sessions::unknown_and_stale_handles_are_noop_invalidated ... ok
+test engine::tests::config::invalid_config_preserves_real_retained_running_and_paused_engine ... ok
+test engine::tests::socks::fatal_accept_error_demotes_only_current_listener ... ok
+test engine::tests::socks::socks_rejects_non_connect_command_without_tor ... ok
+test engine::tests::stream_config::native_stream_settings_change_client_identity ... ok
+test engine::tests::socks::actual_root_and_two_session_dispatches_select_distinct_client_handles ... ok
+test engine::tests::stream_config::native_stream_defaults_match_unmodified_upstream_config ... ok
+test engine::tests::socks::stale_listener_failure_cannot_demote_rebound_closed_or_invalidated_session ... ok
+test engine::tests::stream_config::configured_stream_deadlines_expire_pending_runtime_future ... ok
+test engine::tests::stream_config::native_stream_config_matches_independent_upstream_builders ... ok
+test engine::tests::stream_config::actual_arti_onion_policy_and_malformed_target_fail_before_bootstrap ... ok
+test error::classification_tests::session_taxonomy_transports_without_new_native_error_classes ... ok
+test error::classification_tests::synthetic_future_kind_uses_same_unknown_fallback ... ok
+test error::classification_tests::upstream_classification_ignores_diagnostic_and_redacts_transport ... ok
+test error::pinned_table_tests::all_59_pinned_046_upstream_categories ... ok
+test logging::tests::panic_payload_is_never_forwarded ... ok
+test logging::tests::production_forwarding_omits_adversarial_event_payloads_and_custom_target ... ok
+test socks::tests::exact_frames_preserve_coalesced_application_payload ... ok
+test socks::tests::fragmented_ipv4_and_ipv6 ... ok
+test engine::tests::teardown::root_worker_exit_closes_its_socket_even_when_controller_is_retained ... ok
+test socks::tests::one_byte_greeting_fragmented_header_body_and_one_char_host ... ok
+test socks::tests::greeting_rejects_auth_only_bad_version_and_no_methods ... ok
+test engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling ... ok
+test socks::tests::safe_diagnostic_omits_target_and_upstream_display ... ok
+test socks::tests::rejects_empty_invalid_utf8_and_malformed_hostname ... ok
+test socks::tests::rejects_request_version_reserved_bind_udp_and_unknown_atyp ... ok
+ROOT_TEARDOWN_PASS,iteration=0,old_tcp_refused=true,callback_still_held=true
+test engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held ... ok
+test engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held ... ok
+test engine::tests::stream_config::native_stream_changes_invalidate_retained_session_before_rebuild ... ok
+ROOT_TEARDOWN_PASS,iteration=1,old_tcp_refused=true,callback_still_held=true
+test engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid ... ok
+test engine::tests::teardown::callback_reentry_pause_shutdown_and_close_do_not_join_their_worker ... ok
+ROOT_TEARDOWN_PASS,iteration=2,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=3,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=4,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=5,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=6,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=7,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=8,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=9,old_tcp_refused=true,callback_still_held=true
+test engine::tests::teardown::root_pause_closes_tcp_while_callback_held ... ok
+test engine::tests::ownership::close_aborts_only_own_connections ... ok
+
+test result: ok. 104 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+   Doc-tests arti_kmp_ffi
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

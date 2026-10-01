@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-01T10:56:26.968Z" hostname="Mac.lan" time="0.0">
+  <properties/>
+  <testcase name="runningRejectedReplacementMustPreserveClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="pausedRejectedReplacementPreservesClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="mutableBridgeListMustNotBypassValidation[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="unrepresentablePortsPreserveRunningResources[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="rejectedRestartPreservesRunningAndPausedResources[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="validReplacementInvalidatesOldHandles[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="invalidTimeoutReplacementPreservesRunningAndPausedResources[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="zeroAndLargestExactNanosecondTimeoutsCrossFfiWithoutClamping[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <testcase name="validOnionAndTimeoutReplacementInvalidatesOldHandles[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

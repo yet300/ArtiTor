@@ -1,0 +1,17 @@
+{
+  "gate_pass": true,
+  "gate_failed": false,
+  "pass_assertions": 86,
+  "immediate_dead_probes": 36,
+  "marker_counts": {
+    "192.0.2.123": 0,
+    "ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEF": 0,
+    "SYNTHETIC_SECRET_GATE": 0
+  },
+  "timings": [
+    "TIMING,cold_ms=8373",
+    "TIMING,pause_ms=11",
+    "TIMING,resume_ms=4",
+    "TIMING,restart_ms=7310"
+  ]
+}

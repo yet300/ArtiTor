@@ -1,0 +1,113 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.92s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 5 tests
+test engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling ... ok
+test engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid ... 
+thread 'engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid' (1928431) panicked at /Users/yet/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/arti-client-0.46.0/src/client.rs:960:14:
+TorClient could not get an asynchronous runtime; are you running in the right context?: Custom { kind: Other, error: TryCurrentError { kind: NoContext } }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid' (1928431) panicked at src/engine/lifecycle.rs:341:47:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+stack backtrace:
+   0:        0x10609a1c0 - std[7d7552da0923e8b2]::backtrace_rs::backtrace::libunwind::trace
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/../../backtrace/src/backtrace/libunwind.rs:117:9
+   1:        0x10609a1c0 - std[7d7552da0923e8b2]::backtrace_rs::backtrace::trace_unsynchronized::<std[7d7552da0923e8b2]::sys::backtrace::_print_fmt::{closure#1}>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/../../backtrace/src/backtrace/mod.rs:66:14
+   2:        0x10609a1c0 - std[7d7552da0923e8b2]::sys::backtrace::_print_fmt
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/sys/backtrace.rs:74:9
+   3:        0x10609a1c0 - <<std[7d7552da0923e8b2]::sys::backtrace::BacktraceLock>::print::DisplayBacktrace as core[4b39a0a778b8475a]::fmt::Display>::fmt
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/sys/backtrace.rs:44:26
+   4:        0x1060ae9f0 - <core[4b39a0a778b8475a]::fmt::rt::Argument>::fmt
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/fmt/rt.rs:152:76
+   5:        0x1060ae9f0 - core[4b39a0a778b8475a]::fmt::write
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/fmt/mod.rs:1687:22
+   6:        0x10609fcfc - std[7d7552da0923e8b2]::io::default_write_fmt::<std[7d7552da0923e8b2]::sys::stdio::unix::Stderr>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/io/mod.rs:621:11
+   7:        0x10609fcfc - <std[7d7552da0923e8b2]::sys::stdio::unix::Stderr as std[7d7552da0923e8b2]::io::Write>::write_fmt
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/io/mod.rs:1976:13
+   8:        0x10607df5c - <std[7d7552da0923e8b2]::sys::backtrace::BacktraceLock>::print
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/sys/backtrace.rs:47:25
+   9:        0x10607df5c - std[7d7552da0923e8b2]::panicking::default_hook::{closure#0}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:292:27
+  10:        0x106092fc8 - std[7d7552da0923e8b2]::panicking::default_hook
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:319:9
+  11:        0x1060932f0 - std[7d7552da0923e8b2]::panicking::panic_with_hook
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:825:13
+  12:        0x10607e008 - std[7d7552da0923e8b2]::panicking::panic_handler::{closure#0}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:698:13
+  13:        0x106073214 - std[7d7552da0923e8b2]::sys::backtrace::__rust_end_short_backtrace::<std[7d7552da0923e8b2]::panicking::panic_handler::{closure#0}, !>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/sys/backtrace.rs:182:18
+  14:        0x10607ea1c - __rustc[8068f81614cfe5c]::rust_begin_unwind
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:689:5
+  15:        0x1060f0d1c - core[4b39a0a778b8475a]::panicking::panic_fmt
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/panicking.rs:80:14
+  16:        0x1060f0ac0 - core[4b39a0a778b8475a]::result::unwrap_failed
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/result.rs:1867:5
+  17:        0x104e26238 - core::result::Result<T,E>::unwrap::h8e2c8d1348294bc9
+                               at /Users/yet/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/result.rs:1233:23
+  18:        0x104e26238 - arti_kmp_ffi::engine::<impl arti_kmp_ffi::ArtiTor>::ffi_shutdown::h5802124c50c09302
+                               at /Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/src/engine/lifecycle.rs:341:47
+  19:        0x104e2d000 - arti_kmp_ffi::ArtiTor::shutdown::h175cb8f934606a38
+                               at /Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/src/ffi.rs:89:14
+  20:        0x104e90be0 - <arti_kmp_ffi::engine::tests::teardown::Fixture as core::ops::drop::Drop>::drop::h5d10261a31c9e40c
+                               at /Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/src/engine/../tests/teardown.rs:48:21
+  21:        0x104e7668c - core::ptr::drop_in_place<arti_kmp_ffi::engine::tests::teardown::Fixture>::hc1ead8f7b60222ac
+                               at /Users/yet/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:810:1
+  22:        0x104f7d170 - arti_kmp_ffi::engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid::h04bbd40970d2783a
+                               at /Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/src/engine/../tests/teardown.rs:219:1
+  23:        0x104e92288 - arti_kmp_ffi::engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid::{{closure}}::h20952d1762994c83
+                               at /Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/src/engine/../tests/teardown.rs:201:56
+  24:        0x104e49060 - core::ops::function::FnOnce::call_once::h7e70e22e136e6150
+                               at /Users/yet/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/ops/function.rs:250:5
+  25:        0x1050f85d8 - <fn() -> core[4b39a0a778b8475a]::result::Result<(), alloc[5fb21198b8c4fd0a]::string::String> as core[4b39a0a778b8475a]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/ops/function.rs:250:5
+  26:        0x1050f85d8 - test[cab13d442f8e29c8]::__rust_begin_short_backtrace::<core[4b39a0a778b8475a]::result::Result<(), alloc[5fb21198b8c4fd0a]::string::String>, fn() -> core[4b39a0a778b8475a]::result::Result<(), alloc[5fb21198b8c4fd0a]::string::String>>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/test/src/lib.rs:663:18
+  27:        0x105102800 - test[cab13d442f8e29c8]::run_test_in_process::{closure#0}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/test/src/lib.rs:686:74
+  28:        0x105102800 - <core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<test[cab13d442f8e29c8]::run_test_in_process::{closure#0}> as core[4b39a0a778b8475a]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/panic/unwind_safe.rs:275:9
+  29:        0x105102800 - std[7d7552da0923e8b2]::panicking::catch_unwind::do_call::<core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<test[cab13d442f8e29c8]::run_test_in_process::{closure#0}>, core[4b39a0a778b8475a]::result::Result<(), alloc[5fb21198b8c4fd0a]::string::String>>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:581:40
+  30:        0x105102800 - std[7d7552da0923e8b2]::panicking::catch_unwind::<core[4b39a0a778b8475a]::result::Result<(), alloc[5fb21198b8c4fd0a]::string::String>, core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<test[cab13d442f8e29c8]::run_test_in_process::{closure#0}>>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:544:19
+  31:        0x105102800 - std[7d7552da0923e8b2]::panic::catch_unwind::<core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<test[cab13d442f8e29c8]::run_test_in_process::{closure#0}>, core[4b39a0a778b8475a]::result::Result<(), alloc[5fb21198b8c4fd0a]::string::String>>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panic.rs:359:14
+  32:        0x105102800 - test[cab13d442f8e29c8]::run_test_in_process
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/test/src/lib.rs:686:27
+  33:        0x105102800 - test[cab13d442f8e29c8]::run_test::{closure#0}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/test/src/lib.rs:607:43
+  34:        0x1050ff154 - test[cab13d442f8e29c8]::run_test::{closure#1}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/test/src/lib.rs:637:41
+  35:        0x1050ff154 - std[7d7552da0923e8b2]::sys::backtrace::__rust_begin_short_backtrace::<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/sys/backtrace.rs:166:18
+  36:        0x105104ad8 - std[7d7552da0923e8b2]::thread::lifecycle::spawn_unchecked::<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/thread/lifecycle.rs:91:13
+  37:        0x105104ad8 - <core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<std[7d7552da0923e8b2]::thread::lifecycle::spawn_unchecked<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}> as core[4b39a0a778b8475a]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/panic/unwind_safe.rs:275:9
+  38:        0x105104ad8 - std[7d7552da0923e8b2]::panicking::catch_unwind::do_call::<core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<std[7d7552da0923e8b2]::thread::lifecycle::spawn_unchecked<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>, ()>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:581:40
+  39:        0x105104ad8 - std[7d7552da0923e8b2]::panicking::catch_unwind::<(), core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<std[7d7552da0923e8b2]::thread::lifecycle::spawn_unchecked<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panicking.rs:544:19
+  40:        0x105104ad8 - std[7d7552da0923e8b2]::panic::catch_unwind::<core[4b39a0a778b8475a]::panic::unwind_safe::AssertUnwindSafe<std[7d7552da0923e8b2]::thread::lifecycle::spawn_unchecked<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>, ()>
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/panic.rs:359:14
+  41:        0x105104ad8 - std[7d7552da0923e8b2]::thread::lifecycle::spawn_unchecked::<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>::{closure#1}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/thread/lifecycle.rs:89:26
+  42:        0x105104ad8 - <std[7d7552da0923e8b2]::thread::lifecycle::spawn_unchecked<test[cab13d442f8e29c8]::run_test::{closure#1}, ()>::{closure#1} as core[4b39a0a778b8475a]::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/ops/function.rs:250:5
+  43:        0x1060995a4 - <alloc[5fb21198b8c4fd0a]::boxed::Box<dyn core[4b39a0a778b8475a]::ops::function::FnOnce<(), Output = ()> + core[4b39a0a778b8475a]::marker::Send> as core[4b39a0a778b8475a]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/alloc/src/boxed.rs:2249:9
+  44:        0x1060995a4 - <std[7d7552da0923e8b2]::sys::thread::unix::Thread>::new::thread_start
+                               at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/sys/thread/unix.rs:118:17
+  45:        0x19bda9d00 - __pthread_exit
+
+thread 'engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid' (1928431) panicked at /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/core/src/panicking.rs:233:5:
+panic in a destructor during cleanup
+thread caused non-unwinding panic. aborting.
+error: test failed, to rerun pass `--lib`
+
+Caused by:
+  process didn't exit successfully: `/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485 'engine::tests::teardown' --nocapture --test-threads=1` (signal: 6, SIGABRT: process abort signal)

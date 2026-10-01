@@ -1,0 +1,15 @@
+{
+  "initial_review": {
+    "finding": "Important: root listening-log callback before controller registration",
+    "source": "root_socks.rs",
+    "controlled_red": "root-log-held-red.txt"
+  },
+  "correction": "revision-checked numeric loopback bind and controller registration under transition_gate, with no await/callback; original listening-log-before-RUNNING order preserved",
+  "final_review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "confidence": "high",
+    "scope": "read-only production ownership/lifecycle review; platform results not independently rerun"
+  }
+}

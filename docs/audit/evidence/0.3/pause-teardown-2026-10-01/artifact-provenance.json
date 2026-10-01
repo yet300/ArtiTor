@@ -1,0 +1,28 @@
+{
+  "/tmp/artitor-pause-consumer-reviewed/app/build/outputs/apk/release/app-release.apk": {
+    "bytes": 8931100,
+    "sha256": "67cfb9aa9de1b88cec794813774d5c76214958bf54d2de6e250ce2923e4bb014"
+  },
+  "/Users/yet/.m2/repository/io/github/yet300/tor-android/0.3.0/tor-android-0.3.0.aar": {
+    "bytes": 10824570,
+    "sha256": "149a34bd965a7ec86c56732fadc81311ec6393224bd7666a1d72b6bb124ba15d"
+  },
+  "tor/build/uniffi/build/rust/aarch64-linux-android/release/libarti_kmp_ffi.so": {
+    "bytes": 8115832,
+    "sha256": "316da860ccf7b6b711f9b2a091f19cd57928608060f39af48a51852ba85200bd"
+  },
+  "apk_native": {
+    "sha256": "ca9ab4fad658830a8616f038e0d98a08fafe32804725d94092460158beaa1c17"
+  },
+  "aar_native": {
+    "sha256": "316da860ccf7b6b711f9b2a091f19cd57928608060f39af48a51852ba85200bd"
+  },
+  "stripped_release_native": {
+    "sha256": "ca9ab4fad658830a8616f038e0d98a08fafe32804725d94092460158beaa1c17",
+    "matches_apk_native": true
+  },
+  "installed_apk": {
+    "sha256": "67cfb9aa9de1b88cec794813774d5c76214958bf54d2de6e250ce2923e4bb014",
+    "matches_built_apk": true
+  }
+}

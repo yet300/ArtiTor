@@ -1,0 +1,58 @@
+   Compiling arti-kmp-ffi v0.3.0 (/tmp/artitor-pause-mutation-final)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.36s
+     Running unittests src/lib.rs (/tmp/artitor-pause-mutation-final/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 9 tests
+test engine::tests::teardown::callback_reentry_pause_shutdown_and_close_do_not_join_their_worker ... ok
+test engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling ... 
+thread 'engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling' (1999121) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59294, result=Ok(TcpStream { addr: 127.0.0.1:59297, peer: 127.0.0.1:59294, fd: 15 })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test engine::tests::teardown::fixed_port_resume_log_held_pause_and_shutdown_close_tcp ... 
+thread 'engine::tests::teardown::fixed_port_resume_log_held_pause_and_shutdown_close_tcp' (1999123) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59300, result=Ok(TcpStream { addr: 127.0.0.1:59301, peer: 127.0.0.1:59300, fd: 15 })
+FAILED
+test engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid ... 
+thread 'engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid' (1999125) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59304, result=Ok(TcpStream { addr: 127.0.0.1:59305, peer: 127.0.0.1:59304, fd: 19 })
+FAILED
+test engine::tests::teardown::root_listening_log_reentry_pause_and_shutdown_close_before_callback_returns ... 
+thread 'tokio-rt-worker' (1999132) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59306, result=Ok(TcpStream { addr: 127.0.0.1:59307, peer: 127.0.0.1:59306, fd: 13 })
+
+thread 'engine::tests::teardown::root_listening_log_reentry_pause_and_shutdown_close_before_callback_returns' (1999128) panicked at src/engine/../tests/teardown.rs:457:18:
+log callback self-deadlocked: Timeout
+FAILED
+test engine::tests::teardown::root_pause_closes_tcp_while_callback_held ... 
+thread 'engine::tests::teardown::root_pause_closes_tcp_while_callback_held' (1999269) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59312, result=Ok(TcpStream { addr: 127.0.0.1:59313, peer: 127.0.0.1:59312, fd: 15 })
+FAILED
+test engine::tests::teardown::root_worker_exit_closes_its_socket_even_when_controller_is_retained ... 
+thread 'engine::tests::teardown::root_worker_exit_closes_its_socket_even_when_controller_is_retained' (1999272) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59316, result=Ok(TcpStream { addr: 127.0.0.1:59317, peer: 127.0.0.1:59316, fd: 15 })
+FAILED
+test engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held ... 
+thread 'engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held' (1999274) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59318, result=Ok(TcpStream { addr: 127.0.0.1:59321, peer: 127.0.0.1:59318, fd: 15 })
+FAILED
+test engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held ... 
+thread 'engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held' (1999277) panicked at src/engine/../tests/teardown.rs:136:5:
+old TCP listener must refuse immediately after teardown returns: port=59324, result=Ok(TcpStream { addr: 127.0.0.1:59325, peer: 127.0.0.1:59324, fd: 15 })
+FAILED
+
+failures:
+
+failures:
+    engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling
+    engine::tests::teardown::fixed_port_resume_log_held_pause_and_shutdown_close_tcp
+    engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid
+    engine::tests::teardown::root_listening_log_reentry_pause_and_shutdown_close_before_callback_returns
+    engine::tests::teardown::root_pause_closes_tcp_while_callback_held
+    engine::tests::teardown::root_worker_exit_closes_its_socket_even_when_controller_is_retained
+    engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held
+    engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held
+
+test result: FAILED. 1 passed; 8 failed; 0 ignored; 0 measured; 97 filtered out; finished in 5.10s
+
+error: test failed, to rerun pass `--lib`

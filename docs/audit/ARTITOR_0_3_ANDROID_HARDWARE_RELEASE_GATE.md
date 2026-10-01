@@ -1,6 +1,6 @@
 # ArtiTor 0.3 Android hardware release gate
 
-Latest disposition (remediation run appended below): **ARTITOR 0.3 ANDROID HARDWARE GATE: REMEDIATION REQUIRED**. The R8 blocker is fixed and the minified integrated flow passes; the mandatory complete Android instrumentation suite still fails after one unchanged diagnostic retry. Earlier attempts remain below as historical evidence.
+Latest disposition (final synchronous teardown remediation appended below): **ANDROID HARDWARE GATE: PASS WITH RELIABILITY FOLLOW-UP. RELEASE BLOCKERS: NONE. ARTITOR 0.3: READY TO TAG.** Earlier investigation and gate attempts remain historical evidence.
 
 Date: 2026-10-01 (Asia/Tbilisi).
 
@@ -448,3 +448,78 @@ One unchanged diagnostic connected suite: **3 tests, 2 pass/1 fail**, XML time 1
 **ARTITOR 0.3 ANDROID HARDWARE GATE: REMEDIATION REQUIRED**
 
 READY TO TAG is not established. No tag, push or remote publication occurred.
+
+---
+
+## Final narrow Android reliability investigation — 2026-10-01
+
+**ANDROID REQUEST RELIABILITY DISPOSITION: LOCAL WRAPPER DEFECT FOUND**
+
+**ARTITOR 0.3 ANDROID HARDWARE GATE: REMEDIATION REQUIRED**
+
+This append supersedes the preceding latest release decision while preserving every earlier attempt. Full narrow evidence, stage classifications, source links, reproduction instructions and limitations are in [ARTITOR_0_3_ANDROID_REQUEST_RELIABILITY_DISPOSITION.md](ARTITOR_0_3_ANDROID_REQUEST_RELIABILITY_DISPOSITION.md). Small durable evidence: `docs/audit/evidence/0.3/android-request-reliability-2026-10-01/`.
+
+### Baseline and scope
+
+HEAD is the required `e75336411a7eaadda4a2c828d668cd373dc6b0e1`. Initial status contained only the original three unrelated untracked review/iOS files; they remain untouched. Device is the same physical Google Pixel 6a, serial `26101JEGR21458`, Android 17/API 37, arm64-v8a, over paired wireless ADB.
+
+Accepted R8/JNA FieldOrder remediation, minified callback/StateFlow evidence and full minified Maven integrated flow remain accepted. No production fix, public API change, timeout/retry change, remote publication or tagging occurred. Test-only diagnostic additions use the same Maven 0.3 artifact and accepted release native bytes.
+
+### Listener observations and independently reproduced blocker
+
+| Probe | First completed diagnostic | Separate confirmation |
+|---|---|---|
+| Root RUNNING → immediate SOCKS greeting | 80/80 PASS | 102/102 PASS |
+| Session-create ACTIVE → immediate greeting | 100/100 PASS | 100/100 PASS |
+| Resume ACTIVE → immediate retained-session greeting | 30/30 PASS before stop | 50/50 PASS |
+| Cold-start root greeting, included above | 1/1 PASS before stop | 3/3 PASS |
+| Old root/session TCP refusal after pause | 60 PASS, then **old root accepted TCP at cycle index 30** | 100 PASS |
+
+No published RUNNING/ACTIVE endpoint refused a greeting. Nevertheless, the first completed run failed the separate frozen old-port rule: after pause returned with PAUSED state, TCP connected to old root port **41957** before any resume. The run stopped and its result is preserved. The later passing confirmation does not erase this failure.
+
+The frozen contract at `docs/design/ARTITOR_0_3_API_FREEZE.md:342` explicitly requires old ports to stop accepting after pause. Native `ffi_pause()` signals shutdown, clears publication and calls worker `abort()` without waiting for the worker-owned listener to be destroyed. This completion gap was reproduced in an offline, disposable source copy using the existing private test fixture and real root worker/native pause.
+
+In **10/10 controlled schedules**, pause returned with native PAUSED, bound port 0, retained client, session PAUSED/null and worker revision 1→2, yet TCP connected to the old root listener while its synchronous worker callback was held. After callback release, the old port refused TCP. No external target, bootstrap or CONNECT was involved. The diagnostic deliberately passes when it observes the defect; it is not an acceptance PASS.
+
+Confidence: **high** for the teardown-completion defect. This is a TCP listening/backlog observation; it does **not** demonstrate successful SOCKS negotiation or Tor traffic while PAUSED. It is not claimed to explain the historical external failures. No fix was made; source-only deterministic reproducer and output are supplied for a separate narrow remediation.
+
+### Historical requests and external diagnostic
+
+The historical `SOCKS: Connection refused` at Android Java line 574 is the SOCKS CONNECT **code-5 reply branch**, independently verified against installed SDK 37.2 source. It is not loopback ECONNREFUSED. The historical Java line-510 timeout waits for CONNECT reply, after local TCP/SOCKS negotiation. The historical Conscrypt TLS EOF is later than successful SOCKS establishment. Original native safe categories remain unavailable; no category was invented from exception strings.
+
+Legacy helpers create fresh proxy-bound clients per request and read new root/session endpoints. No stale pooled client/port reuse was found. The exit helper depends on check.torproject.org for each Tor assertion and lacks explicit pool/executor cleanup; the outer legacy bootstrap test lacks failure-finally cleanup. These are noted without claiming causation or making speculative test changes.
+
+The separate confirmation completed its local phases before its fixed matrix: two HTTPS requests each to check.torproject.org and the existing repository ipify host, all on root port 39499, RUNNING/bootstrap 100/retained client. **4/4 PASS**, SOCKS CONNECT code 0, TLSv1.3, HTTP 200; zero external-failure native categories. No target-specific fragility was established and no legacy gate structure changed.
+
+### Nonempty first-process Logcat closure
+
+Logcat was cleared and capture started before each intentional construction. A harmless control marker emitted before client construction supplies the correct PID. Process-scoped captures have **42 / 610 / 1072 lines** for interrupted first / completed first / confirmation processes. All contain the control marker and the CONFIG exception result; all contain **zero** synthetic IP/fingerprint/transport markers. Public exception and log-flow records are redacted. The earlier empty-Logcat gap is closed. Whole-device logs/APKs stay outside the repository.
+
+The first wireless install/launch reached the previous fixture before installation completed; that incomplete run is retained separately. A subsequent correctly installed diagnostic lost device connectivity/evidence before probe completion; its partial first-process capture remains. The two completed runs above are independently named and preserved.
+
+### Regression results
+
+- Rust regular and single-threaded host-permitted runs: **97 PASS each**. Initial sandbox socket-bind failures remain recorded as tooling failures.
+- Required release bindings / iOS-arm64 Kotlin compile / Android device-test assembly: **PASS**. Minified diagnostic fixture build: **PASS**.
+- Initial connected command: **zero tests executed**, UTP wireless install-multiple timeout. A non-streaming recovery ended with ADB EOF; both tooling failures are retained.
+- Recovered connected run, no further network retry: **3 tests, 1 PASS / 2 FAIL**, XML duration **107.706 s**. Probe PASS; old bootstrap test TLS EOF at its initial check-service request, line 65; integrated test timeout waiting for CONNECT reply after the corrected resumed-session ACTIVE wait, line 162. Original and new failure XML remain separate. Safe native categories and the failing B port were not emitted by the legacy helper and remain unavailable.
+
+### Final release disposition
+
+**PRODUCTION CHANGES: NONE.** Test/release verification only: harmless pre-construction marker; opt-in finite minified diagnostic and failure capture; source-only disposable offline reproducer; reports/evidence. The legacy instrumentation helper/endpoint/timeout/retry behavior is unchanged.
+
+**IMPLEMENTATION BLOCKER:** pause does not guarantee old root TCP listener destruction before return; frozen old-port refusal contract violated on hardware and deterministically reproduced under controlled scheduling.
+
+**RELEASE BLOCKER:** that local teardown completion defect requires a separate narrow remediation. A passing later probe run or the accepted integrated artifact flow cannot waive it. Historical external request failures remain separately classified with no deterministic wrapper cause established for those particular requests.
+
+**ARTITOR 0.3 ANDROID HARDWARE GATE: REMEDIATION REQUIRED**
+
+**ARTITOR 0.3: NOT READY TO TAG.** No production fix, tag, commit, push or remote publication was performed.
+
+## Final synchronous teardown remediation disposition — 2026-10-01
+
+**PAUSE TEARDOWN REMEDIATION: PASS. ANDROID HARDWARE GATE: PASS WITH RELIABILITY FOLLOW-UP. IMPLEMENTATION BLOCKERS: NONE. RELEASE BLOCKERS: NONE. ARTITOR 0.3: READY TO TAG.**
+
+Baseline `e75336411a7eaadda4a2c828d668cd373dc6b0e1`; production `5b4d29954d47bd0a73eb7ebe8312a02d5948f902`; tests `6883845169b96cd22145e73f5de744cbc843ccd3`. [The remediation report](ARTITOR_0_3_PAUSE_TEARDOWN_REMEDIATION.md) supplies ownership/reentry/lock proof and durable evidence. Ten held-callback schedules now yield immediate TCP refusal while the callback remains held, versus ten accept-capable returns before the fix. Rust 106/106 parallel and serial; iOS 103/103; Pixel 100 cycles / 200 paused old root/session refusals / zero accepts. Final fresh Maven-only R8 consumer verifies all 17 surviving FieldOrder structures, passes another 100-cycle local diagnostic and its first full integrated flow (86 assertions / 36 immediate refusals). Final connected suite first run passes 3/3, zero failures/skips, 4m 25s. Installed APK/native-library provenance is verified. Confidence: **high**.
+
+The old pause failure and all earlier remote outcomes below are historical evidence, preserved rather than overwritten. Historical remote SOCKS code 5, TLS EOF and CONNECT-reply timeout have **unknown** underlying causes and remain a **NON-BLOCKING RELIABILITY FOLLOW-UP**. There is no fresh causal proof that the pause fix explains them. No tag, push or remote publication occurred.

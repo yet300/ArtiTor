@@ -1,0 +1,58 @@
+{
+  "interrupted-first": {
+    "pid": 17070,
+    "process_lines": 42,
+    "control_marker": true,
+    "marker_counts": {
+      "192.0.2.231": 0,
+      "F00DF00DF00DF00DF00DF00DF00DF00DF00DF00D": 0,
+      "SYNTHETIC_RELIABILITY_TRANSPORT_SECRET": 0
+    },
+    "config_exception_pass": true
+  },
+  "reconnected-first": {
+    "pid": 30423,
+    "process_lines": 610,
+    "control_marker": true,
+    "marker_counts": {
+      "192.0.2.231": 0,
+      "F00DF00DF00DF00DF00DF00DF00DF00DF00DF00D": 0,
+      "SYNTHETIC_RELIABILITY_TRANSPORT_SECRET": 0
+    },
+    "config_exception_pass": true
+  },
+  "first_complete_diagnostic": {
+    "root_greetings": 80,
+    "session_create_greetings": 100,
+    "resume_session_greetings": 30,
+    "cold_root_greetings": 1,
+    "old_endpoint_refusals": 60,
+    "published_greeting_failures": 0,
+    "failure": "GATE_FAILED,java.lang.IllegalStateException,old listener still accepts: pause_root_30 port=41957",
+    "external_requests": 0
+  },
+  "confirmation": {
+    "pid": 30958,
+    "process_lines": 1072,
+    "control_marker": true,
+    "marker_counts": {
+      "192.0.2.231": 0,
+      "F00DF00DF00DF00DF00DF00DF00DF00DF00DF00D": 0,
+      "SYNTHETIC_RELIABILITY_TRANSPORT_SECRET": 0
+    },
+    "config_exception_pass": true,
+    "root_greetings": 102,
+    "session_create_greetings": 100,
+    "resume_session_greetings": 50,
+    "cold_root_greetings": 3,
+    "old_endpoint_refusals": 100,
+    "external_passes": 4,
+    "external_failures": 0,
+    "completed": true
+  },
+  "offline_reproducer": {
+    "defect_observations": 10,
+    "refused_after_release": 10,
+    "test_result": "1 diagnostic test passed; 97 filtered; diagnostic passes when defect is observed"
+  }
+}

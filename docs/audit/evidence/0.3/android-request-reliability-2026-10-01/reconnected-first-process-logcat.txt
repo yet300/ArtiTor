@@ -1,0 +1,610 @@
+10-01 14:06:18.983 30423 30423 I libprocessgroup: Created cgroup /sys/fs/cgroup/apps/uid_10535/pid_30423
+10-01 14:06:18.992 30423 30423 I Zygote  : Process 30423 created for consumer.artitor03.hardwaregate
+10-01 14:06:18.997 30423 30423 I 03.hardwaregate: Using generational CollectorTypeCMC GC.
+10-01 14:06:19.037 30423 30423 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+10-01 14:06:19.070 30423 30423 D CompatChangeReporter: Compat change id reported: 333566037; UID 10535; state: ENABLED
+10-01 14:06:19.086 30423 30423 D nativeloader: Configuring clns-9 for other apk /data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk. target_sdk_version=37, uses_libraries=, library_path=/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/lib/arm64:/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/consumer.artitor03.hardwaregate
+10-01 14:06:19.119 30423 30423 D ActivityThread: Set OS env TMPDIR to /data/user/0/consumer.artitor03.hardwaregate/cache
+10-01 14:06:19.127 30423 30423 V GraphicsEnvironment: Currently set values for:
+10-01 14:06:19.127 30423 30423 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[com.android.angle]
+10-01 14:06:19.127 30423 30423 V GraphicsEnvironment:   angle_gl_driver_selection_values=[angle]
+10-01 14:06:19.127 30423 30423 V GraphicsEnvironment: consumer.artitor03.hardwaregate is not listed in per-application setting
+10-01 14:06:19.127 30423 30423 V GraphicsEnvironment: No special selections for ANGLE, returning default driver choice
+10-01 14:06:19.129 30423 30423 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-01 14:06:19.133 30423 30423 D CompatChangeReporter: Compat change id reported: 407952621; UID 10535; state: ENABLED
+10-01 14:06:19.134 30423 30423 D CompatChangeReporter: Compat change id reported: 419020719; UID 10535; state: ENABLED
+10-01 14:06:19.137 30423 30447 I DisplayManager: Choreographer implicitly registered for the refresh rate.
+10-01 14:06:19.141 30423 30447 D vulkan  : searching for layers in '/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/lib/arm64'
+10-01 14:06:19.142 30423 30447 D vulkan  : searching for layers in '/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk!/lib/arm64-v8a'
+10-01 14:06:19.183 30423 30423 I ArtiGate: CONTROL,ARTITOR_FIRST_PROCESS_CAPTURE,mode=reliability,pid=30423
+10-01 14:06:19.185 30423 30423 I ContentCaptureHelper: Setting logging level to OFF
+10-01 14:06:19.185 30423 30463 D CompatChangeReporter: Compat change id reported: 458413887; UID 10535; state: ENABLED
+10-01 14:06:19.192 30423 30462 D nativeloader: Load /data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk!/lib/arm64-v8a/libjnidispatch.so using class loader ns clns-9 (caller=/data/app/~~vecEDaiNNxTF2XHlg-fwIw==/consumer.artitor03.hardwaregate-dSaaRRhqGm9Hr4VBMWqZtQ==/base.apk): ok
+10-01 14:06:19.196 30423 30423 D CompatChangeReporter: Compat change id reported: 418924588; UID 10535; state: ENABLED
+10-01 14:06:19.223 30423 30423 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@1a7d040
+10-01 14:06:19.223 30423 30423 D VRI[MainActivity]: WindowInsets changed: 1080x2400 statusBars:[0,132,0,0] navigationBars:[0,0,0,69] mandatorySystemGestures:[0,167,0,92] 
+10-01 14:06:19.223 30423 30463 D WindowOnBackDispatcher: setOnBackInvokedCallbackInfo: android.app.Activity$$ExternalSyntheticLambda0@1a7d040
+10-01 14:06:19.223 30423 30423 I HWUI    : Using FreeType backend (prop=Auto)
+10-01 14:06:19.234 30423 30423 I Surface : Creating surface for consumer unnamed-30423-0 with slotExpansion=1 for 64 slots
+10-01 14:06:19.234 30423 30423 I Surface : Creating surface for consumer VRI[MainActivity]#0(BLAST Consumer)0 with slotExpansion=1 for 64 slots
+10-01 14:06:19.237 30423 30462 I ArtiGate: RELIABILITY_VERSION,arti-kmp-ffi 0.3.0 (arti-client 0.46, rustls)
+10-01 14:06:19.248 30423 30462 I ArtiGate: REDACTION_EXCEPTION_PASS,kind=CONFIG,exception=u: configuration error: invalid bridge configuration
+10-01 14:06:19.255 30423 30423 W DefaultDispatch: type=1400 audit(0.0:205386): avc:  denied  { search } for  name="/" dev="cgroup2" ino=1 scontext=u:r:untrusted_app:s0:c23,c258,c512,c768 tcontext=u:object_r:cgroup_v2:s0 tclass=dir permissive=0 app=consumer.artitor03.hardwaregate
+10-01 14:06:19.255 30423 30423 W DefaultDispatch: type=1400 audit(0.0:205387): avc:  denied  { search } for  name="/" dev="cgroup2" ino=1 scontext=u:r:untrusted_app:s0:c23,c258,c512,c768 tcontext=u:object_r:cgroup_v2:s0 tclass=dir permissive=0 app=consumer.artitor03.hardwaregate
+10-01 14:06:19.255 30423 30423 W DefaultDispatch: type=1400 audit(0.0:205388): avc:  denied  { search } for  name="/" dev="cgroup2" ino=1 scontext=u:r:untrusted_app:s0:c23,c258,c512,c768 tcontext=u:object_r:cgroup_v2:s0 tclass=dir permissive=0 app=consumer.artitor03.hardwaregate
+10-01 14:06:19.255 30423 30423 W DefaultDispatch: type=1400 audit(0.0:205389): avc:  denied  { search } for  name="/" dev="cgroup2" ino=1 scontext=u:r:untrusted_app:s0:c23,c258,c512,c768 tcontext=u:object_r:cgroup_v2:s0 tclass=dir permissive=0 app=consumer.artitor03.hardwaregate
+10-01 14:06:19.264 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,starting arti: socks_port=0
+10-01 14:06:19.264 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,config built; creating unbootstrapped client
+10-01 14:06:19.266 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_memquota::mtracker]
+10-01 14:06:19.297 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,client created; starting bootstrap
+10-01 14:06:19.321 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+10-01 14:06:19.322 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]
+10-01 14:06:19.453 30423 30423 D InsetsController: hide(ime())
+10-01 14:06:19.453 30423 30423 I ImeTracker: consumer.artitor03.hardwaregate:aecbf23c: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-01 14:06:21.724 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]
+10-01 14:06:22.195 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr::bootstrap]
+10-01 14:06:36.021 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+10-01 14:06:36.045 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+10-01 14:06:36.045 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,INFO [tor_dirmgr]
+10-01 14:06:36.046 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,bootstrap() returned: ok=true
+10-01 14:06:36.046 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,bootstrap complete
+10-01 14:06:36.047 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:36731
+10-01 14:06:36.055 30423 30485 I ArtiGate: LOCAL_PASS,cold_1,port=36731,at_ns=539102993688074,end_ns=539102998454147
+10-01 14:06:36.055 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.057 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_1,port=36731,at_ns=539102999255579,end_ns=539103001015955
+10-01 14:06:36.059 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.062 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_2,port=36731,at_ns=539103001508468,end_ns=539103004774622
+10-01 14:06:36.063 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.065 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_3,port=36731,at_ns=539103006008468,end_ns=539103008882491
+10-01 14:06:36.067 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.068 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_4,port=36731,at_ns=539103009512211,end_ns=539103011716598
+10-01 14:06:36.070 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.071 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_5,port=36731,at_ns=539103012441573,end_ns=539103014565312
+10-01 14:06:36.072 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.074 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_6,port=36731,at_ns=539103015210616,end_ns=539103017309086
+10-01 14:06:36.075 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.077 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_7,port=36731,at_ns=539103017911992,end_ns=539103020364547
+10-01 14:06:36.078 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.079 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_8,port=36731,at_ns=539103021165450,end_ns=539103023111902
+10-01 14:06:36.081 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.083 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_9,port=36731,at_ns=539103023694096,end_ns=539103026363286
+10-01 14:06:36.084 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.086 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_10,port=36731,at_ns=539103026967330,end_ns=539103029285283
+10-01 14:06:36.087 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.088 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_11,port=36731,at_ns=539103029798588,end_ns=539103031735478
+10-01 14:06:36.089 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.090 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_12,port=36731,at_ns=539103032276331,end_ns=539103033990808
+10-01 14:06:36.091 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.093 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_13,port=36731,at_ns=539103034691004,end_ns=539103036474451
+10-01 14:06:36.094 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.095 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_14,port=36731,at_ns=539103036983647,end_ns=539103038631108
+10-01 14:06:36.096 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.097 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_15,port=36731,at_ns=539103039368860,end_ns=539103041020675
+10-01 14:06:36.099 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.099 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_16,port=36731,at_ns=539103041616541,end_ns=539103043202519
+10-01 14:06:36.101 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.102 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_17,port=36731,at_ns=539103043689091,end_ns=539103045426437
+10-01 14:06:36.103 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.104 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_18,port=36731,at_ns=539103046032475,end_ns=539103047772465
+10-01 14:06:36.106 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.107 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_19,port=36731,at_ns=539103048241622,end_ns=539103050707036
+10-01 14:06:36.108 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.109 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_20,port=36731,at_ns=539103051164270,end_ns=539103052721969
+10-01 14:06:36.110 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.111 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_21,port=36731,at_ns=539103053157312,end_ns=539103054736577
+10-01 14:06:36.112 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.113 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_22,port=36731,at_ns=539103055182825,end_ns=539103056702356
+10-01 14:06:36.114 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.115 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_23,port=36731,at_ns=539103057184412,end_ns=539103058574467
+10-01 14:06:36.116 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.117 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_24,port=36731,at_ns=539103059143437,end_ns=539103061064213
+10-01 14:06:36.118 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.119 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_25,port=36731,at_ns=539103061536707,end_ns=539103062865849
+10-01 14:06:36.120 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.121 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_26,port=36731,at_ns=539103063318608,end_ns=539103064712081
+10-01 14:06:36.122 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.123 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_27,port=36731,at_ns=539103065173222,end_ns=539103066632532
+10-01 14:06:36.124 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.125 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_28,port=36731,at_ns=539103067151453,end_ns=539103068607874
+10-01 14:06:36.126 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.127 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_29,port=36731,at_ns=539103069118290,end_ns=539103071103072
+10-01 14:06:36.129 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.130 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_30,port=36731,at_ns=539103071526616,end_ns=539103073282149
+10-01 14:06:36.130 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.137 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_31,port=36731,at_ns=539103073716109,end_ns=539103080535690
+10-01 14:06:36.139 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.142 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_32,port=36731,at_ns=539103081329553,end_ns=539103086250330
+10-01 14:06:36.144 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.145 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_33,port=36731,at_ns=539103086698287,end_ns=539103089012415
+10-01 14:06:36.145 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.146 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_34,port=36731,at_ns=539103089328618,end_ns=539103089989425
+10-01 14:06:36.147 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.147 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_35,port=36731,at_ns=539103090173914,end_ns=539103090873214
+10-01 14:06:36.147 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.148 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_36,port=36731,at_ns=539103091031539,end_ns=539103091751998
+10-01 14:06:36.148 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.149 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_37,port=36731,at_ns=539103091979700,end_ns=539103092600468
+10-01 14:06:36.149 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.150 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_38,port=36731,at_ns=539103092782516,end_ns=539103093413375
+10-01 14:06:36.150 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.150 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_39,port=36731,at_ns=539103093636479,end_ns=539103094169031
+10-01 14:06:36.151 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.151 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_40,port=36731,at_ns=539103094336186,end_ns=539103094987309
+10-01 14:06:36.151 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.152 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_41,port=36731,at_ns=539103095194096,end_ns=539103095726933
+10-01 14:06:36.152 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.153 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_42,port=36731,at_ns=539103095891118,end_ns=539103096597132
+10-01 14:06:36.153 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.154 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_43,port=36731,at_ns=539103096819991,end_ns=539103097725183
+10-01 14:06:36.154 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.155 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_44,port=36731,at_ns=539103098025761,end_ns=539103098753707
+10-01 14:06:36.155 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.156 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_45,port=36731,at_ns=539103099055099,end_ns=539103099677047
+10-01 14:06:36.156 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.157 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_46,port=36731,at_ns=539103099991093,end_ns=539103100709762
+10-01 14:06:36.157 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.158 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_47,port=36731,at_ns=539103101001306,end_ns=539103101594365
+10-01 14:06:36.158 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.159 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_48,port=36731,at_ns=539103101886357,end_ns=539103102496017
+10-01 14:06:36.159 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.160 30423 30485 I ArtiGate: LOCAL_PASS,root_observation_49,port=36731,at_ns=539103102783207,end_ns=539103103436609
+10-01 14:06:36.160 30423 30485 I ArtiGate: ROOT_INITIAL_SUMMARY,pass=50
+10-01 14:06:36.160 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.163 30423 30485 I ArtiGate: LOCAL_PASS,session_create_0,port=41431,at_ns=539103106214400,end_ns=539103107003870
+10-01 14:06:36.163 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000001 conn error: early eof
+10-01 14:06:36.167 30423 30485 I ArtiGate: LOCAL_PASS,session_create_1,port=40877,at_ns=539103109742029,end_ns=539103110453048
+10-01 14:06:36.167 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000002 conn error: early eof
+10-01 14:06:36.170 30423 30485 I ArtiGate: LOCAL_PASS,session_create_2,port=39955,at_ns=539103112782190,end_ns=539103113457605
+10-01 14:06:36.170 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000003 conn error: early eof
+10-01 14:06:36.172 30423 30485 I ArtiGate: LOCAL_PASS,session_create_3,port=35721,at_ns=539103114884404,end_ns=539103115631922
+10-01 14:06:36.173 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000004 conn error: early eof
+10-01 14:06:36.175 30423 30485 I ArtiGate: LOCAL_PASS,session_create_4,port=34931,at_ns=539103118108891,end_ns=539103118789392
+10-01 14:06:36.175 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000005 conn error: early eof
+10-01 14:06:36.178 30423 30485 I ArtiGate: LOCAL_PASS,session_create_5,port=46607,at_ns=539103120845545,end_ns=539103121454798
+10-01 14:06:36.178 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000006 conn error: early eof
+10-01 14:06:36.179 30423 30485 I ArtiGate: LOCAL_PASS,session_create_6,port=45789,at_ns=539103122715336,end_ns=539103123238204
+10-01 14:06:36.180 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000007 conn error: early eof
+10-01 14:06:36.181 30423 30485 I ArtiGate: LOCAL_PASS,session_create_7,port=32811,at_ns=539103124509811,end_ns=539103125113408
+10-01 14:06:36.182 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000008 conn error: early eof
+10-01 14:06:36.183 30423 30485 I ArtiGate: LOCAL_PASS,session_create_8,port=40333,at_ns=539103126538619,end_ns=539103127147994
+10-01 14:06:36.185 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000009 conn error: early eof
+10-01 14:06:36.185 30423 30485 I ArtiGate: LOCAL_PASS,session_create_9,port=46177,at_ns=539103128557052,end_ns=539103129139246
+10-01 14:06:36.186 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000a conn error: early eof
+10-01 14:06:36.187 30423 30485 I ArtiGate: LOCAL_PASS,session_create_10,port=39525,at_ns=539103130458989,end_ns=539103131002853
+10-01 14:06:36.187 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000b conn error: early eof
+10-01 14:06:36.189 30423 30485 I ArtiGate: LOCAL_PASS,session_create_11,port=42589,at_ns=539103132314661,end_ns=539103132861617
+10-01 14:06:36.189 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000c conn error: early eof
+10-01 14:06:36.191 30423 30485 I ArtiGate: LOCAL_PASS,session_create_12,port=39505,at_ns=539103134101974,end_ns=539103134674158
+10-01 14:06:36.191 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000d conn error: early eof
+10-01 14:06:36.193 30423 30485 I ArtiGate: LOCAL_PASS,session_create_13,port=33537,at_ns=539103135837407,end_ns=539103136417444
+10-01 14:06:36.194 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000e conn error: early eof
+10-01 14:06:36.194 30423 30485 I ArtiGate: LOCAL_PASS,session_create_14,port=37863,at_ns=539103137610926,end_ns=539103138137781
+10-01 14:06:36.195 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000000f conn error: early eof
+10-01 14:06:36.196 30423 30485 I ArtiGate: LOCAL_PASS,session_create_15,port=44345,at_ns=539103139236902,end_ns=539103139698938
+10-01 14:06:36.196 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000010 conn error: early eof
+10-01 14:06:36.197 30423 30485 I ArtiGate: LOCAL_PASS,session_create_16,port=39657,at_ns=539103140788579,end_ns=539103141263798
+10-01 14:06:36.198 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000011 conn error: early eof
+10-01 14:06:36.199 30423 30485 I ArtiGate: LOCAL_PASS,session_create_17,port=46289,at_ns=539103142656458,end_ns=539103143132044
+10-01 14:06:36.200 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000012 conn error: early eof
+10-01 14:06:36.201 30423 30485 I ArtiGate: LOCAL_PASS,session_create_18,port=46771,at_ns=539103144233484,end_ns=539103144708012
+10-01 14:06:36.201 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000013 conn error: early eof
+10-01 14:06:36.203 30423 30485 I ArtiGate: LOCAL_PASS,session_create_19,port=44467,at_ns=539103145800257,end_ns=539103146525924
+10-01 14:06:36.203 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000014 conn error: early eof
+10-01 14:06:36.205 30423 30485 I ArtiGate: LOCAL_PASS,session_create_20,port=44129,at_ns=539103148412765,end_ns=539103148936975
+10-01 14:06:36.206 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000015 conn error: early eof
+10-01 14:06:36.207 30423 30485 I ArtiGate: LOCAL_PASS,session_create_21,port=46689,at_ns=539103150049565,end_ns=539103150600753
+10-01 14:06:36.207 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000016 conn error: early eof
+10-01 14:06:36.208 30423 30485 I ArtiGate: LOCAL_PASS,session_create_22,port=39203,at_ns=539103151657150,end_ns=539103152194666
+10-01 14:06:36.209 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000017 conn error: early eof
+10-01 14:06:36.210 30423 30485 I ArtiGate: LOCAL_PASS,session_create_23,port=44915,at_ns=539103153256189,end_ns=539103153755945
+10-01 14:06:36.210 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000018 conn error: early eof
+10-01 14:06:36.211 30423 30485 I ArtiGate: LOCAL_PASS,session_create_24,port=39591,at_ns=539103154823776,end_ns=539103155271611
+10-01 14:06:36.212 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000019 conn error: early eof
+10-01 14:06:36.213 30423 30485 I ArtiGate: LOCAL_PASS,session_create_25,port=38135,at_ns=539103156353032,end_ns=539103156830123
+10-01 14:06:36.214 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001a conn error: early eof
+10-01 14:06:36.214 30423 30485 I ArtiGate: LOCAL_PASS,session_create_26,port=36369,at_ns=539103157875900,end_ns=539103158320398
+10-01 14:06:36.215 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001b conn error: early eof
+10-01 14:06:36.216 30423 30485 I ArtiGate: LOCAL_PASS,session_create_27,port=41915,at_ns=539103159388066,end_ns=539103159851160
+10-01 14:06:36.216 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001c conn error: early eof
+10-01 14:06:36.218 30423 30485 I ArtiGate: LOCAL_PASS,session_create_28,port=40783,at_ns=539103160935836,end_ns=539103161399256
+10-01 14:06:36.219 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001d conn error: early eof
+10-01 14:06:36.219 30423 30485 I ArtiGate: LOCAL_PASS,session_create_29,port=38829,at_ns=539103162486861,end_ns=539103162934656
+10-01 14:06:36.219 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001e conn error: early eof
+10-01 14:06:36.221 30423 30485 I ArtiGate: LOCAL_PASS,session_create_30,port=43917,at_ns=539103163990808,end_ns=539103164649622
+10-01 14:06:36.222 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000001f conn error: early eof
+10-01 14:06:36.223 30423 30485 I ArtiGate: LOCAL_PASS,session_create_31,port=46543,at_ns=539103165996302,end_ns=539103166638595
+10-01 14:06:36.223 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000020 conn error: early eof
+10-01 14:06:36.224 30423 30485 I ArtiGate: LOCAL_PASS,session_create_32,port=41073,at_ns=539103167732792,end_ns=539103168288009
+10-01 14:06:36.225 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000021 conn error: early eof
+10-01 14:06:36.226 30423 30485 I ArtiGate: LOCAL_PASS,session_create_33,port=39251,at_ns=539103169375533,end_ns=539103169867029
+10-01 14:06:36.226 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000022 conn error: early eof
+10-01 14:06:36.228 30423 30485 I ArtiGate: LOCAL_PASS,session_create_34,port=38073,at_ns=539103170907882,end_ns=539103171419967
+10-01 14:06:36.229 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000023 conn error: early eof
+10-01 14:06:36.229 30423 30485 I ArtiGate: LOCAL_PASS,session_create_35,port=42661,at_ns=539103172537399,end_ns=539103173062220
+10-01 14:06:36.230 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000024 conn error: early eof
+10-01 14:06:36.231 30423 30485 I ArtiGate: LOCAL_PASS,session_create_36,port=37355,at_ns=539103174077926,end_ns=539103174568893
+10-01 14:06:36.231 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000025 conn error: early eof
+10-01 14:06:36.232 30423 30485 I ArtiGate: LOCAL_PASS,session_create_37,port=42551,at_ns=539103175586512,end_ns=539103176100468
+10-01 14:06:36.233 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000026 conn error: early eof
+10-01 14:06:36.234 30423 30485 I ArtiGate: LOCAL_PASS,session_create_38,port=37473,at_ns=539103177124964,end_ns=539103177581425
+10-01 14:06:36.234 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000027 conn error: early eof
+10-01 14:06:36.235 30423 30485 I ArtiGate: LOCAL_PASS,session_create_39,port=35913,at_ns=539103178569096,end_ns=539103179050786
+10-01 14:06:36.236 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000028 conn error: early eof
+10-01 14:06:36.239 30423 30485 I ArtiGate: LOCAL_PASS,session_create_40,port=40065,at_ns=539103180089441,end_ns=539103182680994
+10-01 14:06:36.239 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000029 conn error: early eof
+10-01 14:06:36.240 30423 30485 I ArtiGate: LOCAL_PASS,session_create_41,port=36799,at_ns=539103183773523,end_ns=539103184294601
+10-01 14:06:36.242 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002a conn error: early eof
+10-01 14:06:36.243 30423 30485 I ArtiGate: LOCAL_PASS,session_create_42,port=37439,at_ns=539103186277958,end_ns=539103186823531
+10-01 14:06:36.244 30423 30479 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002b conn error: early eof
+10-01 14:06:36.245 30423 30485 I ArtiGate: LOCAL_PASS,session_create_43,port=40679,at_ns=539103187984583,end_ns=539103188533818
+10-01 14:06:36.245 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002c conn error: early eof
+10-01 14:06:36.246 30423 30485 I ArtiGate: LOCAL_PASS,session_create_44,port=35601,at_ns=539103189530766,end_ns=539103190031376
+10-01 14:06:36.247 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002d conn error: early eof
+10-01 14:06:36.248 30423 30485 I ArtiGate: LOCAL_PASS,session_create_45,port=43605,at_ns=539103191054000,end_ns=539103191560063
+10-01 14:06:36.249 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002e conn error: early eof
+10-01 14:06:36.249 30423 30485 I ArtiGate: LOCAL_PASS,session_create_46,port=40699,at_ns=539103192713505,end_ns=539103193226689
+10-01 14:06:36.250 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000002f conn error: early eof
+10-01 14:06:36.251 30423 30485 I ArtiGate: LOCAL_PASS,session_create_47,port=41247,at_ns=539103194235478,end_ns=539103194742273
+10-01 14:06:36.252 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000030 conn error: early eof
+10-01 14:06:36.253 30423 30485 I ArtiGate: LOCAL_PASS,session_create_48,port=33801,at_ns=539103195747482,end_ns=539103197047083
+10-01 14:06:36.254 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000031 conn error: early eof
+10-01 14:06:36.255 30423 30485 I ArtiGate: LOCAL_PASS,session_create_49,port=40523,at_ns=539103198155115,end_ns=539103198684331
+10-01 14:06:36.256 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000032 conn error: early eof
+10-01 14:06:36.256 30423 30485 I ArtiGate: LOCAL_PASS,session_create_50,port=36107,at_ns=539103199748784,end_ns=539103200324630
+10-01 14:06:36.257 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000033 conn error: early eof
+10-01 14:06:36.261 30423 30485 I ArtiGate: LOCAL_PASS,session_create_51,port=42407,at_ns=539103201690678,end_ns=539103204741744
+10-01 14:06:36.263 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000034 conn error: early eof
+10-01 14:06:36.264 30423 30485 I ArtiGate: LOCAL_PASS,session_create_52,port=42853,at_ns=539103207213912,end_ns=539103207984542
+10-01 14:06:36.265 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000035 conn error: early eof
+10-01 14:06:36.266 30423 30485 I ArtiGate: LOCAL_PASS,session_create_53,port=35655,at_ns=539103209276534,end_ns=539103209874191
+10-01 14:06:36.267 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000036 conn error: early eof
+10-01 14:06:36.268 30423 30485 I ArtiGate: LOCAL_PASS,session_create_54,port=45027,at_ns=539103210967330,end_ns=539103211463465
+10-01 14:06:36.268 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000037 conn error: early eof
+10-01 14:06:36.269 30423 30485 I ArtiGate: LOCAL_PASS,session_create_55,port=42115,at_ns=539103212640548,end_ns=539103213168258
+10-01 14:06:36.270 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000038 conn error: early eof
+10-01 14:06:36.271 30423 30485 I ArtiGate: LOCAL_PASS,session_create_56,port=43857,at_ns=539103214241826,end_ns=539103215081588
+10-01 14:06:36.272 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000039 conn error: early eof
+10-01 14:06:36.273 30423 30485 I ArtiGate: LOCAL_PASS,session_create_57,port=41725,at_ns=539103216372644,end_ns=539103216876510
+10-01 14:06:36.274 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003a conn error: early eof
+10-01 14:06:36.275 30423 30485 I ArtiGate: LOCAL_PASS,session_create_58,port=34539,at_ns=539103217967981,end_ns=539103218442550
+10-01 14:06:36.275 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003b conn error: early eof
+10-01 14:06:36.276 30423 30485 I ArtiGate: LOCAL_PASS,session_create_59,port=43539,at_ns=539103219537073,end_ns=539103220048548
+10-01 14:06:36.277 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003c conn error: early eof
+10-01 14:06:36.278 30423 30485 I ArtiGate: LOCAL_PASS,session_create_60,port=45051,at_ns=539103221163497,end_ns=539103221656295
+10-01 14:06:36.278 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003d conn error: early eof
+10-01 14:06:36.279 30423 30485 I ArtiGate: LOCAL_PASS,session_create_61,port=38631,at_ns=539103222712569,end_ns=539103223232060
+10-01 14:06:36.280 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003e conn error: early eof
+10-01 14:06:36.281 30423 30485 I ArtiGate: LOCAL_PASS,session_create_62,port=40899,at_ns=539103224329472,end_ns=539103224874638
+10-01 14:06:36.282 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000003f conn error: early eof
+10-01 14:06:36.283 30423 30485 I ArtiGate: LOCAL_PASS,session_create_63,port=33539,at_ns=539103225934290,end_ns=539103226441166
+10-01 14:06:36.284 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000040 conn error: early eof
+10-01 14:06:36.284 30423 30485 I ArtiGate: LOCAL_PASS,session_create_64,port=44459,at_ns=539103227480473,end_ns=539103227947189
+10-01 14:06:36.285 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000041 conn error: early eof
+10-01 14:06:36.286 30423 30485 I ArtiGate: LOCAL_PASS,session_create_65,port=38971,at_ns=539103229095463,end_ns=539103229586349
+10-01 14:06:36.287 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000042 conn error: early eof
+10-01 14:06:36.287 30423 30485 I ArtiGate: LOCAL_PASS,session_create_66,port=37979,at_ns=539103230633590,end_ns=539103231108118
+10-01 14:06:36.288 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000043 conn error: early eof
+10-01 14:06:36.289 30423 30485 I ArtiGate: LOCAL_PASS,session_create_67,port=39995,at_ns=539103232156946,end_ns=539103232652023
+10-01 14:06:36.290 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000044 conn error: early eof
+10-01 14:06:36.290 30423 30485 I ArtiGate: LOCAL_PASS,session_create_68,port=44077,at_ns=539103233720585,end_ns=539103234191614
+10-01 14:06:36.291 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000045 conn error: early eof
+10-01 14:06:36.292 30423 30485 I ArtiGate: LOCAL_PASS,session_create_69,port=40577,at_ns=539103235241215,end_ns=539103235711634
+10-01 14:06:36.293 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000046 conn error: early eof
+10-01 14:06:36.293 30423 30485 I ArtiGate: LOCAL_PASS,session_create_70,port=40601,at_ns=539103236770227,end_ns=539103237268030
+10-01 14:06:36.294 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000047 conn error: early eof
+10-01 14:06:36.295 30423 30485 I ArtiGate: LOCAL_PASS,session_create_71,port=43059,at_ns=539103238337163,end_ns=539103238859298
+10-01 14:06:36.296 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000048 conn error: early eof
+10-01 14:06:36.297 30423 30485 I ArtiGate: LOCAL_PASS,session_create_72,port=43263,at_ns=539103239987757,end_ns=539103240552576
+10-01 14:06:36.297 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000049 conn error: early eof
+10-01 14:06:36.298 30423 30485 I ArtiGate: LOCAL_PASS,session_create_73,port=40881,at_ns=539103241611699,end_ns=539103242100428
+10-01 14:06:36.300 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004a conn error: early eof
+10-01 14:06:36.300 30423 30485 I ArtiGate: LOCAL_PASS,session_create_74,port=36227,at_ns=539103243149663,end_ns=539103243710820
+10-01 14:06:36.301 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004b conn error: early eof
+10-01 14:06:36.301 30423 30485 I ArtiGate: LOCAL_PASS,session_create_75,port=38497,at_ns=539103244802698,end_ns=539103245249760
+10-01 14:06:36.303 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004c conn error: early eof
+10-01 14:06:36.303 30423 30485 I ArtiGate: LOCAL_PASS,session_create_76,port=42861,at_ns=539103246305709,end_ns=539103246764734
+10-01 14:06:36.304 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004d conn error: early eof
+10-01 14:06:36.305 30423 30485 I ArtiGate: LOCAL_PASS,session_create_77,port=41697,at_ns=539103247768722,end_ns=539103248608972
+10-01 14:06:36.306 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004e conn error: early eof
+10-01 14:06:36.309 30423 30485 I ArtiGate: LOCAL_PASS,session_create_78,port=39921,at_ns=539103251589116,end_ns=539103252475916
+10-01 14:06:36.310 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000004f conn error: early eof
+10-01 14:06:36.310 30423 30485 I ArtiGate: LOCAL_PASS,session_create_79,port=33961,at_ns=539103253531092,end_ns=539103254089807
+10-01 14:06:36.311 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000050 conn error: early eof
+10-01 14:06:36.312 30423 30485 I ArtiGate: LOCAL_PASS,session_create_80,port=34393,at_ns=539103255104578,end_ns=539103255594894
+10-01 14:06:36.313 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000051 conn error: early eof
+10-01 14:06:36.313 30423 30485 I ArtiGate: LOCAL_PASS,session_create_81,port=44019,at_ns=539103256676233,end_ns=539103257211389
+10-01 14:06:36.314 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000052 conn error: early eof
+10-01 14:06:36.316 30423 30485 I ArtiGate: LOCAL_PASS,session_create_82,port=33087,at_ns=539103258289555,end_ns=539103259146936
+10-01 14:06:36.317 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000053 conn error: early eof
+10-01 14:06:36.318 30423 30485 I ArtiGate: LOCAL_PASS,session_create_83,port=38435,at_ns=539103261041915,end_ns=539103261556197
+10-01 14:06:36.319 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000054 conn error: early eof
+10-01 14:06:36.319 30423 30485 I ArtiGate: LOCAL_PASS,session_create_84,port=33401,at_ns=539103262634770,end_ns=539103263173263
+10-01 14:06:36.320 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000055 conn error: early eof
+10-01 14:06:36.321 30423 30485 I ArtiGate: LOCAL_PASS,session_create_85,port=38995,at_ns=539103264305058,end_ns=539103264858810
+10-01 14:06:36.322 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000056 conn error: early eof
+10-01 14:06:36.323 30423 30485 I ArtiGate: LOCAL_PASS,session_create_86,port=41151,at_ns=539103265926844,end_ns=539103266440760
+10-01 14:06:36.323 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000057 conn error: early eof
+10-01 14:06:36.325 30423 30485 I ArtiGate: LOCAL_PASS,session_create_87,port=38105,at_ns=539103267464604,end_ns=539103268395431
+10-01 14:06:36.326 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000058 conn error: early eof
+10-01 14:06:36.329 30423 30485 I ArtiGate: LOCAL_PASS,session_create_88,port=42331,at_ns=539103271345830,end_ns=539103272346725
+10-01 14:06:36.330 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000059 conn error: early eof
+10-01 14:06:36.330 30423 30485 I ArtiGate: LOCAL_PASS,session_create_89,port=35363,at_ns=539103273392298,end_ns=539103273913497
+10-01 14:06:36.331 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005a conn error: early eof
+10-01 14:06:36.332 30423 30485 I ArtiGate: LOCAL_PASS,session_create_90,port=39957,at_ns=539103274902592,end_ns=539103275424524
+10-01 14:06:36.333 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005b conn error: early eof
+10-01 14:06:36.333 30423 30485 I ArtiGate: LOCAL_PASS,session_create_91,port=37331,at_ns=539103276568608,end_ns=539103277108566
+10-01 14:06:36.334 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005c conn error: early eof
+10-01 14:06:36.335 30423 30485 I ArtiGate: LOCAL_PASS,session_create_92,port=38297,at_ns=539103278137862,end_ns=539103278709762
+10-01 14:06:36.336 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005d conn error: early eof
+10-01 14:06:36.336 30423 30485 I ArtiGate: LOCAL_PASS,session_create_93,port=46019,at_ns=539103279762537,end_ns=539103280304814
+10-01 14:06:36.337 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005e conn error: early eof
+10-01 14:06:36.338 30423 30485 I ArtiGate: LOCAL_PASS,session_create_94,port=45971,at_ns=539103281395512,end_ns=539103281935429
+10-01 14:06:36.339 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-000000000000005f conn error: early eof
+10-01 14:06:36.340 30423 30485 I ArtiGate: LOCAL_PASS,session_create_95,port=33439,at_ns=539103282982589,end_ns=539103283485153
+10-01 14:06:36.341 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000060 conn error: early eof
+10-01 14:06:36.341 30423 30485 I ArtiGate: LOCAL_PASS,session_create_96,port=42173,at_ns=539103284616419,end_ns=539103285153162
+10-01 14:06:36.343 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000061 conn error: early eof
+10-01 14:06:36.343 30423 30485 I ArtiGate: LOCAL_PASS,session_create_97,port=35095,at_ns=539103286217452,end_ns=539103286854049
+10-01 14:06:36.344 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000062 conn error: early eof
+10-01 14:06:36.345 30423 30485 I ArtiGate: LOCAL_PASS,session_create_98,port=42657,at_ns=539103287908330,end_ns=539103288465377
+10-01 14:06:36.346 30423 30476 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000063 conn error: early eof
+10-01 14:06:36.346 30423 30485 I ArtiGate: LOCAL_PASS,session_create_99,port=43843,at_ns=539103289557133,end_ns=539103290055628
+10-01 14:06:36.347 30423 30485 I ArtiGate: SESSION_CREATE_SUMMARY,pass=100
+10-01 14:06:36.347 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000064 conn error: early eof
+10-01 14:06:36.348 30423 30485 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.349 30423 30485 I ArtiGate: OLD_REFUSED,pause_root_0,port=36731,errno=111
+10-01 14:06:36.349 30423 30485 I ArtiGate: OLD_REFUSED,pause_session_0,port=34553,errno=111
+10-01 14:06:36.351 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38313
+10-01 14:06:36.353 30423 30485 I ArtiGate: LOCAL_PASS,resume_root_0,port=38313,at_ns=539103296054977,end_ns=539103296677942
+10-01 14:06:36.354 30423 30485 I ArtiGate: LOCAL_PASS,resume_session_0,port=36447,at_ns=539103296955896,end_ns=539103297421554
+10-01 14:06:36.354 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.355 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.355 30423 30485 I ArtiGate: OLD_REFUSED,pause_root_1,port=38313,errno=111
+10-01 14:06:36.355 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.356 30423 30485 I ArtiGate: OLD_REFUSED,pause_session_1,port=36447,errno=111
+10-01 14:06:36.357 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45175
+10-01 14:06:36.361 30423 30483 I ArtiGate: LOCAL_PASS,resume_root_1,port=45175,at_ns=539103302343754,end_ns=539103303890304
+10-01 14:06:36.361 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.363 30423 30483 I ArtiGate: LOCAL_PASS,resume_session_1,port=46007,at_ns=539103304820805,end_ns=539103305978439
+10-01 14:06:36.363 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.363 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS shutdown signal
+10-01 14:06:36.364 30423 30483 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.365 30423 30483 I ArtiGate: OLD_REFUSED,pause_root_2,port=45175,errno=111
+10-01 14:06:36.366 30423 30483 I ArtiGate: OLD_REFUSED,pause_session_2,port=46007,errno=111
+10-01 14:06:36.367 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:36591
+10-01 14:06:36.371 30423 30482 I ArtiGate: LOCAL_PASS,resume_root_2,port=36591,at_ns=539103312523564,end_ns=539103314430506
+10-01 14:06:36.372 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.374 30423 30482 I ArtiGate: LOCAL_PASS,resume_session_2,port=35919,at_ns=539103315625533,end_ns=539103317647872
+10-01 14:06:36.375 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.376 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS shutdown signal
+10-01 14:06:36.378 30423 30482 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.380 30423 30482 I ArtiGate: OLD_REFUSED,pause_root_3,port=36591,errno=111
+10-01 14:06:36.383 30423 30482 I ArtiGate: OLD_REFUSED,pause_session_3,port=35919,errno=111
+10-01 14:06:36.384 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:42199
+10-01 14:06:36.387 30423 30483 I ArtiGate: LOCAL_PASS,resume_root_3,port=42199,at_ns=539103328985722,end_ns=539103330405807
+10-01 14:06:36.388 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.389 30423 30483 I ArtiGate: LOCAL_PASS,resume_session_3,port=42671,at_ns=539103331363367,end_ns=539103332820887
+10-01 14:06:36.390 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.392 30423 30483 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.394 30423 30483 I ArtiGate: OLD_REFUSED,pause_root_4,port=42199,errno=111
+10-01 14:06:36.395 30423 30483 I ArtiGate: OLD_REFUSED,pause_session_4,port=42671,errno=111
+10-01 14:06:36.397 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35877
+10-01 14:06:36.400 30423 30484 I ArtiGate: LOCAL_PASS,resume_root_4,port=35877,at_ns=539103342400639,end_ns=539103343347050
+10-01 14:06:36.401 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.402 30423 30484 I ArtiGate: LOCAL_PASS,resume_session_4,port=46351,at_ns=539103343774541,end_ns=539103345905685
+10-01 14:06:36.404 30423 30484 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.405 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.405 30423 30484 I ArtiGate: OLD_REFUSED,pause_root_5,port=35877,errno=111
+10-01 14:06:36.406 30423 30484 I ArtiGate: OLD_REFUSED,pause_session_5,port=46351,errno=111
+10-01 14:06:36.407 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44419
+10-01 14:06:36.411 30423 30484 I ArtiGate: LOCAL_PASS,resume_root_5,port=44419,at_ns=539103352872034,end_ns=539103354338261
+10-01 14:06:36.412 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.413 30423 30484 I ArtiGate: LOCAL_PASS,resume_session_5,port=40865,at_ns=539103355151250,end_ns=539103356800542
+10-01 14:06:36.415 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.416 30423 30484 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.418 30423 30484 I ArtiGate: OLD_REFUSED,pause_root_6,port=44419,errno=111
+10-01 14:06:36.420 30423 30484 I ArtiGate: OLD_REFUSED,pause_session_6,port=40865,errno=111
+10-01 14:06:36.422 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46399
+10-01 14:06:36.429 30423 30489 I ArtiGate: LOCAL_PASS,resume_root_6,port=46399,at_ns=539103369552291,end_ns=539103371735600
+10-01 14:06:36.429 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.431 30423 30489 I ArtiGate: LOCAL_PASS,resume_session_6,port=36769,at_ns=539103372773971,end_ns=539103374300623
+10-01 14:06:36.432 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.435 30423 30489 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.438 30423 30489 I ArtiGate: OLD_REFUSED,pause_root_7,port=46399,errno=111
+10-01 14:06:36.441 30423 30489 I ArtiGate: OLD_REFUSED,pause_session_7,port=36769,errno=111
+10-01 14:06:36.443 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:46553
+10-01 14:06:36.450 30423 30489 I ArtiGate: LOCAL_PASS,resume_root_7,port=46553,at_ns=539103390330123,end_ns=539103392688115
+10-01 14:06:36.451 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.452 30423 30489 I ArtiGate: LOCAL_PASS,resume_session_7,port=43585,at_ns=539103393844894,end_ns=539103395586186
+10-01 14:06:36.454 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.456 30423 30489 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.459 30423 30489 I ArtiGate: OLD_REFUSED,pause_root_8,port=46553,errno=111
+10-01 14:06:36.461 30423 30489 I ArtiGate: OLD_REFUSED,pause_session_8,port=43585,errno=111
+10-01 14:06:36.463 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39705
+10-01 14:06:36.468 30423 30489 I ArtiGate: LOCAL_PASS,resume_root_8,port=39705,at_ns=539103409396896,end_ns=539103411041305
+10-01 14:06:36.469 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.470 30423 30489 I ArtiGate: LOCAL_PASS,resume_session_8,port=36657,at_ns=539103411992273,end_ns=539103413398157
+10-01 14:06:36.471 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.473 30423 30489 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.476 30423 30489 I ArtiGate: OLD_REFUSED,pause_root_9,port=39705,errno=111
+10-01 14:06:36.478 30423 30489 I ArtiGate: OLD_REFUSED,pause_session_9,port=36657,errno=111
+10-01 14:06:36.481 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39087
+10-01 14:06:36.486 30423 30461 I ArtiGate: LOCAL_PASS,resume_root_9,port=39087,at_ns=539103427901168,end_ns=539103429194462
+10-01 14:06:36.486 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.488 30423 30461 I ArtiGate: LOCAL_PASS,resume_session_9,port=37573,at_ns=539103429924850,end_ns=539103431081588
+10-01 14:06:36.488 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.490 30423 30461 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.492 30423 30461 I ArtiGate: OLD_REFUSED,pause_root_10,port=39087,errno=111
+10-01 14:06:36.493 30423 30461 I ArtiGate: OLD_REFUSED,pause_session_10,port=37573,errno=111
+10-01 14:06:36.495 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:33055
+10-01 14:06:36.503 30423 30487 I ArtiGate: LOCAL_PASS,resume_root_10,port=33055,at_ns=539103442147750,end_ns=539103445466964
+10-01 14:06:36.505 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.507 30423 30487 I ArtiGate: LOCAL_PASS,resume_session_10,port=35333,at_ns=539103447934412,end_ns=539103450019658
+10-01 14:06:36.508 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.509 30423 30487 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.512 30423 30487 I ArtiGate: OLD_REFUSED,pause_root_11,port=33055,errno=111
+10-01 14:06:36.514 30423 30487 I ArtiGate: OLD_REFUSED,pause_session_11,port=35333,errno=111
+10-01 14:06:36.516 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37337
+10-01 14:06:36.522 30423 30487 I ArtiGate: LOCAL_PASS,resume_root_11,port=37337,at_ns=539103462833907,end_ns=539103465057093
+10-01 14:06:36.523 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.525 30423 30487 I ArtiGate: LOCAL_PASS,resume_session_11,port=36653,at_ns=539103466096806,end_ns=539103468101974
+10-01 14:06:36.527 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.530 30423 30487 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.534 30423 30487 I ArtiGate: OLD_REFUSED,pause_root_12,port=37337,errno=111
+10-01 14:06:36.536 30423 30487 I ArtiGate: OLD_REFUSED,pause_session_12,port=36653,errno=111
+10-01 14:06:36.539 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34981
+10-01 14:06:36.546 30423 30488 I ArtiGate: LOCAL_PASS,resume_root_12,port=34981,at_ns=539103485941614,end_ns=539103488631352
+10-01 14:06:36.547 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.550 30423 30488 I ArtiGate: LOCAL_PASS,resume_session_12,port=33883,at_ns=539103490074264,end_ns=539103492824061
+10-01 14:06:36.551 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.554 30423 30488 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.557 30423 30488 I ArtiGate: OLD_REFUSED,pause_root_13,port=34981,errno=111
+10-01 14:06:36.560 30423 30488 I ArtiGate: OLD_REFUSED,pause_session_13,port=33883,errno=111
+10-01 14:06:36.563 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45433
+10-01 14:06:36.571 30423 30484 I ArtiGate: LOCAL_PASS,resume_root_13,port=45433,at_ns=539103511221766,end_ns=539103513729944
+10-01 14:06:36.572 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.574 30423 30484 I ArtiGate: LOCAL_PASS,resume_session_13,port=32865,at_ns=539103515110844,end_ns=539103517142501
+10-01 14:06:36.575 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.578 30423 30484 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.581 30423 30484 I ArtiGate: OLD_REFUSED,pause_root_14,port=45433,errno=111
+10-01 14:06:36.584 30423 30484 I ArtiGate: OLD_REFUSED,pause_session_14,port=32865,errno=111
+10-01 14:06:36.587 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34951
+10-01 14:06:36.594 30423 30484 I ArtiGate: LOCAL_PASS,resume_root_14,port=34951,at_ns=539103534135747,end_ns=539103536715377
+10-01 14:06:36.596 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.598 30423 30484 I ArtiGate: LOCAL_PASS,resume_session_14,port=39957,at_ns=539103538147750,end_ns=539103540965418
+10-01 14:06:36.599 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.601 30423 30484 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.602 30423 30484 I ArtiGate: OLD_REFUSED,pause_root_15,port=34951,errno=111
+10-01 14:06:36.603 30423 30484 I ArtiGate: OLD_REFUSED,pause_session_15,port=39957,errno=111
+10-01 14:06:36.604 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:38839
+10-01 14:06:36.610 30423 30482 I ArtiGate: LOCAL_PASS,resume_root_15,port=38839,at_ns=539103549947433,end_ns=539103552312464
+10-01 14:06:36.611 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.613 30423 30482 I ArtiGate: LOCAL_PASS,resume_session_15,port=46705,at_ns=539103554133020,end_ns=539103556385665
+10-01 14:06:36.614 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.618 30423 30482 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.621 30423 30482 I ArtiGate: OLD_REFUSED,pause_root_16,port=38839,errno=111
+10-01 14:06:36.624 30423 30482 I ArtiGate: OLD_REFUSED,pause_session_16,port=46705,errno=111
+10-01 14:06:36.626 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39827
+10-01 14:06:36.634 30423 30464 I ArtiGate: LOCAL_PASS,resume_root_16,port=39827,at_ns=539103574040288,end_ns=539103576802454
+10-01 14:06:36.635 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.637 30423 30464 I ArtiGate: LOCAL_PASS,resume_session_16,port=45581,at_ns=539103578158777,end_ns=539103580164271
+10-01 14:06:36.639 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.641 30423 30464 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.645 30423 30464 I ArtiGate: OLD_REFUSED,pause_root_17,port=39827,errno=111
+10-01 14:06:36.647 30423 30464 I ArtiGate: OLD_REFUSED,pause_session_17,port=45581,errno=111
+10-01 14:06:36.650 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39957
+10-01 14:06:36.656 30423 30464 I ArtiGate: LOCAL_PASS,resume_root_17,port=39957,at_ns=539103596910039,end_ns=539103598869633
+10-01 14:06:36.657 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.658 30423 30464 I ArtiGate: LOCAL_PASS,resume_session_17,port=40731,at_ns=539103600000249,end_ns=539103601600062
+10-01 14:06:36.660 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.662 30423 30464 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.665 30423 30464 I ArtiGate: OLD_REFUSED,pause_root_18,port=39957,errno=111
+10-01 14:06:36.668 30423 30464 I ArtiGate: OLD_REFUSED,pause_session_18,port=40731,errno=111
+10-01 14:06:36.671 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:33177
+10-01 14:06:36.679 30423 30484 I ArtiGate: LOCAL_PASS,resume_root_18,port=33177,at_ns=539103619794275,end_ns=539103622369674
+10-01 14:06:36.681 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.684 30423 30484 I ArtiGate: LOCAL_PASS,resume_session_18,port=38019,at_ns=539103623858851,end_ns=539103626863611
+10-01 14:06:36.686 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.688 30423 30484 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.690 30423 30484 I ArtiGate: OLD_REFUSED,pause_root_19,port=33177,errno=111
+10-01 14:06:36.692 30423 30484 I ArtiGate: OLD_REFUSED,pause_session_19,port=38019,errno=111
+10-01 14:06:36.695 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35535
+10-01 14:06:36.703 30423 30483 I ArtiGate: LOCAL_PASS,resume_root_19,port=35535,at_ns=539103643069503,end_ns=539103645578496
+10-01 14:06:36.704 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.706 30423 30483 I ArtiGate: LOCAL_PASS,resume_session_19,port=34439,at_ns=539103646829879,end_ns=539103649339604
+10-01 14:06:36.708 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.712 30423 30483 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.717 30423 30483 I ArtiGate: OLD_REFUSED,pause_root_20,port=35535,errno=111
+10-01 14:06:36.721 30423 30483 I ArtiGate: OLD_REFUSED,pause_session_20,port=34439,errno=111
+10-01 14:06:36.726 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:44689
+10-01 14:06:36.734 30423 30464 I ArtiGate: LOCAL_PASS,resume_root_20,port=44689,at_ns=539103673825566,end_ns=539103676476974
+10-01 14:06:36.735 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.738 30423 30464 I ArtiGate: LOCAL_PASS,resume_session_20,port=42459,at_ns=539103678099614,end_ns=539103680469365
+10-01 14:06:36.739 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.743 30423 30464 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.748 30423 30464 I ArtiGate: OLD_REFUSED,pause_root_21,port=44689,errno=111
+10-01 14:06:36.751 30423 30464 I ArtiGate: OLD_REFUSED,pause_session_21,port=42459,errno=111
+10-01 14:06:36.754 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:35287
+10-01 14:06:36.764 30423 30483 I ArtiGate: LOCAL_PASS,resume_root_21,port=35287,at_ns=539103702388392,end_ns=539103706191167
+10-01 14:06:36.766 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.769 30423 30483 I ArtiGate: LOCAL_PASS,resume_session_21,port=38031,at_ns=539103708357915,end_ns=539103711367070
+10-01 14:06:36.772 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.774 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.775 30423 30483 I ArtiGate: OLD_REFUSED,pause_root_22,port=35287,errno=111
+10-01 14:06:36.778 30423 30483 I ArtiGate: OLD_REFUSED,pause_session_22,port=38031,errno=111
+10-01 14:06:36.781 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:34815
+10-01 14:06:36.788 30423 30483 I ArtiGate: LOCAL_PASS,resume_root_22,port=34815,at_ns=539103728422938,end_ns=539103731244959
+10-01 14:06:36.791 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.793 30423 30483 I ArtiGate: LOCAL_PASS,resume_session_22,port=44581,at_ns=539103732686406,end_ns=539103735972986
+10-01 14:06:36.796 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.798 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.799 30423 30483 I ArtiGate: OLD_REFUSED,pause_root_23,port=34815,errno=111
+10-01 14:06:36.801 30423 30483 I ArtiGate: OLD_REFUSED,pause_session_23,port=44581,errno=111
+10-01 14:06:36.806 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37009
+10-01 14:06:36.814 30423 30483 I ArtiGate: LOCAL_PASS,resume_root_23,port=37009,at_ns=539103754119511,end_ns=539103756885706
+10-01 14:06:36.817 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.820 30423 30483 I ArtiGate: LOCAL_PASS,resume_session_23,port=35685,at_ns=539103758366419,end_ns=539103762470016
+10-01 14:06:36.823 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.825 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.826 30423 30483 I ArtiGate: OLD_REFUSED,pause_root_24,port=37009,errno=111
+10-01 14:06:36.829 30423 30483 I ArtiGate: OLD_REFUSED,pause_session_24,port=35685,errno=111
+10-01 14:06:36.833 30423 30473 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:45449
+10-01 14:06:36.841 30423 30464 I ArtiGate: LOCAL_PASS,resume_root_24,port=45449,at_ns=539103780898605,end_ns=539103783796432
+10-01 14:06:36.844 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.846 30423 30464 I ArtiGate: LOCAL_PASS,resume_session_24,port=45057,at_ns=539103785172693,end_ns=539103788915247
+10-01 14:06:36.849 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.851 30423 30464 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.855 30423 30464 I ArtiGate: OLD_REFUSED,pause_root_25,port=45449,errno=111
+10-01 14:06:36.858 30423 30464 I ArtiGate: OLD_REFUSED,pause_session_25,port=45057,errno=111
+10-01 14:06:36.863 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37417
+10-01 14:06:36.871 30423 30486 I ArtiGate: LOCAL_PASS,resume_root_25,port=37417,at_ns=539103811305140,end_ns=539103813933965
+10-01 14:06:36.874 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.878 30423 30486 I ArtiGate: LOCAL_PASS,resume_session_25,port=42839,at_ns=539103815426518,end_ns=539103819630742
+10-01 14:06:36.880 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.887 30423 30486 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.893 30423 30486 I ArtiGate: OLD_REFUSED,pause_root_26,port=37417,errno=111
+10-01 14:06:36.896 30423 30486 I ArtiGate: OLD_REFUSED,pause_session_26,port=42839,errno=111
+10-01 14:06:36.902 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:37137
+10-01 14:06:36.914 30423 30462 I ArtiGate: LOCAL_PASS,resume_root_26,port=37137,at_ns=539103851226527,end_ns=539103855623662
+10-01 14:06:36.915 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.918 30423 30462 I ArtiGate: LOCAL_PASS,resume_session_26,port=37299,at_ns=539103858086471,end_ns=539103860958948
+10-01 14:06:36.920 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.922 30423 30462 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.926 30423 30462 I ArtiGate: OLD_REFUSED,pause_root_27,port=37137,errno=111
+10-01 14:06:36.929 30423 30462 I ArtiGate: OLD_REFUSED,pause_session_27,port=37299,errno=111
+10-01 14:06:36.933 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:39283
+10-01 14:06:36.941 30423 30461 I ArtiGate: LOCAL_PASS,resume_root_27,port=39283,at_ns=539103881284551,end_ns=539103883749679
+10-01 14:06:36.944 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.946 30423 30461 I ArtiGate: LOCAL_PASS,resume_session_27,port=39807,at_ns=539103885307541,end_ns=539103889184087
+10-01 14:06:36.949 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.952 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.953 30423 30461 I ArtiGate: OLD_REFUSED,pause_root_28,port=39283,errno=111
+10-01 14:06:36.956 30423 30461 I ArtiGate: OLD_REFUSED,pause_session_28,port=39807,errno=111
+10-01 14:06:36.960 30423 30478 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:43153
+10-01 14:06:36.969 30423 30462 I ArtiGate: LOCAL_PASS,resume_root_28,port=43153,at_ns=539103908647710,end_ns=539103911788823
+10-01 14:06:36.971 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:36.974 30423 30462 I ArtiGate: LOCAL_PASS,resume_session_28,port=43293,at_ns=539103913519048,end_ns=539103916905197
+10-01 14:06:36.977 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:36.979 30423 30462 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:36.983 30423 30462 I ArtiGate: OLD_REFUSED,pause_root_29,port=43153,errno=111
+10-01 14:06:36.986 30423 30462 I ArtiGate: OLD_REFUSED,pause_session_29,port=43293,errno=111
+10-01 14:06:36.991 30423 30474 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS listening on 127.0.0.1:41957
+10-01 14:06:37.002 30423 30482 I ArtiGate: LOCAL_PASS,resume_root_29,port=41957,at_ns=539103940210576,end_ns=539103944326461
+10-01 14:06:37.004 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,socks conn error: early eof
+10-01 14:06:37.008 30423 30482 I ArtiGate: LOCAL_PASS,resume_session_29,port=32865,at_ns=539103946510543,end_ns=539103949947637
+10-01 14:06:37.010 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,session=sess-0000000000000065 conn error: early eof
+10-01 14:06:37.014 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS shutdown signal
+10-01 14:06:37.017 30423 30477 I ArtiGate: DIAGNOSTIC_PUBLIC_LOG,SOCKS paused; TorClient retained
+10-01 14:06:37.039 30423 30482 I ArtiGate: GATE_FAILED,java.lang.IllegalStateException,old listener still accepts: pause_root_30 port=41957
+10-01 14:06:37.039 30423 30482 I ArtiGate: java.lang.IllegalStateException: old listener still accepts: pause_root_30 port=41957
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at g9.d(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:49)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at f9.e(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:87)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at p2.k(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:8)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at m9.u(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:7)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at c.k(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:23)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at p2.k(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:87)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at y3.run(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:116)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at n7.run(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:4)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at va.run(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:3)
+10-01 14:06:37.039 30423 30482 I ArtiGate: 	at c3.run(r8-map-id-8f8ffcede2acda4845b5c7167c15a8f8f2628c6e3876a0d74a74b83250b305a3:87)
+10-01 14:08:05.658 30423 30423 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false

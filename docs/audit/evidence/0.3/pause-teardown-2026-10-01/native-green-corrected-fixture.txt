@@ -1,0 +1,23 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.24s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 5 tests
+test engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling ... ok
+test engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid ... ok
+test engine::tests::teardown::root_pause_closes_tcp_while_callback_held ... ROOT_TEARDOWN_PASS,iteration=0,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=1,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=2,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=3,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=4,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=5,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=6,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=7,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=8,old_tcp_refused=true,callback_still_held=true
+ROOT_TEARDOWN_PASS,iteration=9,old_tcp_refused=true,callback_still_held=true
+ok
+test engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held ... ok
+test engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 97 filtered out; finished in 0.12s
+

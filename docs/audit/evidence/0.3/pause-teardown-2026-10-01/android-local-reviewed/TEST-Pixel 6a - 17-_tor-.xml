@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="1" failures="0" errors="0" skipped="0" time="41.89" timestamp="2026-10-01T11:22:58" hostname="localhost">
+  <testsuite name="com.yet.tor.AndroidPauseTeardownProbe" tests="1" failures="0" errors="0" skipped="0" time="40.088" timestamp="2026-10-01T11:22:58" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel 6a - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":tor" />
+    </properties>
+    <testcase name="hundredLocalPauseCycles" classname="com.yet.tor.AndroidPauseTeardownProbe" time="40.088" />
+  </testsuite>
+</testsuites>

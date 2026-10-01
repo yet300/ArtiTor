@@ -1,0 +1,5 @@
+{
+  "docs/audit/ARTITOR_0_3_FINAL_INDEPENDENT_REVIEW.md": "398282328879b4c1e1d7e86ce7b528e8db6fcedfee23a99c0b13114033a4c1d0",
+  "docs/audit/ARTITOR_0_3_PHASE2_INDEPENDENT_AUDIT.md": "62f307ee2634c798ec0954cbb3cbc09fddbfa5e471d547f6208538ef7adf23ff",
+  "tor/src/iosTest/kotlin/com/yet/tor/IndependentReplacementAuditProbe.kt": "ae001570f073fe64dd650b3d76265af365032023ee4e7728b4cdf5b91ee6e32b"
+}

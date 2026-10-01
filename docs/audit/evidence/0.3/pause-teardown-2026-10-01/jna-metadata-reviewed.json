@@ -1,0 +1,238 @@
+{
+  "apk": "/private/tmp/artitor-pause-consumer-reviewed/app/build/outputs/apk/release/app-release.apk",
+  "inventory_count": 18,
+  "checked_count": 17,
+  "structures": [
+    {
+      "original": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceSessionStatusListenerStruct",
+      "mapped": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceSessionStatusListenerStruct",
+      "field_order": [
+        "uniffiFree",
+        "uniffiClone",
+        "onSessionStatus"
+      ],
+      "fields": [
+        "onSessionStatus",
+        "uniffiClone",
+        "uniffiFree"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceStatusListenerStruct",
+      "mapped": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceStatusListenerStruct",
+      "field_order": [
+        "uniffiFree",
+        "uniffiClone",
+        "onStatus",
+        "onLog",
+        "onError"
+      ],
+      "fields": [
+        "onError",
+        "onLog",
+        "onStatus",
+        "uniffiClone",
+        "uniffiFree"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.ForeignBytesStruct",
+      "mapped": "uniffi.runtime.e",
+      "field_order": [
+        "len",
+        "data"
+      ],
+      "fields": [
+        "data",
+        "len"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.RustBufferStruct",
+      "mapped": "uniffi.runtime.h",
+      "field_order": [
+        "capacity",
+        "len",
+        "data"
+      ],
+      "fields": [
+        "capacity",
+        "data",
+        "len"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultF32Struct",
+      "mapped": "uniffi.runtime.j",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultF64Struct",
+      "mapped": "uniffi.runtime.k",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI16Struct",
+      "mapped": "uniffi.runtime.l",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI32Struct",
+      "mapped": "uniffi.runtime.m",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI64Struct",
+      "mapped": "uniffi.runtime.n",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI8Struct",
+      "mapped": "uniffi.runtime.o",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultRustBufferStruct",
+      "mapped": "uniffi.runtime.p",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU16Struct",
+      "mapped": "uniffi.runtime.q",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU32Struct",
+      "mapped": "uniffi.runtime.r",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU64Struct",
+      "mapped": "uniffi.runtime.s",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU8Struct",
+      "mapped": "uniffi.runtime.t",
+      "field_order": [
+        "returnValue",
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultVoidStruct",
+      "mapped": "uniffi.runtime.u",
+      "field_order": [
+        "callStatus"
+      ],
+      "fields": [
+        "callStatus"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiRustCallStatusStruct",
+      "mapped": "uniffi.runtime.x",
+      "field_order": [
+        "code",
+        "errorBuf"
+      ],
+      "fields": [
+        "code",
+        "errorBuf"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    }
+  ],
+  "failures": [],
+  "pass": true
+}

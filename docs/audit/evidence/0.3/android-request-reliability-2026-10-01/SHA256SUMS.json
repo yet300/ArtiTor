@@ -1,0 +1,17 @@
+{
+  "README.md": "0d3c09095bb34534b49d9dcdea167492f7a1b686b64f70858160d740ee3c2ed1",
+  "artifact-provenance.json": "947e4d095c23a1d32dd15334807f08665d4889d2481a21dd10337e546a017828",
+  "confirmation-process-logcat.txt": "809bd876dacc2beb262b6cf9659298ae5a44f10d3ad0e525e0975d5bb2f7c9c7",
+  "confirmation.txt": "155bf3da389967d7f96a24158571c92ea432cfdd90bcacdb524a8cb692b2c6e3",
+  "evidence-summary.json": "216fea2f966e9fc439819972aedafcbed5a1728fa15775bbe8a97245eea0e2cb",
+  "instrumentation-recovered-first.xml": "1cafd2f7761dbeb1efaa6df8d1952091d674475c063621bd29ce94e2aa236ab8",
+  "instrumentation-results.json": "0b31a3efd0da34810ad540141e77b4c7c477e8f82647ebf8c397ab54abf184b6",
+  "instrumentation-safe-stage-evidence.txt": "9673c797705c2046f70d0cccdb4507e71d76fb9623fd78a5861fc3d26be53d75",
+  "interrupted-first-process-logcat.txt": "3ed710e8acc3359cb16e856c6d024a8c7ac9b46d9ad887d8fe6bf010dc34ce12",
+  "offline-reproducer-output.txt": "2212d28522c4661300d2d31a5bc45c7ba6a941db3d2df6eda9ac727eebe3cb5e",
+  "offline_pause_reproducer.rs": "2d2cf6867cf40dc0772c33768336f7ce6382663c44fe9a9f6d5b3dd6cdd6ee26",
+  "reconnected-first-process-logcat.txt": "99291bc9d5eac533d4f5d7b795001bc6d75272498f73dc34c818228a75fe96ee",
+  "reconnected-first.txt": "cd1995b7d2157f1c6689ee3dcd72e6f0cf2fe34114716970d9c692e320a47556",
+  "tooling-first-failures.txt": "d85870100347cb008e6c1a6b6ebba1622e44d694a61f99d3904ebe76283787a3",
+  "unintended-old-fixture-incomplete.txt": "5541f2042bb6be53dbecebc4da682ce4149a39cb3ae0c9c871435260ef852b21"
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-10-01T10:49:52.488Z" hostname="Mac.lan" time="0.0">
+  <properties/>
+  <testcase name="bindDetailMapsToBindWithPort[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest" time="0.0"/>
+  <testcase name="bootstrapDetailMapsToBootstrap[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest" time="0.0"/>
+  <testcase name="configDetailMapsToConfig[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest" time="0.0"/>
+  <testcase name="runtimeDetailMapsToRuntime[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest" time="0.0"/>
+  <testcase name="alreadyRunningAndNotRunningMap[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest" time="0.0"/>
+  <testcase name="kindDrivesTypeNeverMessageText[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

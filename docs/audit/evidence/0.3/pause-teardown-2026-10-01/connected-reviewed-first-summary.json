@@ -1,0 +1,29 @@
+[
+  {
+    "file": "TEST-Pixel 6a - 17-_tor-.xml",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "182.74",
+    "timestamp": "2026-10-01T11:42:12",
+    "hostname": "localhost",
+    "cases": [
+      {
+        "name": "bootstrapFetchPauseResume",
+        "classname": "com.yet.tor.TorE2ETest",
+        "time": "50.589"
+      },
+      {
+        "name": "integratedIsolationOnionAndTransactionalLifecycle",
+        "classname": "com.yet.tor.TorE2ETest",
+        "time": "90.777"
+      },
+      {
+        "name": "resumePublicationAndAsyncBindError",
+        "classname": "com.yet.tor.AndroidGateResumeProbe",
+        "time": "40.054"
+      }
+    ]
+  }
+]

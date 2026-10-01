@@ -1,0 +1,19 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.56s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 1 test
+
+thread 'engine::tests::teardown::fixed_port_resume_log_held_pause_and_shutdown_close_tcp' (1986902) panicked at src/engine/../tests/teardown.rs:122:5:
+old TCP listener must refuse immediately after teardown returns: port=58398, result=Ok(TcpStream { addr: 127.0.0.1:58400, peer: 127.0.0.1:58398, fd: 13 })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test engine::tests::teardown::fixed_port_resume_log_held_pause_and_shutdown_close_tcp ... FAILED
+
+failures:
+
+failures:
+    engine::tests::teardown::fixed_port_resume_log_held_pause_and_shutdown_close_tcp
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 104 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `--lib`

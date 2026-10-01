@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="3" failures="0" errors="0" skipped="0" time="188.926" timestamp="2026-10-01T11:12:42" hostname="localhost">
+  <testsuite name="com.yet.tor.TorE2ETest" tests="2" failures="0" errors="0" skipped="0" time="161.232" timestamp="2026-10-01T11:12:42" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel 6a - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":tor" />
+    </properties>
+    <testcase name="bootstrapFetchPauseResume" classname="com.yet.tor.TorE2ETest" time="48.393" />
+    <testcase name="integratedIsolationOnionAndTransactionalLifecycle" classname="com.yet.tor.TorE2ETest" time="112.839" />
+  </testsuite>
+  <testsuite name="com.yet.tor.AndroidGateResumeProbe" tests="1" failures="0" errors="0" skipped="0" time="26.667" timestamp="2026-10-01T11:12:42" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel 6a - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":tor" />
+    </properties>
+    <testcase name="resumePublicationAndAsyncBindError" classname="com.yet.tor.AndroidGateResumeProbe" time="26.667" />
+  </testsuite>
+</testsuites>

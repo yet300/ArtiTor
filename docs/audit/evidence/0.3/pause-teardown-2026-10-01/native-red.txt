@@ -1,0 +1,39 @@
+   Compiling arti-kmp-ffi v0.3.0 (/Users/yet/development/Multiplatform/ArtiTor/rust/arti-kmp-ffi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.83s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 5 tests
+test engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling ... 
+thread 'engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling' (1926679) panicked at src/engine/../tests/teardown.rs:79:5:
+old TCP listener must refuse immediately after teardown returns: port=55888, result=Ok(TcpStream { addr: 127.0.0.1:55891, peer: 127.0.0.1:55888, fd: 15 })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid ... 
+thread 'engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid' (1926684) panicked at src/engine/../tests/teardown.rs:79:5:
+old TCP listener must refuse immediately after teardown returns: port=55894, result=Ok(TcpStream { addr: 127.0.0.1:55895, peer: 127.0.0.1:55894, fd: 12 })
+FAILED
+test engine::tests::teardown::root_pause_closes_tcp_while_callback_held ... 
+thread 'engine::tests::teardown::root_pause_closes_tcp_while_callback_held' (1926687) panicked at src/engine/../tests/teardown.rs:79:5:
+old TCP listener must refuse immediately after teardown returns: port=55898, result=Ok(TcpStream { addr: 127.0.0.1:55899, peer: 127.0.0.1:55898, fd: 15 })
+FAILED
+test engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held ... 
+thread 'engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held' (1926690) panicked at src/engine/../tests/teardown.rs:79:5:
+old TCP listener must refuse immediately after teardown returns: port=55900, result=Ok(TcpStream { addr: 127.0.0.1:55903, peer: 127.0.0.1:55900, fd: 15 })
+FAILED
+test engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held ... 
+thread 'engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held' (1926693) panicked at src/engine/../tests/teardown.rs:79:5:
+old TCP listener must refuse immediately after teardown returns: port=55906, result=Ok(TcpStream { addr: 127.0.0.1:55907, peer: 127.0.0.1:55906, fd: 15 })
+FAILED
+
+failures:
+
+failures:
+    engine::tests::teardown::close_closes_tcp_without_affecting_root_or_sibling
+    engine::tests::teardown::restart_keeps_stale_tcp_closed_and_handles_invalid
+    engine::tests::teardown::root_pause_closes_tcp_while_callback_held
+    engine::tests::teardown::session_pause_closes_tcp_while_runtime_callback_held
+    engine::tests::teardown::shutdown_closes_root_and_session_tcp_while_callback_held
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 97 filtered out; finished in 0.09s
+
+error: test failed, to rerun pass `--lib`

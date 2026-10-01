@@ -1,0 +1,22 @@
+{
+  "first_diagnostic_installed_apk": {
+    "bytes": 8931100,
+    "sha256": "d69ae3622fe57467d03e0910d5670c661b69db1a68cc00ffa97b769b093cfab9",
+    "arm64_arti_sha256": "8dab245aede46d9ef52f6e8cd3b1831b74f92e2f6c4295663afe2620addd334a"
+  },
+  "confirmation_built_apk": {
+    "bytes": 8931100,
+    "sha256": "da5381adc637819a8eec8843c951d67a972fd7b5a01cb766a01efd874f04b8a1",
+    "arm64_arti_sha256": "8dab245aede46d9ef52f6e8cd3b1831b74f92e2f6c4295663afe2620addd334a"
+  },
+  "maven_android_aar": {
+    "bytes": 10826099,
+    "sha256": "ba9c3d9b502d107e2a3a60c110ee26e5129487b5db2e4528b83427a764065454",
+    "arm64_arti_sha256": "59e4acebef0d584c6d41e221c1d8d150d8533e6865f244466baedd5f3c776ffb"
+  },
+  "confirmation_installed_apk": {
+    "bytes": 8931100,
+    "sha256": "da5381adc637819a8eec8843c951d67a972fd7b5a01cb766a01efd874f04b8a1",
+    "equals_built": true
+  }
+}

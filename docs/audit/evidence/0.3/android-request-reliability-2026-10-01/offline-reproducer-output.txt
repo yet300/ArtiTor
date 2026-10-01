@@ -1,0 +1,28 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.46s
+     Running unittests src/lib.rs (rust/arti-kmp-ffi/target/debug/deps/arti_kmp_ffi-444c62e45db63485)
+
+running 1 test
+test engine::tests::offline_pause_reproducer::deterministically_reproduces_pause_tcp_teardown_gap ... DEFECT_REPRODUCED,iteration=0,state=PAUSED,bound_port=0,old_port=55438,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=0,old_port_refused=true
+DEFECT_REPRODUCED,iteration=1,state=PAUSED,bound_port=0,old_port=55442,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=1,old_port_refused=true
+DEFECT_REPRODUCED,iteration=2,state=PAUSED,bound_port=0,old_port=55446,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=2,old_port_refused=true
+DEFECT_REPRODUCED,iteration=3,state=PAUSED,bound_port=0,old_port=55450,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=3,old_port_refused=true
+DEFECT_REPRODUCED,iteration=4,state=PAUSED,bound_port=0,old_port=55454,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=4,old_port_refused=true
+DEFECT_REPRODUCED,iteration=5,state=PAUSED,bound_port=0,old_port=55458,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=5,old_port_refused=true
+DEFECT_REPRODUCED,iteration=6,state=PAUSED,bound_port=0,old_port=55462,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=6,old_port_refused=true
+DEFECT_REPRODUCED,iteration=7,state=PAUSED,bound_port=0,old_port=55466,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=7,old_port_refused=true
+DEFECT_REPRODUCED,iteration=8,state=PAUSED,bound_port=0,old_port=55471,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=8,old_port_refused=true
+DEFECT_REPRODUCED,iteration=9,state=PAUSED,bound_port=0,old_port=55475,tcp_connected=true,socks_greeting=timeout,worker_revision=1->2,session=PAUSED/null
+AFTER_CALLBACK_RELEASE,iteration=9,old_port_refused=true
+ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 97 filtered out; finished in 1.11s
+

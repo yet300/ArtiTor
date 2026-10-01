@@ -1,0 +1,43 @@
+{
+  "suite": {
+    "tests": "3",
+    "failures": "2",
+    "errors": "0",
+    "skipped": "0",
+    "time": "107.706",
+    "timestamp": "2026-10-01T10:21:55",
+    "hostname": "localhost"
+  },
+  "tests": [
+    {
+      "name": "resumePublicationAndAsyncBindError",
+      "seconds": "23.11",
+      "outcome": "PASS",
+      "failure": null,
+      "test_callsite": [],
+      "socks_connect_lines": []
+    },
+    {
+      "name": "bootstrapFetchPauseResume",
+      "seconds": "23.269",
+      "outcome": "FAIL",
+      "failure": "javax.net.ssl.SSLHandshakeException: connection closed",
+      "test_callsite": [
+        "65"
+      ],
+      "socks_connect_lines": []
+    },
+    {
+      "name": "integratedIsolationOnionAndTransactionalLifecycle",
+      "seconds": "60.21",
+      "outcome": "FAIL",
+      "failure": "java.net.SocketTimeoutException: Connect timed out",
+      "test_callsite": [
+        "162"
+      ],
+      "socks_connect_lines": [
+        "510"
+      ]
+    }
+  ]
+}

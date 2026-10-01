@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-10-01T10:49:52.484Z" hostname="Mac.lan" time="0.001">
+  <properties/>
+  <testcase name="identicalConfigNeedsNoNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="socksPortOnlyNeedsNoNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="dataDirChangeNeedsNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="stateDirChangeNeedsNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="cacheDirChangeNeedsNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="bridgesEmptyToNonEmptyNeedsNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="bridgesNonEmptyToEmptyNeedsNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="sameBridgesNeedNoNewClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.001"/>
+  <testcase name="bridgeDefaultsPreserveExistingCallers[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="bridgeIdentityUsesExactLinesAndEveryMode[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="onionAndTimeoutDefaultsAndIdentity[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <testcase name="identityParity512Cases[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

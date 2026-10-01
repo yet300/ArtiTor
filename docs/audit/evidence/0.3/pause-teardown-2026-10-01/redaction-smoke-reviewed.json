@@ -1,0 +1,11 @@
+{
+  "pid": 11736,
+  "process_lines": 1240,
+  "control": true,
+  "synthetic_marker_counts": {
+    "192.0.2.231": 0,
+    "F00DF00DF00DF00DF00DF00DF00DF00DF00DF00D": 0,
+    "SYNTHETIC_RELIABILITY_TRANSPORT_SECRET": 0
+  },
+  "preserved_excerpt_lines": 60
+}

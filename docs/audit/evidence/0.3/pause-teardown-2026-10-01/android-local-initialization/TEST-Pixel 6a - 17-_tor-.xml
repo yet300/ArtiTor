@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="1" failures="1" errors="0" skipped="0" time="0.732" timestamp="2026-10-01T10:53:12" hostname="localhost">
+  <testsuite name="com.yet.tor.AndroidPauseTeardownProbe" tests="1" failures="1" errors="0" skipped="0" time="0.009" timestamp="2026-10-01T10:53:12" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel 6a - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":tor" />
+    </properties>
+    <testcase name="initializationError" classname="com.yet.tor.AndroidPauseTeardownProbe" time="0.009">
+      <failure>org.junit.runners.model.InvalidTestClassError: Invalid test class 'com.yet.tor.AndroidPauseTeardownProbe':
+1. Method hundredLocalPauseCycles() should be void
+at org.junit.runners.ParentRunner.validate(ParentRunner.java:525)
+at org.junit.runners.ParentRunner.&lt;init&gt;(ParentRunner.java:92)
+at org.junit.runners.BlockJUnit4ClassRunner.&lt;init&gt;(BlockJUnit4ClassRunner.java:74)
+at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.&lt;init&gt;(AndroidJUnit4ClassRunner.java:50)
+at androidx.test.internal.runner.junit4.AndroidJUnit4Builder.runnerForClass(AndroidJUnit4Builder.java:81)
+at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)
+at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:37)
+at androidx.test.internal.runner.AndroidRunnerBuilder.runnerForClass(AndroidRunnerBuilder.java:152)
+at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)
+at androidx.test.internal.runner.DirectTestLoader.doCreateRunner(DirectTestLoader.java:45)
+at androidx.test.internal.runner.TestLoader.getRunnersFor(TestLoader.java:64)
+at androidx.test.internal.runner.TestRequestBuilder.build(TestRequestBuilder.java:842)
+at androidx.test.runner.AndroidJUnitRunner.buildRequest(AndroidJUnitRunner.java:663)
+at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:437)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)
+</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
