@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-01T07:33:23.546Z" hostname="Mac.lan" time="0.0">
+  <properties/>
+  <testcase name="legacyConstructorsKeepDefaultKinds[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest" time="0.0"/>
+  <testcase name="classificationIsIndependentOfMisleadingMessageAndOuterClass[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest" time="0.0"/>
+  <testcase name="synchronousTransportKeepsClassAndCategory[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest" time="0.0"/>
+  <testcase name="terminalCategoriesUseExistingRuntimeClass[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest" time="0.0"/>
+  <testcase name="unknownRemainsUnknown[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

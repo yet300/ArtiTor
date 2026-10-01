@@ -1,0 +1,203 @@
+JNA_VERSION,arti-kmp-ffi 0.3.0 (arti-client 0.46, rustls)
+STATUS,OFF,bootstrap=0,port=null,kind=null
+RESOURCE,process_before_start,sessions=0,listeners=0,fd=134,threads=35,VmRSS:	  107720 kB,pss_kb=34428
+STATUS,STARTING,bootstrap=0,port=null,kind=null
+PUBLIC_LOG,starting arti: socks_port=0
+PUBLIC_LOG,config built; creating unbootstrapped client
+PUBLIC_LOG,INFO [tor_memquota::mtracker]
+PUBLIC_LOG,client created; starting bootstrap
+STATUS,BOOTSTRAPPING,bootstrap=0,port=null,kind=null
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,bootstrap() returned: ok=true
+PUBLIC_LOG,bootstrap complete
+PUBLIC_LOG,SOCKS listening on 127.0.0.1:40507
+STATUS,RUNNING,bootstrap=100,port=40507,kind=null
+TIMING,cold_ms=8647
+PASS,bootstrap100
+REQUEST,root_first_cold,proxy_port=40507
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_guardmgr::guard]
+PASS,HTTP,root_first_cold,status=200
+RESOURCE,loaded_root_only,sessions=0,listeners=1,fd=149,threads=52,VmRSS:	  140640 kB,pss_kb=65000
+SESSION,A,ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=45859)
+SESSION,B,ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=33883)
+PASS,distinct_root_A_B
+REQUEST,A_first_cold,proxy_port=45859
+PASS,HTTP,A_first_cold,status=200
+REQUEST,B_first_cold,proxy_port=33883
+PASS,HTTP,B_first_cold,status=200
+SESSION,A,CLOSED,endpoint=null
+PASS,A_CLOSED
+PASS,listener_dead,closed_A
+REQUEST,root_after_A_close,proxy_port=40507
+PASS,HTTP,root_after_A_close,status=200
+REQUEST,B_after_A_close,proxy_port=33883
+PASS,HTTP,B_after_A_close,status=200
+RESOURCE,loaded_root_plus_1,sessions=1,listeners=2,fd=151,threads=51,VmRSS:	  137472 kB,pss_kb=61875
+REQUEST,capacity_used_extra,proxy_port=42061
+PASS,HTTP,capacity_used_extra,status=200
+RESOURCE,loaded_root_plus_8_two_used,sessions=8,listeners=9,fd=158,threads=51,VmRSS:	  139156 kB,pss_kb=62419
+RESOURCE,root_plus_1_used,sessions=1,listeners=2,fd=151,threads=52,VmRSS:	  139332 kB,pss_kb=62669
+PASS,unique_endpoints_1
+PUBLIC_LOG,INFO [tor_guardmgr::guard]
+RESOURCE,listeners_1_B_used,sessions=1,listeners=2,fd=151,threads=52,VmRSS:	  139464 kB,pss_kb=62589
+RESOURCE,listeners_1_B_used,sessions=1,listeners=2,fd=151,threads=52,VmRSS:	  139464 kB,pss_kb=62621
+RESOURCE,listeners_1_B_used,sessions=1,listeners=2,fd=151,threads=52,VmRSS:	  139712 kB,pss_kb=62653
+PASS,unique_endpoints_8
+RESOURCE,listeners_8_B_used,sessions=8,listeners=9,fd=157,threads=52,VmRSS:	  139136 kB,pss_kb=61606
+RESOURCE,listeners_8_B_used,sessions=8,listeners=9,fd=157,threads=52,VmRSS:	  139136 kB,pss_kb=61638
+RESOURCE,listeners_8_B_used,sessions=8,listeners=9,fd=157,threads=52,VmRSS:	  139388 kB,pss_kb=61670
+PASS,unique_endpoints_16
+RESOURCE,listeners_16_B_used,sessions=16,listeners=17,fd=165,threads=52,VmRSS:	  138788 kB,pss_kb=61386
+RESOURCE,listeners_16_B_used,sessions=16,listeners=17,fd=165,threads=52,VmRSS:	  138788 kB,pss_kb=61418
+RESOURCE,listeners_16_B_used,sessions=16,listeners=17,fd=165,threads=52,VmRSS:	  138788 kB,pss_kb=61450
+PASS,unique_endpoints_32
+RESOURCE,listeners_32_B_used,sessions=32,listeners=33,fd=181,threads=52,VmRSS:	  139300 kB,pss_kb=62058
+RESOURCE,listeners_32_B_used,sessions=32,listeners=33,fd=181,threads=52,VmRSS:	  139300 kB,pss_kb=62090
+RESOURCE,listeners_32_B_used,sessions=32,listeners=33,fd=181,threads=52,VmRSS:	  139556 kB,pss_kb=62126
+PASS,33rd_public_Runtime
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+PASS,listener_dead,idle_closed
+RESOURCE,after_31_close_B_retained,sessions=1,listeners=2,fd=150,threads=52,VmRSS:	  140916 kB,pss_kb=63381
+REQUEST,remaining_before_pause,proxy_port=33883
+PASS,HTTP,remaining_before_pause,status=200
+SESSION,B,PAUSED,endpoint=null
+STATUS,PAUSED,bootstrap=100,port=null,kind=null
+PUBLIC_LOG,SOCKS paused; TorClient retained
+PASS,pause_retains_client
+PASS,session_PAUSED
+PASS,listener_dead,paused_root
+PASS,listener_dead,paused_session
+TIMING,pause_ms=1023
+PUBLIC_LOG,SOCKS listening on 127.0.0.1:46853
+STATUS,RUNNING,bootstrap=100,port=46853,kind=null
+SESSION,B,ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=39405)
+TIMING,resume_ms=6
+PASS,resume_root_ready
+PASS,resume_no_bootstrap
+PASS,resume_ACTIVE
+REQUEST,remaining_after_resume,proxy_port=39405
+PASS,HTTP,remaining_after_resume,status=200
+REQUEST,onion_positive,proxy_port=39405
+PASS,HTTP,onion_positive,status=200
+PASS,malformed_Config_AUTO
+PASS,replacement_preserved_AUTO
+PASS,malformed_Config_ON
+PASS,replacement_preserved_ON
+PASS,malformed_Config_OFF
+PASS,replacement_preserved_OFF
+PASS,ON_empty_Config
+REQUEST,root_after_invalid_configs,proxy_port=46853
+PASS,HTTP,root_after_invalid_configs,status=200
+REQUEST,session_after_invalid_configs,proxy_port=39405
+PASS,HTTP,session_after_invalid_configs,status=200
+REQUEST,malformed_onion,proxy_port=46853
+PASS,SOCKS_rejected,malformed_onion,code=5
+PUBLIC_LOG,socks conn error: SOCKS CONNECT failed (code=5, arti_kind=InvalidStreamTarget)
+PASS,malformed_onion_TargetRejected
+RESOURCE,before_shutdown,sessions=1,listeners=2,fd=150,threads=54,VmRSS:	  141436 kB,pss_kb=64129
+SESSION,B,INVALIDATED,endpoint=null
+STATUS,OFF,bootstrap=0,port=null,kind=null
+PASS,shutdown_no_client
+PASS,shutdown_INVALIDATED
+PASS,listener_dead,shutdown_root
+PASS,listener_dead,shutdown_session
+RESOURCE,after_shutdown,sessions=0,listeners=0,fd=139,threads=46,VmRSS:	  132760 kB,pss_kb=54717
+STATUS,STARTING,bootstrap=0,port=null,kind=null
+PUBLIC_LOG,starting arti: socks_port=0
+PUBLIC_LOG,config built; creating unbootstrapped client
+PUBLIC_LOG,INFO [tor_memquota::mtracker]
+PUBLIC_LOG,client created; starting bootstrap
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,bootstrap() returned: ok=true
+PUBLIC_LOG,bootstrap complete
+PUBLIC_LOG,SOCKS listening on 127.0.0.1:37949
+STATUS,RUNNING,bootstrap=100,port=37949,kind=null
+TIMING,restart_ms=7346
+SESSION,fresh,ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=34877)
+PASS,old_handles_terminal
+REQUEST,fresh_root_restart,proxy_port=37949
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_guardmgr::guard]
+PASS,HTTP,fresh_root_restart,status=200
+REQUEST,fresh_session_restart,proxy_port=34877
+PASS,HTTP,fresh_session_restart,status=200
+SESSION,fresh,INVALIDATED,endpoint=null
+STATUS,OFF,bootstrap=0,port=null,kind=null
+STATUS,STARTING,bootstrap=0,port=null,kind=null
+PUBLIC_LOG,starting arti: socks_port=0
+PUBLIC_LOG,config built; creating unbootstrapped client
+PUBLIC_LOG,INFO [tor_memquota::mtracker]
+PUBLIC_LOG,client created; starting bootstrap
+STATUS,BOOTSTRAPPING,bootstrap=0,port=null,kind=null
+PUBLIC_LOG,INFO [arti_client::client]
+PUBLIC_LOG,INFO [tor_circmgr]
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,bootstrap() returned: ok=true
+PUBLIC_LOG,bootstrap complete
+PUBLIC_LOG,SOCKS listening on 127.0.0.1:35781
+STATUS,RUNNING,bootstrap=100,port=35781,kind=null
+PASS,policy_rebuild_invalidates
+REQUEST,disabled_onion,proxy_port=35781
+PUBLIC_LOG,socks conn error: SOCKS CONNECT failed (code=5, arti_kind=ForbiddenStreamTarget)
+PASS,SOCKS_rejected,disabled_onion,code=5
+PUBLIC_LOG,INFO [tor_dirmgr]
+PUBLIC_LOG,INFO [tor_dirmgr]
+PASS,disabled_onion_TargetRejected
+REQUEST,clearnet_after_policy,proxy_port=35781
+PUBLIC_LOG,INFO [tor_guardmgr::guard]
+PASS,HTTP,clearnet_after_policy,status=200
+SESSION,error_session,ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=32891)
+SESSION,error_session,PAUSED,endpoint=null
+STATUS,PAUSED,bootstrap=100,port=null,kind=null
+PUBLIC_LOG,SOCKS paused; TorClient retained
+STATUS,ERROR,bootstrap=100,port=null,kind=BIND
+STATUS,ERROR,bootstrap=100,port=null,kind=BIND
+PUBLIC_LOG,ERROR: failed to bind SOCKS on port 46641: Address already in use (os error 98)
+PASS,async_error_public_Bind
+PASS,async_error_StateFlow_Bind
+PASS,async_error_session_demoted
+SESSION,error_session,INVALIDATED,endpoint=null
+STATUS,OFF,bootstrap=0,port=null,kind=null
+RESOURCE,final_shutdown,sessions=0,listeners=0,fd=139,threads=46,VmRSS:	  135880 kB,pss_kb=58313
+PASS,async_error_session_invalidated
+PASS,status_history
+PASS,session_history
+PASS,public_logs_callback
+PASS,bridge_redacted
+NATIVE_MAPS,
+GATE_COMPLETED,PASS

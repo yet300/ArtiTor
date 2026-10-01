@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest" tests="2" skipped="0" failures="1" errors="0" timestamp="2026-10-01T07:33:42.616Z" hostname="Mac.lan" time="119.187">
+  <properties/>
+  <testcase name="liveTwoSessionsLifecycle[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest" time="96.355">
+    <failure message="kotlin.IllegalStateException: kotlin.IllegalStateException: recv failed (eof)" type="kotlin.IllegalStateException">kotlin.IllegalStateException: recv failed (eof)
+	at kotlin.Throwable#&lt;init&gt;(Unknown Source)
+	at kotlin.Exception#&lt;init&gt;(Unknown Source)
+	at kotlin.RuntimeException#&lt;init&gt;(Unknown Source)
+	at kotlin.IllegalStateException#&lt;init&gt;(Unknown Source)
+	at com.yet.tor.readN#internal(/Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:280)
+	at com.yet.tor.socksHttpGet#internal(/Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:242)
+	at com.yet.tor.TorIosE2ETest.TorIosE2ETest$liveTwoSessionsLifecycle$1.TorIosE2ETest$liveTwoSessionsLifecycle$1$invoke$2.$invokeCOROUTINE$0.invokeSuspend#internal(/Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:94)
+	at kotlin.coroutines.native.internal.BaseContinuationImpl#invokeSuspend(Unknown Source)
+	at kotlin.coroutines.native.internal.BaseContinuationImpl#resumeWith(Unknown Source)
+	at kotlin.coroutines.Continuation#resumeWith(Unknown Source)
+	at kotlinx.coroutines.internal.ScopeCoroutine#afterResume(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/common/src/internal/Scopes.kt:35)
+	at kotlinx.coroutines.AbstractCoroutine#afterResume(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/common/src/AbstractCoroutine.kt:113)
+	at kotlinx.coroutines.AbstractCoroutine#resumeWith(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/common/src/AbstractCoroutine.kt:101)
+	at kotlin.coroutines.Continuation#resumeWith(Unknown Source)
+	at kotlin.coroutines.native.internal.BaseContinuationImpl#resumeWith(Unknown Source)
+	at kotlin.coroutines.Continuation#resumeWith(Unknown Source)
+	at kotlinx.coroutines.DispatchedTask#run(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/common/src/internal/DispatchedTask.kt:98)
+	at kotlinx.coroutines.Runnable#run(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/native/src/Runnable.kt:12)
+	at kotlinx.coroutines.EventLoopImplBase#processNextEvent(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/common/src/EventLoop.common.kt:256)
+	at kotlinx.coroutines.EventLoop#processNextEvent(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/common/src/EventLoop.common.kt:49)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking#internal(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/native/src/Builders.kt:79)
+	at kotlinx.coroutines#runBlockingImpl(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/native/src/Builders.kt:15)
+	at kotlinx.coroutines#runBlocking(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/concurrent/src/Builders.concurrent.kt:172)
+	at kotlinx.coroutines#runBlocking$default(/opt/buildAgent/work/44ec6e850d5c63f0/kotlinx-coroutines-core/concurrent/src/Builders.concurrent.kt:157)
+	at com.yet.tor.TorIosE2ETest#liveTwoSessionsLifecycle(/Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:51)
+	at com.yet.tor.$TorIosE2ETest$test$2.$TorIosE2ETest$test$2$$FUNCTION_REFERENCE_FOR$liveTwoSessionsLifecycle$0.invoke#internal(/Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:51)
+	at com.yet.tor.$TorIosE2ETest$test$2.$TorIosE2ETest$test$2$$FUNCTION_REFERENCE_FOR$liveTwoSessionsLifecycle$0.$&lt;bridge-DNC&gt;invoke(/Users/yet/development/Multiplatform/ArtiTor/tor/src/iosTest/kotlin/com/yet/tor/TorIosE2ETest.kt:51)
+	at kotlin.Function1#invoke(Unknown Source)
+	at kotlin.native.internal.test.BaseClassSuite.TestCase#doRun(Unknown Source)
+	at kotlin.native.internal.test.TestCase#doRun(Unknown Source)
+	at kotlin.native.internal.test.TestCase#run(Unknown Source)
+	at kotlin.native.internal.test.TestCase#run(Unknown Source)
+	at kotlin.native.internal.test.TestRunner.kotlin.native.internal.test.TestRunner#run__at__kotlin.native.internal.test.TestSuite(Unknown Source)
+	at kotlin.native.internal.test.TestRunner.kotlin.native.internal.test.TestRunner#runIteration(Unknown Source)
+	at kotlin.native.internal.test.TestRunner#run(Unknown Source)
+	at kotlin.native.internal.test#testLauncherEntryPoint(Unknown Source)
+	at kotlin.native.internal.test#main(Unknown Source)
+	at &lt;global&gt;.Konan_start(./entryPointOwner:1)
+	at &lt;global&gt;.Init_and_run_start(Unknown Source)
+	at &lt;global&gt;.dyld-internal(Unknown Source)
+	at &lt;global&gt;.0x0(Unknown Source)
+</failure>
+  </testcase>
+  <testcase name="bootstrapFetchPauseResume[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest" time="22.825"/>
+  <system-out><![CDATA[LIVE_TIMING,cold_ms=954
+IOS_RESOURCE,stage=root-baseline,pid=51678,sessions=0,fd=17,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-1-sample-0,pid=51678,sessions=1,fd=18,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-1-sample-1,pid=51678,sessions=1,fd=18,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-1-sample-2,pid=51678,sessions=1,fd=18,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-8-sample-0,pid=51678,sessions=8,fd=26,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-8-sample-1,pid=51678,sessions=8,fd=26,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-8-sample-2,pid=51678,sessions=8,fd=26,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-16-sample-0,pid=51678,sessions=16,fd=34,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-16-sample-1,pid=51678,sessions=16,fd=34,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-16-sample-2,pid=51678,sessions=16,fd=34,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-32-sample-0,pid=51678,sessions=32,fd=50,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-32-sample-1,pid=51678,sessions=32,fd=50,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=active-32-sample-2,pid=51678,sessions=32,fd=50,peak_rss_bytes=155779072
+IOS_RESOURCE,stage=closed-all-root-retained,pid=51678,sessions=0,fd=18,peak_rss_bytes=155779072
+LIVE_TIMING,resume_ms=2
+arti version = arti-kmp-ffi 0.3.0 (arti-client 0.46, rustls)
+BOOTSTRAP complete, SOCKS on 127.0.0.1:53249
+SECOND COLD START ok, SOCKS on 127.0.0.1:53255
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

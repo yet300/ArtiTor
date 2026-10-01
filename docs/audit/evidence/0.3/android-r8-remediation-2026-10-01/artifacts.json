@@ -1,0 +1,59 @@
+{
+  "coordinate": "io.github.yet300:tor:0.3.0",
+  "files": {
+    "published_aar": {
+      "path": "/Users/yet/.m2/repository/io/github/yet300/tor-android/0.3.0/tor-android-0.3.0.aar",
+      "bytes": 10826099,
+      "sha256": "ba9c3d9b502d107e2a3a60c110ee26e5129487b5db2e4528b83427a764065454"
+    },
+    "built_apk": {
+      "path": "/tmp/artitor-android-remediation/consumer/app/build/outputs/apk/release/app-release.apk",
+      "bytes": 8931100,
+      "sha256": "fd77d95d7116a9d665e94a1cd57f8485fda22576bd523cd011182d16f9c524d6"
+    },
+    "installed_apk": {
+      "path": "/tmp/artitor-android-remediation/evidence/installed-fixed.apk",
+      "bytes": 8931100,
+      "sha256": "fd77d95d7116a9d665e94a1cd57f8485fda22576bd523cd011182d16f9c524d6"
+    },
+    "mapping.txt": {
+      "path": "/tmp/artitor-android-remediation/consumer/app/build/outputs/mapping/release/mapping.txt",
+      "bytes": 1911862,
+      "sha256": "771397846b65cfc532758757386ef6771f7223cae8d15fb8112b647fc0ffa775"
+    },
+    "configuration.txt": {
+      "path": "/tmp/artitor-android-remediation/consumer/app/build/outputs/mapping/release/configuration.txt",
+      "bytes": 10614,
+      "sha256": "de0ea57675bd9e75a1f06ad951e7a20ca3abfecc90013730b9e1a705c00672cb"
+    },
+    "seeds.txt": {
+      "path": "/tmp/artitor-android-remediation/consumer/app/build/outputs/mapping/release/seeds.txt",
+      "bytes": 231962,
+      "sha256": "07b35726792f236e9650294b1184b4ed6ae70db7d2247e62470fa0a33765b767"
+    },
+    "usage.txt": {
+      "path": "/tmp/artitor-android-remediation/consumer/app/build/outputs/mapping/release/usage.txt",
+      "bytes": 627131,
+      "sha256": "851dbb9695836f0f7596cacb9b99770b9e75d76c3f216a2a79d55c388870d760"
+    }
+  },
+  "native_entries": {
+    "published_aar": {
+      "jni/arm64-v8a/libarti_kmp_ffi.so": "59e4acebef0d584c6d41e221c1d8d150d8533e6865f244466baedd5f3c776ffb",
+      "jni/armeabi-v7a/libarti_kmp_ffi.so": "e90630fdb6d6e42f79e034e57fbef59dfcd56681ad5fef689dbd43f6ef490d09",
+      "jni/x86_64/libarti_kmp_ffi.so": "faf440ca7c0ecc3b8bafb905f3988cc560975b20a66fce96317b9a0a630a3ea6"
+    },
+    "built_apk": {
+      "lib/arm64-v8a/libarti_kmp_ffi.so": "8dab245aede46d9ef52f6e8cd3b1831b74f92e2f6c4295663afe2620addd334a",
+      "lib/arm64-v8a/libjnidispatch.so": "ddfc6c965bbe366615c000ec1f06552ddf0bb2b4f9d921d0bff8c75b3cb2ca4c",
+      "lib/arm64-v8a/libuniffi_runtime.so": "dfd4f36f8e452df7d811cafa00a9e4a0a3ff0ad7026a368f342287ea5be776d7"
+    },
+    "installed_apk": {
+      "lib/arm64-v8a/libarti_kmp_ffi.so": "8dab245aede46d9ef52f6e8cd3b1831b74f92e2f6c4295663afe2620addd334a",
+      "lib/arm64-v8a/libjnidispatch.so": "ddfc6c965bbe366615c000ec1f06552ddf0bb2b4f9d921d0bff8c75b3cb2ca4c",
+      "lib/arm64-v8a/libuniffi_runtime.so": "dfd4f36f8e452df7d811cafa00a9e4a0a3ff0ad7026a368f342287ea5be776d7"
+    }
+  },
+  "installed_matches_built": true,
+  "native_arm64_published_matches_installed": false
+}

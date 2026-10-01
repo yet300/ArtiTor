@@ -1,0 +1,19 @@
+{
+  "markers_present_in_captured_flow": {
+    "minified-postfix-first.txt": {
+      "192.0.2.123": false,
+      "ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEF": false,
+      "SYNTHETIC_SECRET_GATE": false
+    },
+    "minified-restored-rule.txt": {
+      "192.0.2.123": false,
+      "ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEF": false,
+      "SYNTHETIC_SECRET_GATE": false
+    }
+  },
+  "filtered_logcat": {
+    "command": "adb logcat -d -b all -s ArtiGate:V *:S",
+    "bytes": 0,
+    "limitation": "No retained app-tag entries were returned; this does not prove coverage of first-process Logcat."
+  }
+}

@@ -1,0 +1,768 @@
+{
+  "instrumentation-first": [
+    {
+      "file": "TEST-Pixel 6a - 17-_tor-.xml",
+      "counts": {
+        "tests": "3",
+        "failures": "2",
+        "errors": "0",
+        "skipped": "0",
+        "time": "115.462",
+        "timestamp": "2026-10-01T07:37:12",
+        "hostname": "localhost"
+      },
+      "tests": [
+        {
+          "name": "resumePublicationAndAsyncBindError",
+          "class": "com.yet.tor.AndroidGateResumeProbe",
+          "failure": null
+        },
+        {
+          "name": "bootstrapFetchPauseResume",
+          "class": "com.yet.tor.TorE2ETest",
+          "failure": "javax.net.ssl.SSLHandshakeException: connection closed"
+        },
+        {
+          "name": "integratedIsolationOnionAndTransactionalLifecycle",
+          "class": "com.yet.tor.TorE2ETest",
+          "failure": "java.net.SocketException: SOCKS: Connection refused"
+        }
+      ]
+    }
+  ],
+  "instrumentation-diagnostic": [
+    {
+      "file": "TEST-Pixel 6a - 17-_tor-.xml",
+      "counts": {
+        "tests": "3",
+        "failures": "1",
+        "errors": "0",
+        "skipped": "0",
+        "time": "186.242",
+        "timestamp": "2026-10-01T07:46:04",
+        "hostname": "localhost"
+      },
+      "tests": [
+        {
+          "name": "resumePublicationAndAsyncBindError",
+          "class": "com.yet.tor.AndroidGateResumeProbe",
+          "failure": null
+        },
+        {
+          "name": "bootstrapFetchPauseResume",
+          "class": "com.yet.tor.TorE2ETest",
+          "failure": "java.net.SocketTimeoutException: Connect timed out"
+        },
+        {
+          "name": "integratedIsolationOnionAndTransactionalLifecycle",
+          "class": "com.yet.tor.TorE2ETest",
+          "failure": null
+        }
+      ]
+    }
+  ],
+  "ios-first": [
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+        "tests": "12",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.545Z",
+        "hostname": "Mac.lan",
+        "time": "0.001"
+      },
+      "tests": [
+        {
+          "name": "identicalConfigNeedsNoNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "socksPortOnlyNeedsNoNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "dataDirChangeNeedsNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "stateDirChangeNeedsNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "cacheDirChangeNeedsNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "bridgesEmptyToNonEmptyNeedsNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "bridgesNonEmptyToEmptyNeedsNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "sameBridgesNeedNoNewClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "bridgeDefaultsPreserveExistingCallers[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "bridgeIdentityUsesExactLinesAndEveryMode[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "onionAndTimeoutDefaultsAndIdentity[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        },
+        {
+          "name": "identityParity512Cases[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ConfigIdentityTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+        "tests": "6",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.547Z",
+        "hostname": "Mac.lan",
+        "time": "0.0"
+      },
+      "tests": [
+        {
+          "name": "offInvariants[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+          "failure": null
+        },
+        {
+          "name": "startingBootstrappingReportNoReadySocks[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+          "failure": null
+        },
+        {
+          "name": "runningInvariants[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+          "failure": null
+        },
+        {
+          "name": "pausedInvariants[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+          "failure": null
+        },
+        {
+          "name": "errorRequiresTypedErrorAndNoReadiness[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+          "failure": null
+        },
+        {
+          "name": "readyDefinitionMatchesSpec[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.LifecycleInvariantTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.BridgeConfigurationTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.BridgeConfigurationTest",
+        "tests": "2",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.548Z",
+        "hostname": "Mac.lan",
+        "time": "0.0"
+      },
+      "tests": [
+        {
+          "name": "malformedBridgeMatrixRemainsPublicConfigAndSecretSafe[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.BridgeConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "bridgesRequiredWithoutLinesFailsBeforeBootstrap[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.BridgeConfigurationTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+        "tests": "6",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.546Z",
+        "hostname": "Mac.lan",
+        "time": "0.001"
+      },
+      "tests": [
+        {
+          "name": "bindDetailMapsToBindWithPort[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+          "failure": null
+        },
+        {
+          "name": "bootstrapDetailMapsToBootstrap[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+          "failure": null
+        },
+        {
+          "name": "configDetailMapsToConfig[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+          "failure": null
+        },
+        {
+          "name": "runtimeDetailMapsToRuntime[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+          "failure": null
+        },
+        {
+          "name": "alreadyRunningAndNotRunningMap[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+          "failure": null
+        },
+        {
+          "name": "kindDrivesTypeNeverMessageText[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorMappingTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest",
+        "tests": "2",
+        "skipped": "0",
+        "failures": "1",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:42.616Z",
+        "hostname": "Mac.lan",
+        "time": "119.187"
+      },
+      "tests": [
+        {
+          "name": "liveTwoSessionsLifecycle[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest",
+          "failure": "kotlin.IllegalStateException: kotlin.IllegalStateException: recv failed (eof)"
+        },
+        {
+          "name": "bootstrapFetchPauseResume[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest",
+        "tests": "5",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.546Z",
+        "hostname": "Mac.lan",
+        "time": "0.0"
+      },
+      "tests": [
+        {
+          "name": "legacyConstructorsKeepDefaultKinds[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest",
+          "failure": null
+        },
+        {
+          "name": "classificationIsIndependentOfMisleadingMessageAndOuterClass[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest",
+          "failure": null
+        },
+        {
+          "name": "synchronousTransportKeepsClassAndCategory[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest",
+          "failure": null
+        },
+        {
+          "name": "terminalCategoriesUseExistingRuntimeClass[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest",
+          "failure": null
+        },
+        {
+          "name": "unknownRemainsUnknown[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ErrorClassificationTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+        "tests": "30",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.543Z",
+        "hostname": "Mac.lan",
+        "time": "0.002"
+      },
+      "tests": [
+        {
+          "name": "a01CachedActiveCannotPublishAfterCompletedClose[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "a01CachedActiveCannotPublishAfterCompletedInvalidation[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "a01FiniteCompetingWritersCompleteAndConverge[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "activePublicationCollectorReentersCloseWithoutResurrection[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "createMapsEveryGeneratedFailureToExactPublicClass[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "terminalBeforeWrapperChurnDoesNotRetainHistoricalPendingStatuses[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "lateCallbacksAfterCloseChurnDoNotRetainHistoryOrResurrect[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "failedCreationClearsOrphanPendingStatuses[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "delayedActiveAfterPausedIsRejectedByRevision[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "invalidatedRevisionLatchesAgainstAllLaterCallbacks[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "preRegistrationRevisionsAndSnapshotAreReconciledByRevision[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "newerNativeSnapshotWinsOverEarlierPendingCallback[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "closedBeforeWrapperRemainsClosedWhenNativeDiagnosticTombstoneWasPruned[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "statusFlowProjectsRevisionChangesWithoutDuplicatePublicStatuses[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "concurrentCallbacksKeepHighestRevisionWithoutSecondaryPublicationRace[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "closedSessionNeverAppearsInSessions[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "createWhileRunningProducesActiveSession[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "createWhilePausedProducesPausedSession[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "pauseDemotesActiveSessionToPaused[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "shutdownInvalidatesActiveSession[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "callbackBeforeWrapperRegistrationIsReconciled[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "closedCallbackDuringOlderActiveSnapshotIsReconciledAndLatched[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "invalidatedCallbackDuringOlderActiveSnapshotIsReconciledAndLatched[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "sessionsContainsOnlyLiveSessions[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "auditOnSubscriptionIsInvokedBeforeInitialReplay[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "auditCollectorCancellationPropagates[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "auditNestedCollectorCanCloseWithoutDeadlock[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "latestReplayAndSameStateRevisionFence[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "activePublicationCollectorReentersPauseWithoutResurrection[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        },
+        {
+          "name": "typedErrorCollectorShutdownFinishesFacadeOffWithNoLastError[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+        "tests": "25",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:21.532Z",
+        "hostname": "Mac.lan",
+        "time": "2.01"
+      },
+      "tests": [
+        {
+          "name": "coldStartReachesReadyAndSavesConfig[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "fixedPortCollisionSurfacesTypedBind[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "asyncBootstrapFailureSurfacesTypedBootstrap[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "syncConfigFailureStaysConfig[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "pauseAfterReadyKeepsClientAndResumeRebindsWithoutRestart[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "shutdownClearsToOffAndRestartUsesSavedConfig[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "restartUsesSuppliedConfigOverSaved[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "restartWithoutAnyConfigFailsFast[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "concurrentDoubleStartJoinsInflightWork[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "shutdownDuringBootstrapCancelsFast[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "pauseDuringBootstrapSettlesToOffAndCancelsWaiter[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "resumeThenShutdownCancelsWaiter[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startAfterErrorRecovers[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startWhileRunningSameConfigIsNoop[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startWhileRunningPortOnlyChangeRebindsWithoutTeardown[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startWhileRunningClientDefiningChangeColdStarts[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startWhilePausedPassesNewPortThrough[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startWhilePausedWithClearedBridgesPassesThemThrough[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startTimeoutSurfacesTimeout[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "startAfterFacadeTimeoutJoinsInflightWorker[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "pausePauseAndShutdownShutdownAreIdempotent[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "shutdownThenStartAgainWorks[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "errorStatusCarriesTypedErrorAndNoReadiness[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "lateOnErrorStillUpgradesToTyped[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        },
+        {
+          "name": "bridgeModesCrossFfiAndTriggerReplacement[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.ArtiTorClientLifecycleTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+        "tests": "9",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:35:41.804Z",
+        "hostname": "Mac.lan",
+        "time": "0.0"
+      },
+      "tests": [
+        {
+          "name": "runningRejectedReplacementMustPreserveClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "pausedRejectedReplacementPreservesClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "mutableBridgeListMustNotBypassValidation[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "unrepresentablePortsPreserveRunningResources[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "rejectedRestartPreservesRunningAndPausedResources[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "validReplacementInvalidatesOldHandles[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "invalidTimeoutReplacementPreservesRunningAndPausedResources[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "zeroAndLargestExactNanosecondTimeoutsCrossFfiWithoutClamping[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        },
+        {
+          "name": "validOnionAndTimeoutReplacementInvalidatesOldHandles[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TransactionalConfigurationTest",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe",
+        "tests": "4",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.548Z",
+        "hostname": "Mac.lan",
+        "time": "19.068"
+      },
+      "tests": [
+        {
+          "name": "realRetainedClientInvalidReplacement[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe",
+          "failure": null
+        },
+        {
+          "name": "runningRejectedReplacementMustPreserveClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe",
+          "failure": null
+        },
+        {
+          "name": "pausedRejectedReplacementPreservesClient[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe",
+          "failure": null
+        },
+        {
+          "name": "mutableBridgeListMustNotBypassValidation[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.TorControllerExampleTest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.TorControllerExampleTest",
+        "tests": "2",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:33:23.547Z",
+        "hostname": "Mac.lan",
+        "time": "0.001"
+      },
+      "tests": [
+        {
+          "name": "identitiesUseSeparatePoolsAndResumeRebuildsCurrentEndpoints[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TorControllerExampleTest",
+          "failure": null
+        },
+        {
+          "name": "factoryFailureLeavesNoPoolAndTerminalSessionNeverFallsBack[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TorControllerExampleTest",
+          "failure": null
+        }
+      ]
+    }
+  ],
+  "ios-diagnostic": [
+    {
+      "file": "TEST-iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest.xml",
+      "counts": {
+        "name": "iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest",
+        "tests": "1",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-01T07:39:54.031Z",
+        "hostname": "Mac.lan",
+        "time": "57.059"
+      },
+      "tests": [
+        {
+          "name": "liveTwoSessionsLifecycle[iosSimulatorArm64]",
+          "class": "iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest",
+          "failure": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "operation": "NDK 28.2.13676358 llvm-strip --strip-unneeded",
+  "sha256": "8dab245aede46d9ef52f6e8cd3b1831b74f92e2f6c4295663afe2620addd334a",
+  "matches_installed_arm64": true
+}

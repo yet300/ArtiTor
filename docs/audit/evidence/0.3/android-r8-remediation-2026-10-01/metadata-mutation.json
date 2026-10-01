@@ -1,0 +1,209 @@
+{
+  "apk": "/private/tmp/artitor-android-remediation/mutation-consumer/app/build/outputs/apk/release/app-release.apk",
+  "inventory_count": 18,
+  "checked_count": 17,
+  "structures": [
+    {
+      "original": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceSessionStatusListenerStruct",
+      "mapped": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceSessionStatusListenerStruct",
+      "field_order": [
+        "uniffiFree",
+        "uniffiClone",
+        "onSessionStatus"
+      ],
+      "fields": [
+        "onSessionStatus",
+        "uniffiClone",
+        "uniffiFree"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceStatusListenerStruct",
+      "mapped": "com.yet.tor.ffi.UniffiVTableCallbackInterfaceStatusListenerStruct",
+      "field_order": [
+        "uniffiFree",
+        "uniffiClone",
+        "onStatus",
+        "onLog",
+        "onError"
+      ],
+      "fields": [
+        "onError",
+        "onLog",
+        "onStatus",
+        "uniffiClone",
+        "uniffiFree"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.ForeignBytesStruct",
+      "mapped": "uniffi.runtime.e",
+      "field_order": null,
+      "fields": [
+        "data",
+        "len"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.RustBufferStruct",
+      "mapped": "uniffi.runtime.h",
+      "field_order": null,
+      "fields": [
+        "capacity",
+        "data",
+        "len"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultF32Struct",
+      "mapped": "uniffi.runtime.j",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultF64Struct",
+      "mapped": "uniffi.runtime.k",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI16Struct",
+      "mapped": "uniffi.runtime.l",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI32Struct",
+      "mapped": "uniffi.runtime.m",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI64Struct",
+      "mapped": "uniffi.runtime.n",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultI8Struct",
+      "mapped": "uniffi.runtime.o",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultRustBufferStruct",
+      "mapped": "uniffi.runtime.p",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU16Struct",
+      "mapped": "uniffi.runtime.q",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU32Struct",
+      "mapped": "uniffi.runtime.r",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU64Struct",
+      "mapped": "uniffi.runtime.s",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultU8Struct",
+      "mapped": "uniffi.runtime.t",
+      "field_order": null,
+      "fields": [
+        "callStatus",
+        "returnValue"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiForeignFutureResultVoidStruct",
+      "mapped": "uniffi.runtime.u",
+      "field_order": null,
+      "fields": [
+        "callStatus"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    },
+    {
+      "original": "uniffi.runtime.UniffiRustCallStatusStruct",
+      "mapped": "uniffi.runtime.x",
+      "field_order": null,
+      "fields": [
+        "code",
+        "errorBuf"
+      ],
+      "superclass": "Lcom/sun/jna/Structure;"
+    }
+  ],
+  "failures": [
+    "uniffi.runtime.ForeignBytesStruct (uniffi.runtime.e): runtime FieldOrder None, expected ['len', 'data']",
+    "uniffi.runtime.RustBufferStruct (uniffi.runtime.h): runtime FieldOrder None, expected ['capacity', 'len', 'data']",
+    "uniffi.runtime.UniffiForeignFutureResultF32Struct (uniffi.runtime.j): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultF64Struct (uniffi.runtime.k): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultI16Struct (uniffi.runtime.l): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultI32Struct (uniffi.runtime.m): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultI64Struct (uniffi.runtime.n): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultI8Struct (uniffi.runtime.o): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultRustBufferStruct (uniffi.runtime.p): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultU16Struct (uniffi.runtime.q): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultU32Struct (uniffi.runtime.r): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultU64Struct (uniffi.runtime.s): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultU8Struct (uniffi.runtime.t): runtime FieldOrder None, expected ['returnValue', 'callStatus']",
+    "uniffi.runtime.UniffiForeignFutureResultVoidStruct (uniffi.runtime.u): runtime FieldOrder None, expected ['callStatus']",
+    "uniffi.runtime.UniffiRustCallStatusStruct (uniffi.runtime.x): runtime FieldOrder None, expected ['code', 'errorBuf']"
+  ],
+  "pass": false
+}

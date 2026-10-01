@@ -1,0 +1,74 @@
+10-01 11:08:05.876 31086 31112 I ArtiResumeProbe: ROOT,state=OFF,kind=null
+10-01 11:08:05.902 31086 31115 I ArtiResumeProbe: ROOT,state=STARTING,kind=null
+10-01 11:08:05.904 31086 31115 I ArtiResumeProbe: LOG,starting arti: socks_port=0
+10-01 11:08:05.905 31086 31115 I ArtiResumeProbe: LOG,config built; creating unbootstrapped client
+10-01 11:08:05.908 31086 31115 I ArtiResumeProbe: LOG,INFO [tor_memquota::mtracker]
+10-01 11:08:05.919 31086 31115 I ArtiResumeProbe: LOG,client created; starting bootstrap
+10-01 11:08:05.922 31086 31115 I ArtiResumeProbe: ROOT,state=BOOTSTRAPPING,kind=null
+10-01 11:08:05.929 31086 31115 I ArtiResumeProbe: LOG,INFO [tor_dirmgr]
+10-01 11:08:05.931 31086 31115 I ArtiResumeProbe: LOG,INFO [tor_dirmgr::bootstrap]
+10-01 11:08:06.031 31086 31116 I ArtiResumeProbe: ROOT,state=BOOTSTRAPPING,kind=null
+10-01 11:08:06.463 31086 31117 I ArtiResumeProbe: ROOT,state=BOOTSTRAPPING,kind=null
+10-01 11:08:08.573 31086 31120 I ArtiResumeProbe: LOG,INFO [tor_dirmgr::bootstrap]
+10-01 11:08:08.575 31086 31120 I ArtiResumeProbe: ROOT,state=BOOTSTRAPPING,kind=null
+10-01 11:08:09.224 31086 31120 I ArtiResumeProbe: ROOT,state=BOOTSTRAPPING,kind=null
+10-01 11:08:09.362 31086 31119 I ArtiResumeProbe: LOG,INFO [tor_dirmgr::bootstrap]
+10-01 11:08:31.105 31086 31118 I ArtiResumeProbe: LOG,INFO [tor_dirmgr]
+10-01 11:08:31.112 31086 31117 I ArtiResumeProbe: ROOT,state=BOOTSTRAPPING,kind=null
+10-01 11:08:31.126 31086 31118 I ArtiResumeProbe: LOG,INFO [tor_dirmgr]
+10-01 11:08:31.127 31086 31118 I ArtiResumeProbe: LOG,INFO [tor_dirmgr]
+10-01 11:08:31.128 31086 31118 I ArtiResumeProbe: LOG,bootstrap() returned: ok=true
+10-01 11:08:31.129 31086 31118 I ArtiResumeProbe: LOG,bootstrap complete
+10-01 11:08:31.130 31086 31118 I ArtiResumeProbe: LOG,SOCKS listening on 127.0.0.1:44535
+10-01 11:08:31.132 31086 31118 I ArtiResumeProbe: ROOT,state=RUNNING,kind=null
+10-01 11:08:31.141 31086 31112 I ArtiResumeProbe: SESSION,state=ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=45513)
+10-01 11:08:31.144 31086 31112 I ArtiResumeProbe: SESSION,state=PAUSED,endpoint=null
+10-01 11:08:31.145 31086 31112 I ArtiResumeProbe: ROOT,state=PAUSED,kind=null
+10-01 11:08:31.146 31086 31112 I ArtiResumeProbe: LOG,SOCKS paused; TorClient retained
+10-01 11:08:31.150 31086 31117 I ArtiResumeProbe: LOG,SOCKS listening on 127.0.0.1:41191
+10-01 11:08:31.157 31086 31117 I ArtiResumeProbe: ROOT,state=RUNNING,kind=null
+10-01 11:08:31.161 31086 31112 I ArtiResumeProbe: IMMEDIATE,cycle=0,root=RUNNING,session=PAUSED,endpoint=null,elapsed_us=14377
+10-01 11:08:31.163 31086 31117 I ArtiResumeProbe: SESSION,state=ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=45335)
+10-01 11:08:31.164 31086 31112 I ArtiResumeProbe: EVENTUAL,cycle=0,elapsed_us=17046
+10-01 11:08:31.170 31086 31112 I ArtiResumeProbe: SESSION,state=PAUSED,endpoint=null
+10-01 11:08:31.174 31086 31112 I ArtiResumeProbe: ROOT,state=PAUSED,kind=null
+10-01 11:08:31.177 31086 31112 I ArtiResumeProbe: LOG,SOCKS paused; TorClient retained
+10-01 11:08:31.185 31086 31117 I ArtiResumeProbe: LOG,SOCKS listening on 127.0.0.1:43029
+10-01 11:08:31.190 31086 31117 I ArtiResumeProbe: ROOT,state=RUNNING,kind=null
+10-01 11:08:31.194 31086 31112 I ArtiResumeProbe: IMMEDIATE,cycle=1,root=RUNNING,session=PAUSED,endpoint=null,elapsed_us=15188
+10-01 11:08:31.196 31086 31117 I ArtiResumeProbe: SESSION,state=ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=32815)
+10-01 11:08:31.197 31086 31112 I ArtiResumeProbe: EVENTUAL,cycle=1,elapsed_us=17806
+10-01 11:08:31.203 31086 31112 I ArtiResumeProbe: SESSION,state=PAUSED,endpoint=null
+10-01 11:08:31.207 31086 31112 I ArtiResumeProbe: ROOT,state=PAUSED,kind=null
+10-01 11:08:31.209 31086 31112 I ArtiResumeProbe: LOG,SOCKS paused; TorClient retained
+10-01 11:08:31.215 31086 31117 I ArtiResumeProbe: LOG,SOCKS listening on 127.0.0.1:40413
+10-01 11:08:31.220 31086 31117 I ArtiResumeProbe: ROOT,state=RUNNING,kind=null
+10-01 11:08:31.224 31086 31112 I ArtiResumeProbe: IMMEDIATE,cycle=2,root=RUNNING,session=PAUSED,endpoint=null,elapsed_us=12909
+10-01 11:08:31.225 31086 31117 I ArtiResumeProbe: SESSION,state=ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=40879)
+10-01 11:08:31.226 31086 31112 I ArtiResumeProbe: EVENTUAL,cycle=2,elapsed_us=15003
+10-01 11:08:31.231 31086 31112 I ArtiResumeProbe: SESSION,state=PAUSED,endpoint=null
+10-01 11:08:31.235 31086 31112 I ArtiResumeProbe: ROOT,state=PAUSED,kind=null
+10-01 11:08:31.237 31086 31112 I ArtiResumeProbe: LOG,SOCKS paused; TorClient retained
+10-01 11:08:31.243 31086 31117 I ArtiResumeProbe: LOG,SOCKS listening on 127.0.0.1:40971
+10-01 11:08:31.248 31086 31117 I ArtiResumeProbe: ROOT,state=RUNNING,kind=null
+10-01 11:08:31.253 31086 31117 I ArtiResumeProbe: SESSION,state=ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=43801)
+10-01 11:08:31.251 31086 31112 I ArtiResumeProbe: IMMEDIATE,cycle=3,root=RUNNING,session=PAUSED,endpoint=null,elapsed_us=12119
+10-01 11:08:31.254 31086 31112 I ArtiResumeProbe: EVENTUAL,cycle=3,elapsed_us=14282
+10-01 11:08:31.255 31086 31117 I ArtiResumeProbe: LOG,SOCKS shutdown signal
+10-01 11:08:31.257 31086 31112 I ArtiResumeProbe: SESSION,state=PAUSED,endpoint=null
+10-01 11:08:31.258 31086 31112 I ArtiResumeProbe: ROOT,state=PAUSED,kind=null
+10-01 11:08:31.258 31086 31112 I ArtiResumeProbe: LOG,SOCKS paused; TorClient retained
+10-01 11:08:31.260 31086 31119 I ArtiResumeProbe: LOG,SOCKS listening on 127.0.0.1:45751
+10-01 11:08:31.262 31086 31119 I ArtiResumeProbe: ROOT,state=RUNNING,kind=null
+10-01 11:08:31.263 31086 31112 I ArtiResumeProbe: IMMEDIATE,cycle=4,root=RUNNING,session=PAUSED,endpoint=null,elapsed_us=4255
+10-01 11:08:31.263 31086 31119 I ArtiResumeProbe: SESSION,state=ACTIVE,endpoint=TorSocksEndpoint(host=127.0.0.1, port=38741)
+10-01 11:08:31.264 31086 31112 I ArtiResumeProbe: EVENTUAL,cycle=4,elapsed_us=4532
+10-01 11:08:31.265 31086 31112 I ArtiResumeProbe: SESSION,state=PAUSED,endpoint=null
+10-01 11:08:31.266 31086 31112 I ArtiResumeProbe: ROOT,state=PAUSED,kind=null
+10-01 11:08:31.267 31086 31112 I ArtiResumeProbe: LOG,SOCKS paused; TorClient retained
+10-01 11:08:31.272 31086 31117 I ArtiResumeProbe: ROOT,state=ERROR,kind=BIND
+10-01 11:08:31.273 31086 31112 I ArtiResumeProbe: ASYNC_BIND_PUBLIC,kind=BIND,status_kind=BIND
+10-01 11:08:31.273 31086 31117 I ArtiResumeProbe: ROOT,state=ERROR,kind=BIND
+10-01 11:08:31.274 31086 31117 I ArtiResumeProbe: LOG,ERROR: failed to bind SOCKS on port 39165: Address already in use (os error 98)
+10-01 11:08:31.277 31086 31112 I ArtiResumeProbe: SESSION,state=INVALIDATED,endpoint=null
+10-01 11:08:31.278 31086 31112 I ArtiResumeProbe: ROOT,state=OFF,kind=null

@@ -1,0 +1,79 @@
+10-01 11:00:59.677 29360 29374 I TorE2E  : arti version = arti-kmp-ffi 0.3.0 (arti-client 0.46, rustls)
+10-01 11:01:09.304 29360 29374 I TorE2E  : DIRECT response = {"IsTor":false,"IP":"[REDACTED]"}
+10-01 11:01:09.329 29360 29374 I TorE2E  : status = TorStatus(state=OFF, bootstrapPercent=0, socksPort=null, bootstrapSummary=, lastError=null)
+10-01 11:01:09.331 29360 29374 I TorE2E  : status = TorStatus(state=STARTING, bootstrapPercent=0, socksPort=null, bootstrapSummary=starting, lastError=null)
+10-01 11:01:09.336 29360 29374 I TorE2E  : arti-log: starting arti: socks_port=0
+10-01 11:01:09.337 29360 29374 I TorE2E  : arti-log: config built; creating unbootstrapped client
+10-01 11:01:09.339 29360 29374 I TorE2E  : arti-log: INFO [tor_memquota::mtracker]
+10-01 11:01:09.398 29360 29374 I TorE2E  : arti-log: client created; starting bootstrap
+10-01 11:01:09.400 29360 29374 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=0, socksPort=null, bootstrapSummary=bootstrapping 0%, lastError=null)
+10-01 11:01:09.414 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:01:09.421 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:09.539 29360 29374 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=8, socksPort=null, bootstrapSummary=bootstrapping 8%, lastError=null)
+10-01 11:01:10.181 29360 29374 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=15, socksPort=null, bootstrapSummary=bootstrapping 15%, lastError=null)
+10-01 11:01:12.038 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:12.048 29360 29374 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=36, socksPort=null, bootstrapSummary=bootstrapping 36%, lastError=null)
+10-01 11:01:12.764 29360 29374 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=45, socksPort=null, bootstrapSummary=bootstrapping 45%, lastError=null)
+10-01 11:01:12.902 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:27.193 29360 29374 I TorE2E  : arti-log: INFO [tor_dirclient]
+10-01 11:01:27.198 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:27.430 29360 29374 I TorE2E  : arti-log: INFO [tor_dirclient]
+10-01 11:01:27.433 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:33.566 29360 29374 I TorE2E  : arti-log: INFO [tor_dirclient]
+10-01 11:01:33.573 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:37.393 29360 29374 I TorE2E  : arti-log: INFO [tor_dirclient]
+10-01 11:01:37.403 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:50.625 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:01:50.646 29360 29374 I TorE2E  : status = TorStatus(state=BOOTSTRAPPING, bootstrapPercent=95, socksPort=null, bootstrapSummary=bootstrapping 95%, lastError=null)
+10-01 11:01:50.650 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:01:50.652 29360 29374 I TorE2E  : arti-log: bootstrap() returned: ok=true
+10-01 11:01:50.653 29360 29374 I TorE2E  : arti-log: bootstrap complete
+10-01 11:01:50.654 29360 29374 I TorE2E  : arti-log: SOCKS listening on 127.0.0.1:42461
+10-01 11:01:50.656 29360 29374 I TorE2E  : status = TorStatus(state=RUNNING, bootstrapPercent=100, socksPort=42461, bootstrapSummary=proxy ready, lastError=null)
+10-01 11:01:50.669 29360 29374 I TorE2E  : BOOTSTRAP complete, SOCKS on 127.0.0.1:42461
+10-01 11:01:53.272 29360 29374 I TorE2E  : TOR response = {"IsTor":true,"IP":"[REDACTED]"}
+10-01 11:01:53.282 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr::bootstrap]
+10-01 11:01:53.282 29360 29374 I TorE2E  : arti-log: INFO [tor_guardmgr::guard]
+10-01 11:01:53.282 29360 29374 I TorE2E  : arti-log: SOCKS paused; TorClient retained
+10-01 11:01:53.282 29360 29374 I TorE2E  : status = TorStatus(state=PAUSED, bootstrapPercent=100, socksPort=null, bootstrapSummary=paused, lastError=null)
+10-01 11:01:53.783 29360 29374 I TorE2E  : PAUSED ok
+10-01 11:01:53.792 29360 29374 I TorE2E  : arti-log: SOCKS listening on 127.0.0.1:46683
+10-01 11:01:53.800 29360 29374 I TorE2E  : status = TorStatus(state=RUNNING, bootstrapPercent=100, socksPort=46683, bootstrapSummary=proxy ready, lastError=null)
+10-01 11:01:53.807 29360 29374 I TorE2E  : RESUME took 24ms
+10-01 11:01:54.735 29360 29374 I TorE2E  : TOR response = {"IsTor":true,"IP":"[REDACTED]"}
+10-01 11:01:54.740 29360 29374 I TorE2E  : arti-log: INFO [tor_guardmgr::guard]
+10-01 11:01:54.741 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:01:54.741 29360 29374 I TorE2E  : status = TorStatus(state=OFF, bootstrapPercent=0, socksPort=null, bootstrapSummary=, lastError=null)
+10-01 11:01:55.256 29360 29374 I TorE2E  : status = TorStatus(state=STARTING, bootstrapPercent=0, socksPort=null, bootstrapSummary=starting, lastError=null)
+10-01 11:01:55.258 29360 29374 I TorE2E  : arti-log: starting arti: socks_port=0
+10-01 11:01:55.258 29360 29374 I TorE2E  : arti-log: config built; creating unbootstrapped client
+10-01 11:01:55.260 29360 29374 I TorE2E  : arti-log: INFO [tor_memquota::mtracker]
+10-01 11:01:55.271 29360 29374 I TorE2E  : arti-log: client created; starting bootstrap
+10-01 11:02:13.417 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:02:13.433 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:02:13.435 29360 29374 I TorE2E  : arti-log: bootstrap() returned: ok=true
+10-01 11:02:13.435 29360 29374 I TorE2E  : arti-log: bootstrap complete
+10-01 11:02:13.436 29360 29374 I TorE2E  : arti-log: SOCKS listening on 127.0.0.1:39285
+10-01 11:02:13.438 29360 29374 I TorE2E  : status = TorStatus(state=RUNNING, bootstrapPercent=100, socksPort=39285, bootstrapSummary=proxy ready, lastError=null)
+10-01 11:02:17.022 29360 29374 I TorE2E  : TOR response = {"IsTor":true,"IP":"[REDACTED]"}
+10-01 11:02:17.022 29360 29374 I TorE2E  : SECOND COLD START ok on 127.0.0.1:39285
+10-01 11:02:17.035 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:02:17.035 29360 29374 I TorE2E  : arti-log: INFO [tor_dirmgr]
+10-01 11:02:17.035 29360 29374 I TorE2E  : arti-log: INFO [tor_guardmgr::guard]
+10-01 11:02:17.035 29360 29374 I TorE2E  : status = TorStatus(state=OFF, bootstrapPercent=0, socksPort=null, bootstrapSummary=, lastError=null)
+10-01 11:02:55.063 29360 29374 I TorE2E  : LIVE_TIMING,cold_ms=37510
+10-01 11:02:57.884 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=0,rss=122400 kB,fd=123,threads=28
+10-01 11:03:00.908 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=1,rss=123092 kB,fd=124,threads=28
+10-01 11:03:01.409 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=1,rss=123092 kB,fd=124,threads=28
+10-01 11:03:01.911 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=1,rss=123092 kB,fd=124,threads=28
+10-01 11:03:05.470 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=8,rss=122088 kB,fd=131,threads=28
+10-01 11:03:05.972 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=8,rss=122088 kB,fd=131,threads=28
+10-01 11:03:06.475 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=8,rss=122088 kB,fd=131,threads=28
+10-01 11:03:10.035 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=16,rss=121012 kB,fd=139,threads=28
+10-01 11:03:10.541 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=16,rss=121272 kB,fd=139,threads=28
+10-01 11:03:11.045 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=16,rss=121272 kB,fd=139,threads=28
+10-01 11:03:14.665 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=32,rss=121800 kB,fd=155,threads=28
+10-01 11:03:15.170 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=32,rss=121800 kB,fd=155,threads=28
+10-01 11:03:15.672 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=32,rss=121800 kB,fd=155,threads=28
+10-01 11:03:16.245 29360 29374 I TorE2E  : ANDROID_RESOURCE,sessions=0,rss=122584 kB,fd=123,threads=28
+10-01 11:03:21.140 29360 29374 I TorE2E  : LIVE_TIMING,resume_ms=18

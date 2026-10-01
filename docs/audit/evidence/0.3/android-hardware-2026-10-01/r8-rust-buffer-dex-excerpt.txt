@@ -1,0 +1,80 @@
+Annotations on class
+  VISIBILITY_SYSTEM Ldalvik/annotation/MemberClasses; value={ Luniffi/runtime/h$a; }
+
+Class #560            -
+  Class descriptor  : 'Luniffi/runtime/h;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Lcom/sun/jna/Structure;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in Luniffi/runtime/h;)
+      name          : 'capacity'
+      type          : 'J'
+      access        : 0x0001 (PUBLIC)
+    #1              : (in Luniffi/runtime/h;)
+      name          : 'data'
+      type          : 'Lcom/sun/jna/Pointer;'
+      access        : 0x0001 (PUBLIC)
+    #2              : (in Luniffi/runtime/h;)
+      name          : 'len'
+      type          : 'J'
+      access        : 0x0001 (PUBLIC)
+  Direct methods    -
+    #0              : (in Luniffi/runtime/h;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 7
+      ins           : 1
+      outs          : 6
+      insns size    : 10 16-bit code units
+      catches       : (none)
+      positions     :
+        0x0006 line=11
+      locals        :
+        0x0000 - 0x000a reg=6 this Luniffi/runtime/h;
+    #1              : (in Luniffi/runtime/h;)
+      name          : '<init>'
+      type          : '(JJLcom/sun/jna/Pointer;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 6
+      ins           : 6
+      outs          : 1
+      insns size    : 10 16-bit code units
+      catches       : (none)
+      positions     :
+        0x0000 line=1
+        0x0001 line=2
+        0x0002 line=3
+        0x0003 line=4
+        0x0004 line=5
+        0x0005 line=6
+        0x0006 line=7
+        0x0007 line=8
+        0x0008 line=9
+        0x0009 line=10
+      locals        :
+        0x0000 - 0x000a reg=0 this Luniffi/runtime/h;
+        0x0000 - 0x000a reg=1 (null) J
+        0x0000 - 0x000a reg=3 (null) J
+        0x0000 - 0x000a reg=5 (null) Lcom/sun/jna/Pointer;
+  Virtual methods   -
+  source_file_idx   : 3578 (r8-map-id-588b87cdd82f87b1f2649085d35e97265fd31238c02abd39861ea45b4175d544)
+
+Class #561 annotations:
+Annotations on class
+  VISIBILITY_SYSTEM Ldalvik/annotation/EnclosingClass; value=Luniffi/runtime/h;
+  VISIBILITY_SYSTEM Ldalvik/annotation/InnerClass; accessFlags=25 name="a"
+
+Class #561            -
+  Class descriptor  : 'Luniffi/runtime/h$a;'
+  Access flags      : 0x0011 (PUBLIC FINAL)
+  Superclass        : 'Luniffi/runtime/h;'
+  Interfaces        -
+    #0              : 'Lcom/sun/jna/Structure$ByValue;'
+  Static fields     -
+  Instance fields   -
+  Direct methods    -

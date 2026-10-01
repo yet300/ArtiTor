@@ -1,0 +1,254 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.yet300",
+    "module": "tor",
+    "version": "0.3.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.8.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "metadataApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.11.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.4.20"
+          }
+        },
+        {
+          "group": "ch.ubique.uniffi",
+          "module": "runtime",
+          "version": {
+            "requires": "1.2.1"
+          }
+        },
+        {
+          "group": "com.squareup.okio",
+          "module": "okio",
+          "version": {
+            "requires": "3.18.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "atomicfu",
+          "version": {
+            "requires": "0.33.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.11.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "tor-metadata-0.3.0.jar",
+          "url": "tor-0.3.0.jar",
+          "size": 8184,
+          "sha512": "1787335c6e5fff084edc95cafec9421c5100f3cdb2f725ec36c6b88fa6020d8b1d9f49d0d6d2d60a66365973c09e7ea9f62121cedab99ca4a1b3fe8df731e54c",
+          "sha256": "559331c6100bcea5a66363bd38c4f3ff07982bc8910b0bf699697f07a973b55c",
+          "sha1": "1befc99818ac809cc1d495c6019cab29bb64156a",
+          "md5": "4878b46f10996c3e483636884c3a34ef"
+        }
+      ]
+    },
+    {
+      "name": "metadataSourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "files": [
+        {
+          "name": "tor-kotlin-0.3.0-sources.jar",
+          "url": "tor-0.3.0-sources.jar",
+          "size": 41555,
+          "sha512": "55b73dfc571beaebcab4ea4eb7afcd9b0dfb1f3256259eacc722e285d40d49b96e0cf4631ca0c3486529a68c526e522049a8fde5a8fbef847bbdc41665722608",
+          "sha256": "bd854fe60213d19c0d02879779b8dfaf1777879c77a2b0db6c54f2a2263a2ce6",
+          "sha1": "0b49ed8ff0d16a83c2c8da232477834aa670e169",
+          "md5": "979d469d7e31c7483a4053072b912956"
+        }
+      ]
+    },
+    {
+      "name": "androidApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "android",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../tor-android/0.3.0/tor-android-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-android",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "androidRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "android",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../tor-android/0.3.0/tor-android-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-android",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "androidSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "android",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../tor-android/0.3.0/tor-android-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-android",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "iosArm64ApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../tor-iosarm64/0.3.0/tor-iosarm64-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-iosarm64",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "iosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../tor-iosarm64/0.3.0/tor-iosarm64-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-iosarm64",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "iosArm64MetadataElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../tor-iosarm64/0.3.0/tor-iosarm64-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-iosarm64",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64ApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../tor-iossimulatorarm64/0.3.0/tor-iossimulatorarm64-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-iossimulatorarm64",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../tor-iossimulatorarm64/0.3.0/tor-iossimulatorarm64-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-iossimulatorarm64",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64MetadataElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../tor-iossimulatorarm64/0.3.0/tor-iossimulatorarm64-0.3.0.module",
+        "group": "io.github.yet300",
+        "module": "tor-iossimulatorarm64",
+        "version": "0.3.0"
+      }
+    }
+  ]
+}

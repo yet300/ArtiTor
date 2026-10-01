@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="2" failures="1" errors="0" skipped="0" time="142.801" timestamp="2026-10-01T07:03:20" hostname="localhost">
+  <testsuite name="com.yet.tor.TorE2ETest" tests="2" failures="1" errors="0" skipped="0" time="141.507" timestamp="2026-10-01T07:03:20" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel 6a - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":tor" />
+    </properties>
+    <testcase name="bootstrapFetchPauseResume" classname="com.yet.tor.TorE2ETest" time="77.907" />
+    <testcase name="integratedIsolationOnionAndTransactionalLifecycle" classname="com.yet.tor.TorE2ETest" time="63.6">
+      <failure>java.lang.IllegalArgumentException: Required value was null.
+at com.yet.tor.TorE2ETest$integratedIsolationOnionAndTransactionalLifecycle$1.invokeSuspend(TorE2ETest.kt:153)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:98)
+at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:256)
+at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:54)
+at kotlinx.coroutines.BuildersKt__BuildersKt.runBlockingImpl(Builders.kt:30)
+at kotlinx.coroutines.BuildersKt.runBlockingImpl(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at kotlinx.coroutines.BuildersKt__Builders_concurrentKt.runBlockingK(Builders.concurrent.kt:172)
+at kotlinx.coroutines.BuildersKt.runBlockingK(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at kotlinx.coroutines.BuildersKt__Builders_concurrentKt.runBlockingK$default(Builders.concurrent.kt:157)
+at kotlinx.coroutines.BuildersKt.runBlockingK$default(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at com.yet.tor.TorE2ETest.integratedIsolationOnionAndTransactionalLifecycle(TorE2ETest.kt:111)
+</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

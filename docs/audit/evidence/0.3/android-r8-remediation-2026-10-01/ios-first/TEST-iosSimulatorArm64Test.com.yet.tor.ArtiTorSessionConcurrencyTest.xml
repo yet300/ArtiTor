@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" tests="30" skipped="0" failures="0" errors="0" timestamp="2026-10-01T07:33:23.543Z" hostname="Mac.lan" time="0.002">
+  <properties/>
+  <testcase name="a01CachedActiveCannotPublishAfterCompletedClose[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="a01CachedActiveCannotPublishAfterCompletedInvalidation[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="a01FiniteCompetingWritersCompleteAndConverge[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="activePublicationCollectorReentersCloseWithoutResurrection[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="createMapsEveryGeneratedFailureToExactPublicClass[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.001"/>
+  <testcase name="terminalBeforeWrapperChurnDoesNotRetainHistoricalPendingStatuses[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="lateCallbacksAfterCloseChurnDoNotRetainHistoryOrResurrect[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="failedCreationClearsOrphanPendingStatuses[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="delayedActiveAfterPausedIsRejectedByRevision[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="invalidatedRevisionLatchesAgainstAllLaterCallbacks[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="preRegistrationRevisionsAndSnapshotAreReconciledByRevision[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="newerNativeSnapshotWinsOverEarlierPendingCallback[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="closedBeforeWrapperRemainsClosedWhenNativeDiagnosticTombstoneWasPruned[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="statusFlowProjectsRevisionChangesWithoutDuplicatePublicStatuses[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="concurrentCallbacksKeepHighestRevisionWithoutSecondaryPublicationRace[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="closedSessionNeverAppearsInSessions[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="createWhileRunningProducesActiveSession[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="createWhilePausedProducesPausedSession[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="pauseDemotesActiveSessionToPaused[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="shutdownInvalidatesActiveSession[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="callbackBeforeWrapperRegistrationIsReconciled[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="closedCallbackDuringOlderActiveSnapshotIsReconciledAndLatched[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="invalidatedCallbackDuringOlderActiveSnapshotIsReconciledAndLatched[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="sessionsContainsOnlyLiveSessions[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="auditOnSubscriptionIsInvokedBeforeInitialReplay[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="auditCollectorCancellationPropagates[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="auditNestedCollectorCanCloseWithoutDeadlock[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="latestReplayAndSameStateRevisionFence[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="activePublicationCollectorReentersPauseWithoutResurrection[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <testcase name="typedErrorCollectorShutdownFinishesFacadeOffWithNoLastError[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.ArtiTorSessionConcurrencyTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

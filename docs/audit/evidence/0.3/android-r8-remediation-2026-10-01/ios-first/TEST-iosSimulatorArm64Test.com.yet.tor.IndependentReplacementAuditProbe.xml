@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-01T07:33:23.548Z" hostname="Mac.lan" time="19.068">
+  <properties/>
+  <testcase name="realRetainedClientInvalidReplacement[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe" time="19.068"/>
+  <testcase name="runningRejectedReplacementMustPreserveClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe" time="0.0"/>
+  <testcase name="pausedRejectedReplacementPreservesClient[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe" time="0.0"/>
+  <testcase name="mutableBridgeListMustNotBypassValidation[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.IndependentReplacementAuditProbe" time="0.0"/>
+  <system-out><![CDATA[REAL_INVALID PAUSED: Config in all modes; client/session preserved
+REAL_INVALID RUNNING: state=RUNNING hasClient=true session=ACTIVE
+PUBLIC_INVALID paused=false state=RUNNING hasClient=true session=ACTIVE calls=[start]
+PUBLIC_INVALID paused=true state=PAUSED hasClient=true session=PAUSED calls=[start, start, actual-rust-validation]
+MUTABLE_IDENTITY success=false calls=[start] state=RUNNING
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

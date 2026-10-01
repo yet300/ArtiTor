@@ -1,0 +1,73 @@
+[
+  {
+    "attempt": "instrumentation-first",
+    "tests": "2",
+    "failures": "1",
+    "errors": "0",
+    "skipped": "0",
+    "time": "101.657",
+    "timestamp": "2026-10-01T06:57:55",
+    "hostname": "localhost",
+    "cases": [
+      {
+        "name": "bootstrapFetchPauseResume",
+        "classname": "com.yet.tor.TorE2ETest",
+        "time": "66.264",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "name": "integratedIsolationOnionAndTransactionalLifecycle",
+        "classname": "com.yet.tor.TorE2ETest",
+        "time": "34.127",
+        "result": "FAIL",
+        "failure": {}
+      }
+    ]
+  },
+  {
+    "attempt": "instrumentation-cleartext-corrected",
+    "tests": "2",
+    "failures": "1",
+    "errors": "0",
+    "skipped": "0",
+    "time": "142.801",
+    "timestamp": "2026-10-01T07:03:20",
+    "hostname": "localhost",
+    "cases": [
+      {
+        "name": "bootstrapFetchPauseResume",
+        "classname": "com.yet.tor.TorE2ETest",
+        "time": "77.907",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "name": "integratedIsolationOnionAndTransactionalLifecycle",
+        "classname": "com.yet.tor.TorE2ETest",
+        "time": "63.6",
+        "result": "FAIL",
+        "failure": {}
+      }
+    ]
+  },
+  {
+    "attempt": "resume-probe",
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "29.955",
+    "timestamp": "2026-10-01T07:08:33",
+    "hostname": "localhost",
+    "cases": [
+      {
+        "name": "resumePublicationAndAsyncBindError",
+        "classname": "com.yet.tor.AndroidGateResumeProbe",
+        "time": "29.203",
+        "result": "PASS",
+        "failure": null
+      }
+    ]
+  }
+]

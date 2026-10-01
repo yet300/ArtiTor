@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-01T07:39:54.031Z" hostname="Mac.lan" time="57.059">
+  <properties/>
+  <testcase name="liveTwoSessionsLifecycle[iosSimulatorArm64]" classname="iosSimulatorArm64Test.com.yet.tor.TorIosE2ETest" time="57.058"/>
+  <system-out><![CDATA[LIVE_TIMING,cold_ms=16092
+IOS_RESOURCE,stage=root-baseline,pid=52900,sessions=0,fd=21,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-1-sample-0,pid=52900,sessions=1,fd=22,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-1-sample-1,pid=52900,sessions=1,fd=22,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-1-sample-2,pid=52900,sessions=1,fd=22,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-8-sample-0,pid=52900,sessions=8,fd=29,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-8-sample-1,pid=52900,sessions=8,fd=29,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-8-sample-2,pid=52900,sessions=8,fd=29,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-16-sample-0,pid=52900,sessions=16,fd=37,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-16-sample-1,pid=52900,sessions=16,fd=37,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-16-sample-2,pid=52900,sessions=16,fd=37,peak_rss_bytes=145129472
+IOS_RESOURCE,stage=active-32-sample-0,pid=52900,sessions=32,fd=53,peak_rss_bytes=145768448
+IOS_RESOURCE,stage=active-32-sample-1,pid=52900,sessions=32,fd=53,peak_rss_bytes=145784832
+IOS_RESOURCE,stage=active-32-sample-2,pid=52900,sessions=32,fd=53,peak_rss_bytes=145784832
+IOS_RESOURCE,stage=closed-all-root-retained,pid=52900,sessions=0,fd=21,peak_rss_bytes=146702336
+LIVE_TIMING,resume_ms=1
+LIVE_ONION,public_v3_http_success=true
+LIVE_ONION,malformed_target_code=5
+SOCKS CONNECT failed (code=5, arti_kind=InvalidStreamTarget)
+LIVE_TRANSACTION,rejected_all_bridge_modes_preserved_root_and_b=true
+SOCKS CONNECT failed (code=5, arti_kind=ForbiddenStreamTarget)
+LIVE_ONION,disabled_policy_code=5,root_still_ready=true
+LIVE SESSION LIFECYCLE passed: two session paths, independent close, root survival, pause/resume, stale handles
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

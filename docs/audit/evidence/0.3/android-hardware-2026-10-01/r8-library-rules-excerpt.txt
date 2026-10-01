@@ -1,0 +1,47 @@
+# The proguard configuration file for the following section is io.github.yet300:tor-android:0.3.0 (extracted file: /Users/yet/.gradle/caches/9.8.0/transforms/c108a4c40c52d06b42583952eed8f746/transformed/tor/proguard.txt)
+# Consumer ProGuard/R8 rules shipped inside the AAR — applied automatically to any
+# app that depends on this library. The Ubique/UniFFI Android backend calls into the
+# native library via JNA and receives native->Kotlin callbacks (StatusListener), both
+# of which rely on reflection and must survive minification.
+
+# JNA core (loaded reflectively; references java.awt which is absent on Android).
+-dontwarn java.awt.**
+-keep class com.sun.jna.** { *; }
+-keepclassmembers class * extends com.sun.jna.** { *; }
+-keep class * implements com.sun.jna.Library { *; }
+-keep class * implements com.sun.jna.Callback { *; }
+
+# `@Structure.FieldOrder` is read reflectively when the struct layout is built.
+-keepattributes RuntimeVisibleAnnotations
+
+# UniFFI-generated bindings: JNA Structure subclasses (field order/names read by JNA)
+# and callback-interface dispatchers invoked from native code.
+-keep class com.yet.tor.ffi.** { *; }
+-keepclassmembers class com.yet.tor.ffi.** { *; }
+
+# End of content from io.github.yet300:tor-android:0.3.0 (extracted file: /Users/yet/.gradle/caches/9.8.0/transforms/c108a4c40c52d06b42583952eed8f746/transformed/tor/proguard.txt)
+# The proguard configuration file for the following section is ch.ubique.uniffi:runtime-android:1.2.1 (extracted file: /Users/yet/.gradle/caches/9.8.0/transforms/acb14e82d581fe713636829a98e3d782/transformed/runtime/proguard.txt)
+# Consumer rules applied to every app that (transitively) depends on the runtime.
+#
+# JNA ships no ProGuard rules of its own, so without these an R8-minified app
+# crashes with `UnsatisfiedLinkError: Can't obtain peer field ID for class
+# com.sun.jna.Pointer`: libjnidispatch.so resolves fields such as `Pointer.peer`
+# by name from `Native.initIDs()`, and R8 has renamed them.
+-keep class com.sun.jna.** { *; }
+
+# The generated bindings map directly onto JNA, and every one of these mappings
+# is by name:
+#   - `UniffiLib : Library` method names are looked up as native symbols
+#   - `*Struct : Structure` field names must match `@Structure.FieldOrder`
+#   - `Callback` implementations are invoked from native code
+# `extends` also matches `implements`, directly or indirectly, so this covers
+# all three.
+-keepclassmembers class * extends com.sun.jna.** { *; }
+
+# `@Structure.FieldOrder` is read reflectively when the struct layout is built.
+-keepattributes RuntimeVisibleAnnotations
+
+# JNA references desktop-only APIs that do not exist on Android.
+-dontwarn java.awt.**
+
+# End of content from ch.ubique.uniffi:runtime-android:1.2.1 (extracted file: /Users/yet/.gradle/caches/9.8.0/transforms/acb14e82d581fe713636829a98e3d782/transformed/runtime/proguard.txt)

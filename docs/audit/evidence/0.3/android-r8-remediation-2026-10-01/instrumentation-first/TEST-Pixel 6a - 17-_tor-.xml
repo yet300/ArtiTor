@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="3" failures="2" errors="0" skipped="0" time="115.462" timestamp="2026-10-01T07:37:12" hostname="localhost">
+  <testsuite name="com.yet.tor.AndroidGateResumeProbe" tests="1" failures="0" errors="0" skipped="0" time="31.628" timestamp="2026-10-01T07:37:12" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel 6a - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":tor" />
+    </properties>
+    <testcase name="resumePublicationAndAsyncBindError" classname="com.yet.tor.AndroidGateResumeProbe" time="31.628" />
+  </testsuite>
+  <testsuite name="com.yet.tor.TorE2ETest" tests="2" failures="2" errors="0" skipped="0" time="82.214" timestamp="2026-10-01T07:37:12" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel 6a - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":tor" />
+    </properties>
+    <testcase name="bootstrapFetchPauseResume" classname="com.yet.tor.TorE2ETest" time="28.797">
+      <failure>javax.net.ssl.SSLHandshakeException: connection closed
+at com.android.org.conscrypt.SSLUtils.toSSLHandshakeException(SSLUtils.java:372)
+at com.android.org.conscrypt.ConscryptEngineSocket.doHandshake(ConscryptEngineSocket.java:247)
+at com.android.org.conscrypt.ConscryptEngineSocket.startHandshake(ConscryptEngineSocket.java:226)
+at okhttp3.internal.connection.RealConnection.connectTls(RealConnection.kt:379)
+at okhttp3.internal.connection.RealConnection.establishProtocol(RealConnection.kt:337)
+at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:209)
+at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+at com.yet.tor.TorE2ETest.assertTorExit(TorE2ETest.kt:209)
+at com.yet.tor.TorE2ETest.access$assertTorExit(TorE2ETest.kt:31)
+at com.yet.tor.TorE2ETest$bootstrapFetchPauseResume$1.invokeSuspend(TorE2ETest.kt:84)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:98)
+at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:256)
+at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:54)
+at kotlinx.coroutines.BuildersKt__BuildersKt.runBlockingImpl(Builders.kt:30)
+at kotlinx.coroutines.BuildersKt.runBlockingImpl(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at kotlinx.coroutines.BuildersKt__Builders_concurrentKt.runBlockingK(Builders.concurrent.kt:172)
+at kotlinx.coroutines.BuildersKt.runBlockingK(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at kotlinx.coroutines.BuildersKt__Builders_concurrentKt.runBlockingK$default(Builders.concurrent.kt:157)
+at kotlinx.coroutines.BuildersKt.runBlockingK$default(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at com.yet.tor.TorE2ETest.bootstrapFetchPauseResume(TorE2ETest.kt:37)
+... 32 trimmed
+Caused by: java.io.EOFException: connection closed
+... 72 more
+</failure>
+    </testcase>
+    <testcase name="integratedIsolationOnionAndTransactionalLifecycle" classname="com.yet.tor.TorE2ETest" time="53.417">
+      <failure>java.net.SocketException: SOCKS: Connection refused
+at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:574)
+at java.net.Socket.connect(Socket.java:646)
+at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+at com.yet.tor.TorE2ETest.httpSuccess(TorE2ETest.kt:198)
+at com.yet.tor.TorE2ETest.access$httpSuccess(TorE2ETest.kt:31)
+at com.yet.tor.TorE2ETest$integratedIsolationOnionAndTransactionalLifecycle$1.invokeSuspend(TorE2ETest.kt:141)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:233)
+at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:152)
+at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:470)
+at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core(CancellableContinuationImpl.kt:504)
+at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core$default(CancellableContinuationImpl.kt:493)
+at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:596)
+at kotlinx.coroutines.EventLoopImplBase$DelayedResumeTask.run(EventLoop.common.kt:490)
+at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:256)
+at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:54)
+at kotlinx.coroutines.BuildersKt__BuildersKt.runBlockingImpl(Builders.kt:30)
+at kotlinx.coroutines.BuildersKt.runBlockingImpl(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at kotlinx.coroutines.BuildersKt__Builders_concurrentKt.runBlockingK(Builders.concurrent.kt:172)
+at kotlinx.coroutines.BuildersKt.runBlockingK(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at kotlinx.coroutines.BuildersKt__Builders_concurrentKt.runBlockingK$default(Builders.concurrent.kt:157)
+at kotlinx.coroutines.BuildersKt.runBlockingK$default(dex-id-74aadeb733d6a0c0045efae8f8ab431652a72e54:1)
+at com.yet.tor.TorE2ETest.integratedIsolationOnionAndTransactionalLifecycle(TorE2ETest.kt:112)
+</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

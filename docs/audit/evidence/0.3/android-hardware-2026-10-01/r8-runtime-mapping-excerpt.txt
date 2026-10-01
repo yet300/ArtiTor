@@ -1,0 +1,20 @@
+uniffi.runtime.RustBufferStruct -> uniffi.runtime.h:
+# {"id":"sourceFile","fileName":"RustBufferTemplate.kt"}
+    1:3:void <init>(long,long,com.sun.jna.Pointer):7:7 -> <init>
+    4:5:void <init>(long,long,com.sun.jna.Pointer):15:15 -> <init>
+uniffi.runtime.RustBufferStruct$ByValue -> uniffi.runtime.h$a:
+# {"id":"sourceFile","fileName":"RustBufferTemplate.kt"}
+    7:10:void <init>():26:26 -> <init>
+    11:11:void <init>(long,long,com.sun.jna.Pointer):21:21 -> <init>
+uniffi.runtime.UniffiRustCallStatusStruct -> uniffi.runtime.x:
+# {"id":"sourceFile","fileName":"runtime.android.kt"}
+    uniffi.runtime.RustBufferStruct$ByValue errorBuf -> errorBuf
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Luniffi/runtime/h$a;"}
+uniffi.runtime.UniffiRustCallStatusStruct$ByReference -> uniffi.runtime.x$a:
+# {"id":"sourceFile","fileName":"runtime.android.kt"}
+    1:10:void <init>():37:37 -> <init>
+    11:11:void <init>(byte,uniffi.runtime.RustBufferStruct$ByValue):33:33 -> <init>
+uniffi.runtime.UniffiRustCallStatusStruct$ByValue -> uniffi.runtime.x$b:
+# {"id":"sourceFile","fileName":"runtime.android.kt"}
+    1:10:void <init>():31:31 -> <init>
+    11:11:void <init>(byte,uniffi.runtime.RustBufferStruct$ByValue):27:27 -> <init>
