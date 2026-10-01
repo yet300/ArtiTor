@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import okhttp3.OkHttpClient
@@ -150,7 +151,13 @@ class TorE2ETest {
             val warm = TimeSource.Monotonic.markNow()
             tor.resume(timeout = 45.seconds).getOrThrow()
             Log.i(tag, "LIVE_TIMING,resume_ms=${warm.elapsedNow().inWholeMilliseconds}")
-            httpSuccess(requireNotNull(b.status.value.socksEndpoint).port, "http://api.ipify.org")
+            assertEquals(TorState.RUNNING, tor.status.value.state)
+            assertTrue(tor.isReady)
+            // Root readiness completes resume; each session publishes its own rebind.
+            val resumedB = withTimeout(30_000) {
+                b.status.first { it.state == TorIsolationSessionState.ACTIVE && it.socksEndpoint != null }
+            }
+            httpSuccess(requireNotNull(resumedB.socksEndpoint).port, "http://api.ipify.org")
             val onion = "http://hjirlp6fu47kox4cnede4zlvaeq672bibss3oxgmsnsc5mdxygqshbqd.onion/"
             httpSuccess(requireNotNull(b.status.value.socksEndpoint).port, onion)
             val beforeRoot = tor.status.value

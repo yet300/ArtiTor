@@ -2,4 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Test-only: the public onion fixture is exercised over plain HTTP via Tor SOCKS. -->
+    <application android:usesCleartextTraffic="true" />
 </manifest>
