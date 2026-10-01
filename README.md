@@ -8,7 +8,8 @@ implemented in Rust). One dependency gives you an embedded Tor client with a loc
   [UbiqueInnovation/uniffi-kotlin-multiplatform-bindings](https://github.com/UbiqueInnovation/uniffi-kotlin-multiplatform-bindings)
   (UniFFI for Kotlin Multiplatform): one Rust surface → Kotlin for Android
   (JNA-backed generated bindings) and Kotlin/Native cinterop (iOS).
-- rustls only (no OpenSSL). Android `.so` are 16 KB-page aligned (Google Play, Nov 2025).
+- rustls only (no OpenSSL). The bundled 64-bit Android JNI libraries satisfy
+  Android's 16 KB page-size alignment requirement.
 - The async tokio runtime lives inside the native layer; bootstrap runs asynchronously. Lifecycle calls perform synchronous native state transitions.
 - **Lifecycle**: `start` / `pause` (keep client) / `resume` / `shutdown` — suited for chat apps
   that toggle Tor without a full re-bootstrap.
@@ -188,7 +189,7 @@ configurations, requests, or application identity secrets.
 
 ## Targets
 
-Required: Android `arm64-v8a` / `armeabi-v7a` / `x86_64`, `iosArm64`, `iosSimulatorArm64`.
+Required: Android `arm64-v8a` / `armeabi-v7a` / `x86_64`; minimum iOS version: **15.0** (`iosArm64` and `iosSimulatorArm64`).
 Scaffolded (easy to enable): macOS, Linux, Windows desktop. **wasm is unsupported** — browsers have
 no raw TCP, so Tor cannot work there.
 

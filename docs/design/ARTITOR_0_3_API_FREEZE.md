@@ -799,3 +799,12 @@ kind-table incl. synthetic future variant → UNKNOWN; adversarial messages neve
 
 *End of freeze — normative for 0.3 implementation. Next step: generate the
 Phase 1 implementation prompt mechanically from §11 above.*
+
+### 0.3 release-policy amendment — minimum iOS version
+
+ArtiTor 0.3 minimum supported iOS version is **15.0**. The final
+consumer-facing Apple artifacts are built with iOS 15 deployment metadata;
+0.3 aligns the declared support policy with the produced artifacts. iOS 13 and
+iOS 14 are not supported. This amendment changes the supported Apple OS
+baseline and build/documentation/release-verification metadata only. It does
+not change the Kotlin API, UniFFI API, Cargo features, or runtime behavior.

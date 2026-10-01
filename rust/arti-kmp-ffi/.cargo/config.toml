@@ -1,6 +1,8 @@
 # Apple linking: C deps (zstd/lzma/ring) reference `__chkstk_darwin`, which is
 # only exported by libSystem at deployment target >= 12. Without this, the iOS
 # device cdylib link fails with "Undefined symbols: ___chkstk_darwin".
+# ArtiTor 0.3's supported Apple baseline is iOS 15.0; the SQLite prelink target
+# in rust/hide-sqlite3-symbols.sh and consumer documentation use the same value.
 # Harmless for non-Apple targets (they ignore this env var).
 [env]
-IPHONEOS_DEPLOYMENT_TARGET = "13.0"
+IPHONEOS_DEPLOYMENT_TARGET = { value = "15.0", force = true }

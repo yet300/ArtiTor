@@ -6,7 +6,9 @@ plugins {
 kotlin {
     jvmToolchain(21)
     android { namespace = "consumer.artitor03"; compileSdk = 37; minSdk = 26 }
-    iosArm64()
+    iosArm64 {
+        binaries.framework { baseName = "ArtiTor03DeviceConsumer" }
+    }
     iosSimulatorArm64 {
         binaries.framework { baseName = "ArtiTor03Consumer" }
     }
